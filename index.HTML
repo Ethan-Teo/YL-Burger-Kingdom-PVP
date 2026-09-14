@@ -353,6 +353,7 @@
   .level-btn:active{transform:translateY(2px); box-shadow:0 1px 0 var(--cheese-dark);}
   .level-btn:disabled{background:#cfc8b8; color:#8a8272; box-shadow:0 3px 0 #a9a291; cursor:not-allowed;}
   .hero-evolved-badge{color:#e8b93b; text-shadow:0 0 4px rgba(232,185,59,0.8);}
+  .hero-traits{font-size:9px; font-weight:700; color:var(--wood-dark); opacity:0.9; margin-top:1px;}
   .evolve-btn{
     border:none; border-radius:8px; padding:6px 10px; font-weight:900; font-size:11px; cursor:pointer;
     background:linear-gradient(180deg, #f6d488, #e8b93b); color:#4a2f0a; box-shadow:0 3px 0 #a5750f; width:100%;
@@ -360,8 +361,372 @@
   }
   .evolve-btn:active{transform:translateY(2px); box-shadow:0 1px 0 #a5750f;}
   @keyframes evolveBtnPulse{ 0%,100%{filter:brightness(1);} 50%{filter:brightness(1.18);} }
-  .evolve-reveal-card{border-color:#e8b93b; box-shadow:0 10px 0 #a5750f;}
-  .evolve-reveal-card #evolveRevealLabel{color:#e8b93b;}
+  /* ---------- ACHIEVEMENTS ---------- */
+  .ach-btn{
+    font-family:'Baloo 2',cursive; font-size:11.5px; font-weight:700; color:#4a3410;
+    background:linear-gradient(180deg, #ffe08a, #d6a12e); border:none;
+    border-radius:10px; padding:7px 14px; cursor:pointer; box-shadow:0 3px 0 #936a12; margin-top:6px;
+  }
+  .ach-btn:active{transform:translateY(2px); box-shadow:0 1px 0 #936a12;}
+  .ach-card{ border-color:#d6a12e; box-shadow:0 10px 0 #936a12; max-width:440px; max-height:82vh; overflow-y:auto; }
+  .ach-list{ display:flex; flex-direction:column; gap:6px; margin-bottom:12px; }
+  .ach-row{
+    display:flex; align-items:center; gap:9px; text-align:left;
+    border:2px solid #c8bca4; border-radius:10px; padding:7px 9px; background:var(--parchment);
+  }
+  .ach-row.done{ border-color:#6ea564; background:#eaf5ec; }
+  .ach-icon{ font-size:21px; width:26px; text-align:center; }
+  .ach-body{ flex:1; min-width:0; }
+  .ach-name{ font-family:'Baloo 2',cursive; font-size:12px; color:var(--ink); }
+  .ach-desc{ font-size:9px; font-weight:700; color:var(--wood-dark); margin-bottom:3px; }
+  .ach-bar{ height:5px; border-radius:3px; background:#d9d0bc; overflow:hidden; }
+  .ach-bar span{ display:block; height:100%; background:linear-gradient(90deg,#6ea564,#4b7d43); }
+  .ach-count{ font-size:9.5px; font-weight:800; color:var(--wood-dark); white-space:nowrap; }
+
+  /* ---------- TEAM PRESETS ---------- */
+  .preset-bar{ display:flex; align-items:center; gap:7px; margin:0 0 9px; flex-wrap:wrap; justify-content:center; }
+  .preset-label{ font-size:10.5px; font-weight:800; color:var(--wood-dark); }
+  .preset-slots{ display:flex; gap:5px; flex-wrap:wrap; justify-content:center; }
+  .preset-slot{
+    display:flex; flex-direction:column; align-items:center; gap:2px;
+    border:2px solid #c8bca4; border-radius:9px; padding:4px 7px; background:var(--parchment);
+    font-size:9px; font-weight:700; color:var(--wood-dark); min-width:62px;
+  }
+  .preset-slot.filled{ border-color:#5a8f6a; background:#eaf5ec; }
+  .preset-slot .p-name{ font-family:'Baloo 2',cursive; font-size:10.5px; color:var(--ink); }
+  .preset-btns{ display:flex; gap:3px; }
+  .preset-btns button{
+    border:none; border-radius:6px; cursor:pointer; font-size:9px; font-weight:700;
+    padding:3px 6px; color:#fff;
+  }
+  .preset-load{ background:#5a8f6a; }
+  .preset-load:disabled{ background:#b8b2a4; cursor:not-allowed; }
+  .preset-save{ background:#8a6fd9; }
+
+  /* ---------- AUTO-BATTLE ---------- */
+  .auto-battle-row{
+    display:flex; align-items:center; gap:7px; justify-content:center;
+    font-size:11.5px; font-weight:800; color:var(--wood-dark);
+    margin:2px 0 8px; cursor:pointer; user-select:none;
+  }
+  .auto-battle-row input{ width:15px; height:15px; cursor:pointer; }
+  .auto-battle-hint{ font-size:9.5px; font-weight:700; color:#a5750f; }
+
+  /* ---------- ROSTER CONTROLS ---------- */
+  .roster-controls{ margin-bottom:10px; }
+  .roster-search{
+    width:100%; box-sizing:border-box; font-family:inherit; font-size:12px;
+    border:2px solid #c8bca4; border-radius:9px; padding:7px 9px; margin-bottom:6px;
+    background:#fdfaf2; color:var(--ink);
+  }
+  .roster-row{ display:flex; gap:6px; }
+  .roster-select{
+    flex:1; min-width:0; font-family:inherit; font-size:11px; font-weight:700;
+    border:2px solid #c8bca4; border-radius:9px; padding:6px; background:#fdfaf2; color:var(--ink);
+  }
+  .roster-count{ font-size:10px; font-weight:700; color:var(--wood-dark); text-align:center; margin-top:5px; }
+  .roster-empty{
+    grid-column:1/-1; text-align:center; padding:22px 10px;
+    font-size:12px; font-weight:700; color:var(--wood-dark);
+  }
+
+  /* ---------- WELCOME BACK ---------- */
+  .offline-card{ border-color:#e8b93b; box-shadow:0 10px 0 #a5750f; }
+  .offline-gains{
+    display:flex; flex-direction:column; gap:3px; margin:10px 0;
+    font-size:13px; font-weight:800; color:#2f7a45;
+  }
+  .offline-gains .none{ color:var(--wood-dark); font-weight:700; font-size:11px; }
+
+  /* ---------- HELD ITEMS ---------- */
+  .item-shop-btn{
+    font-family:'Baloo 2',cursive; font-size:11.5px; font-weight:700; color:#fff;
+    background:linear-gradient(180deg, #8a6fd9, #4a2f8a); border:none;
+    border-radius:10px; padding:7px 14px; cursor:pointer; box-shadow:0 3px 0 #2d1a56; margin-top:6px;
+  }
+  .item-shop-btn:active{transform:translateY(2px); box-shadow:0 1px 0 #2d1a56;}
+  .item-shop-card,.item-pick-card{ border-color:#8a6fd9; box-shadow:0 10px 0 #4a2f8a; max-width:420px; }
+  .item-shop-list,.item-pick-list{ display:flex; flex-direction:column; gap:6px; margin-bottom:12px; }
+  .item-row{
+    display:flex; align-items:center; gap:8px; text-align:left;
+    border:2px solid #c8bca4; border-radius:10px; padding:7px 9px; background:var(--parchment);
+  }
+  .item-row .i-icon{ font-size:22px; }
+  .item-row .i-body{ flex:1; min-width:0; }
+  .item-row .i-name{ font-family:'Baloo 2',cursive; font-size:12px; color:var(--ink); }
+  .item-row .i-desc{ font-size:9px; font-weight:700; color:var(--wood-dark); }
+  .item-row .i-own{ font-size:9px; font-weight:800; color:#4a2f8a; }
+  .item-buy{
+    font-family:'Baloo 2',cursive; font-size:10px; font-weight:700; color:#fff;
+    background:linear-gradient(180deg, #8a6fd9, #4a2f8a); border:none;
+    border-radius:8px; padding:6px 9px; cursor:pointer; box-shadow:0 2px 0 #2d1a56; white-space:nowrap;
+  }
+  .item-buy:active{transform:translateY(2px); box-shadow:0 1px 0 #2d1a56;}
+  .item-buy:disabled{background:#a29b8f; box-shadow:0 2px 0 #7c766b; cursor:not-allowed;}
+  .item-row.selectable{ cursor:pointer; }
+  .item-row.equipped{ border-color:#8a6fd9; background:#efe8ff; box-shadow:0 0 8px rgba(138,111,217,0.5); }
+  .item-row.unavailable{ opacity:0.45; }
+  .hero-item-btn{
+    position:absolute; top:5px; left:26px; background:none; border:none; cursor:pointer;
+    font-size:12px; padding:0; line-height:1;
+  }
+
+  /* ---------- DAILY REWARD ---------- */
+  .daily-quest-btn{
+    font-family:'Baloo 2',cursive; font-size:11.5px; font-weight:700; color:#4a3410;
+    background:linear-gradient(180deg, #ffd97a, #e0a52c); border:none;
+    border-radius:10px; padding:7px 14px; cursor:pointer; box-shadow:0 3px 0 #9c6d12; margin-top:6px;
+  }
+  .daily-quest-btn:active{transform:translateY(2px); box-shadow:0 1px 0 #9c6d12 !important;}
+  .daily-quest-btn.ready{ animation:dailyReadyPulse 1.4s ease-in-out infinite; }
+  @keyframes dailyReadyPulse{
+    0%,100%{ box-shadow:0 3px 0 #9c6d12, 0 0 6px 1px rgba(255,217,122,0.6); }
+    50%{ box-shadow:0 3px 0 #9c6d12, 0 0 18px 6px rgba(255,217,122,1); }
+  }
+  .daily-quest-btn.claimed{ background:linear-gradient(180deg, #cfc8b8, #a9a291); color:#6b6355; box-shadow:0 3px 0 #7c766b; animation:none; }
+  .daily-card{ border-color:#e0a52c; box-shadow:0 10px 0 #9c6d12; max-width:420px; }
+  .daily-streak-line{ font-size:12px; font-weight:800; color:var(--wood-dark); margin-bottom:10px; }
+  .daily-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:6px; margin-bottom:12px; }
+  .daily-cell{
+    border:2px solid #c8bca4; border-radius:10px; padding:7px 4px; background:var(--parchment);
+    font-size:9px; font-weight:700; color:var(--wood-dark); text-align:center; line-height:1.35;
+  }
+  .daily-cell .d-label{ font-family:'Baloo 2',cursive; font-size:11px; color:#a5750f; display:block; }
+  .daily-cell.done{ background:#e6f2e2; border-color:#6ea564; opacity:0.75; }
+  .daily-cell.next{ background:#fff6d8; border-color:#e0a52c; box-shadow:0 0 10px rgba(224,165,44,0.6); }
+  .daily-claim-btn{
+    display:block; width:100%; font-family:'Baloo 2',cursive; font-size:14px; font-weight:800; color:#4a3410;
+    background:linear-gradient(180deg, #ffd97a, #e0a52c); border:none;
+    border-radius:11px; padding:10px; cursor:pointer; box-shadow:0 4px 0 #9c6d12; margin-bottom:10px;
+  }
+  .daily-claim-btn:active{ transform:translateY(2px); box-shadow:0 2px 0 #9c6d12; }
+  .daily-claim-btn:disabled{ background:#cfc8b8; color:#8a8272; box-shadow:0 4px 0 #a9a291; cursor:not-allowed; }
+
+  /* ---------- SAVE BACKUP ---------- */
+  .backup-btn{
+    display:block; width:100%; font-family:'Baloo 2',cursive; font-size:12px; font-weight:700;
+    color:#fff; background:linear-gradient(180deg, #5a8f6a, #2f5a3c); border:none;
+    border-radius:9px; padding:8px; cursor:pointer; box-shadow:0 3px 0 #1d3a26; margin-bottom:6px;
+  }
+  .backup-btn:active{transform:translateY(2px); box-shadow:0 1px 0 #1d3a26;}
+  .backup-btn.small{ width:auto; flex:1; font-size:11px; padding:6px 8px; margin-bottom:0; }
+  .backup-btn.danger{ background:linear-gradient(180deg, #c4553f, #7a2c1c); box-shadow:0 3px 0 #4a1508; }
+  .backup-btn.danger:active{ box-shadow:0 1px 0 #4a1508; }
+  .backup-btn.file{ text-align:center; line-height:1.5; }
+  .backup-row{ display:flex; gap:6px; margin-bottom:6px; }
+  .backup-box{
+    width:100%; box-sizing:border-box; font-family:monospace; font-size:8.5px;
+    border:2px solid #c8bca4; border-radius:8px; padding:6px; resize:vertical;
+    background:#fdfaf2; color:var(--ink); margin-bottom:6px;
+  }
+  .backup-sep{ height:1px; background:#c8bca4; margin:12px 0; }
+  .backup-status{ font-size:10px; font-weight:700; text-align:center; min-height:14px; margin-bottom:6px; }
+  .backup-status.ok{ color:#2f7a45; }
+  .backup-status.err{ color:#a5202e; }
+
+  /* ---------- MEGA / GIGANTAMAX CUTSCENE ----------
+     Shares a stage with the evolution cinematic but tells a different story:
+     Mega CONVERGES (energy pulled inward, a tighter, sharper form), while
+     Gigantamax GROWS (the hero swells to fill the screen). Colour and motion
+     are themed per form so the two never read as the same event. */
+  .form-cinema{
+    display:none; position:fixed; inset:0; z-index:401; overflow:hidden;
+    align-items:center; justify-content:center; flex-direction:column;
+  }
+  .form-cinema.showing{ display:flex; animation:evoCinemaIn 0.4s ease-out; }
+  .form-cinema.mega{ background:radial-gradient(circle at 50% 45%, #123c4a 0%, #0a1f2a 60%, #03080c 100%); }
+  .form-cinema.gmax{ background:radial-gradient(circle at 50% 55%, #4a1220 0%, #2a0a12 60%, #0c0305 100%); }
+  .form-cinema-rays{
+    position:absolute; top:50%; left:50%; width:210vmax; height:210vmax;
+    transform:translate(-50%,-50%); opacity:0; pointer-events:none;
+  }
+  .form-cinema.mega .form-cinema-rays{
+    background:conic-gradient(from 0deg, transparent 0deg, rgba(120,225,255,0.22) 6deg, transparent 16deg,
+      transparent 45deg, rgba(120,225,255,0.16) 51deg, transparent 61deg,
+      transparent 90deg, rgba(120,225,255,0.22) 96deg, transparent 106deg,
+      transparent 135deg, rgba(120,225,255,0.16) 141deg, transparent 151deg,
+      transparent 180deg, rgba(120,225,255,0.22) 186deg, transparent 196deg,
+      transparent 225deg, rgba(120,225,255,0.16) 231deg, transparent 241deg,
+      transparent 270deg, rgba(120,225,255,0.22) 276deg, transparent 286deg,
+      transparent 315deg, rgba(120,225,255,0.16) 321deg, transparent 331deg, transparent 360deg);
+  }
+  .form-cinema.gmax .form-cinema-rays{
+    background:conic-gradient(from 0deg, transparent 0deg, rgba(255,110,120,0.24) 8deg, transparent 20deg,
+      transparent 60deg, rgba(255,110,120,0.18) 68deg, transparent 80deg,
+      transparent 120deg, rgba(255,110,120,0.24) 128deg, transparent 140deg,
+      transparent 180deg, rgba(255,110,120,0.18) 188deg, transparent 200deg,
+      transparent 240deg, rgba(255,110,120,0.24) 248deg, transparent 260deg,
+      transparent 300deg, rgba(255,110,120,0.18) 308deg, transparent 320deg, transparent 360deg);
+  }
+  .form-cinema-rays.lit{ opacity:1; transition:opacity 1s ease-in; animation:evoRaySpin 12s linear infinite; }
+  .form-cinema-rays.blazing{ opacity:1; animation:evoRaySpin 2s linear infinite; }
+  .form-cinema-stage{ position:relative; display:flex; align-items:center; justify-content:center; }
+  .form-cinema-ring{
+    position:absolute; top:50%; left:50%; width:190px; height:190px; margin:-95px 0 0 -95px;
+    border-radius:50%; opacity:0; pointer-events:none; border:3px solid;
+  }
+  .form-cinema.mega .form-cinema-ring{ border-color:rgba(120,225,255,0.9); }
+  .form-cinema.gmax .form-cinema-ring{ border-color:rgba(255,110,120,0.9); }
+  /* Mega pulls its ring INWARD — the energy is being gathered, not released */
+  .form-cinema-ring.imploding{ animation:formRingIn 0.75s ease-in infinite; }
+  @keyframes formRingIn{ 0%{transform:scale(2.1);opacity:0;} 40%{opacity:0.95;} 100%{transform:scale(0.3);opacity:0;} }
+  .form-cinema-ring.expanding{ animation:formRingOut 0.85s ease-out infinite; }
+  @keyframes formRingOut{ 0%{transform:scale(0.3);opacity:0.95;} 100%{transform:scale(2.3);opacity:0;} }
+  .form-cinema-sprite{ font-size:clamp(74px, 22vmin, 160px); line-height:1; position:relative; z-index:2; }
+  .form-cinema.mega .form-cinema-sprite{ filter:drop-shadow(0 0 22px rgba(120,225,255,0.75)); }
+  .form-cinema.gmax .form-cinema-sprite{ filter:drop-shadow(0 0 22px rgba(255,110,120,0.75)); }
+  /* Mega: tightens and spins up. Gigantamax: swells relentlessly. */
+  .form-cinema-sprite.tightening{ animation:formTighten 1.5s ease-in forwards; }
+  @keyframes formTighten{
+    0%{transform:scale(1) rotate(0deg);}
+    60%{transform:scale(0.72) rotate(220deg);}
+    100%{transform:scale(0.6) rotate(400deg);}
+  }
+  .form-cinema-sprite.swelling{ animation:formSwell 1.8s cubic-bezier(.4,0,.7,1) forwards; }
+  @keyframes formSwell{
+    0%{transform:scale(0.8);}
+    45%{transform:scale(1.5);}
+    70%{transform:scale(1.35);}
+    100%{transform:scale(2.6);}
+  }
+  .form-cinema-sprite.mega-final{ animation:formMegaPop 0.8s cubic-bezier(.16,1.6,.4,1) forwards; }
+  @keyframes formMegaPop{
+    0%{transform:scale(0.6) rotate(400deg); opacity:0.7;}
+    60%{transform:scale(1.35) rotate(368deg); opacity:1;}
+    100%{transform:scale(1.15) rotate(360deg); opacity:1;}
+  }
+  .form-cinema-sprite.gmax-final{ animation:formGmaxLoom 0.8s cubic-bezier(.2,1.3,.4,1) forwards; }
+  @keyframes formGmaxLoom{
+    0%{transform:scale(2.6);} 55%{transform:scale(2.05);} 100%{transform:scale(2.25);}
+  }
+  .form-cinema-caption{
+    position:relative; z-index:3; margin-top:34px; text-align:center;
+    font-family:'Baloo 2',cursive; font-size:clamp(15px, 4.2vmin, 25px); font-weight:800;
+    text-shadow:0 2px 10px rgba(0,0,0,0.85); padding:0 18px; max-width:92vw;
+  }
+  .form-cinema.mega .form-cinema-caption{ color:#d6f4ff; }
+  .form-cinema.gmax .form-cinema-caption{ color:#ffdfe2; }
+  .form-cinema-flash{ position:absolute; inset:0; opacity:0; pointer-events:none; z-index:5; }
+  .form-cinema.mega .form-cinema-flash{ background:#e8fbff; }
+  .form-cinema.gmax .form-cinema-flash{ background:#fff0f0; }
+  .form-cinema-flash.bursting{ animation:evoWhiteout 0.5s ease-out forwards; }
+  /* streaks of energy drawn toward the hero during the Mega charge */
+  .form-streak{
+    position:absolute; top:50%; left:50%; font-size:19px; pointer-events:none; z-index:1;
+    animation:formStreakIn 0.85s ease-in forwards;
+  }
+  @keyframes formStreakIn{
+    0%{ opacity:0; transform:translate(calc(-50% + var(--sx,0px)), calc(-50% + var(--sy,0px))) scale(1.3); }
+    25%{ opacity:1; }
+    100%{ opacity:0; transform:translate(-50%,-50%) scale(0.2); }
+  }
+  /* shockwaves thrown outward as the hero Gigantamaxes */
+  .form-quake{
+    position:absolute; top:50%; left:50%; font-size:19px; pointer-events:none; z-index:1;
+    animation:formQuakeOut 1s ease-out forwards;
+  }
+  @keyframes formQuakeOut{
+    0%{ opacity:0; transform:translate(-50%,-50%) scale(0.3); }
+    20%{ opacity:1; }
+    100%{ opacity:0; transform:translate(calc(-50% + var(--qx,0px)), calc(-50% + var(--qy,0px))) scale(1.5); }
+  }
+
+  /* ---------- EVOLUTION CINEMATIC ----------
+     A staged sequence rather than a popup: charge, silhouette flicker,
+     white-out, then the reveal. Sits above every other overlay (the highest
+     existing z-index in the game is 215) so nothing can draw over it. */
+  .evo-cinema{
+    display:none; position:fixed; inset:0; z-index:400; overflow:hidden;
+    background:radial-gradient(circle at 50% 45%, #2b1c3a 0%, #140c1c 60%, #06040a 100%);
+    align-items:center; justify-content:center; flex-direction:column;
+  }
+  .evo-cinema.showing{ display:flex; animation:evoCinemaIn 0.45s ease-out; }
+  @keyframes evoCinemaIn{ from{opacity:0;} to{opacity:1;} }
+  .evo-cinema-rays{
+    position:absolute; top:50%; left:50%; width:210vmax; height:210vmax;
+    transform:translate(-50%,-50%); opacity:0; pointer-events:none;
+    background:conic-gradient(from 0deg,
+      transparent 0deg, rgba(255,226,150,0.22) 5deg, transparent 14deg,
+      transparent 30deg, rgba(255,226,150,0.16) 35deg, transparent 44deg,
+      transparent 60deg, rgba(255,226,150,0.22) 65deg, transparent 74deg,
+      transparent 90deg, rgba(255,226,150,0.16) 95deg, transparent 104deg,
+      transparent 120deg, rgba(255,226,150,0.22) 125deg, transparent 134deg,
+      transparent 150deg, rgba(255,226,150,0.16) 155deg, transparent 164deg,
+      transparent 180deg, rgba(255,226,150,0.22) 185deg, transparent 194deg,
+      transparent 210deg, rgba(255,226,150,0.16) 215deg, transparent 224deg,
+      transparent 240deg, rgba(255,226,150,0.22) 245deg, transparent 254deg,
+      transparent 270deg, rgba(255,226,150,0.16) 275deg, transparent 284deg,
+      transparent 300deg, rgba(255,226,150,0.22) 305deg, transparent 314deg,
+      transparent 330deg, rgba(255,226,150,0.16) 335deg, transparent 344deg, transparent 360deg);
+    animation:evoRaySpin 14s linear infinite;
+  }
+  .evo-cinema-rays.lit{ opacity:1; transition:opacity 1.2s ease-in; }
+  .evo-cinema-rays.blazing{ opacity:1; animation:evoRaySpin 2.4s linear infinite; }
+  @keyframes evoRaySpin{ from{transform:translate(-50%,-50%) rotate(0deg);} to{transform:translate(-50%,-50%) rotate(360deg);} }
+  .evo-cinema-stage{ position:relative; display:flex; align-items:center; justify-content:center; }
+  .evo-cinema-ring{
+    position:absolute; top:50%; left:50%; width:180px; height:180px; margin:-90px 0 0 -90px;
+    border-radius:50%; border:3px solid rgba(255,226,150,0.85); opacity:0; pointer-events:none;
+  }
+  .evo-cinema-ring.pulsing{ animation:evoRingPulse 0.9s ease-out infinite; }
+  @keyframes evoRingPulse{
+    0%{ transform:scale(0.35); opacity:0.9; }
+    100%{ transform:scale(1.9); opacity:0; }
+  }
+  .evo-cinema-sprite{
+    font-size:clamp(84px, 26vmin, 190px); line-height:1; position:relative; z-index:2;
+    filter:drop-shadow(0 0 22px rgba(255,214,120,0.65));
+  }
+  .evo-cinema-sprite.charging{ animation:evoShudder 0.09s linear infinite; }
+  @keyframes evoShudder{
+    0%{transform:translate(-2px,1px) scale(1.02);}
+    25%{transform:translate(2px,-2px) scale(1.03);}
+    50%{transform:translate(-1px,-1px) scale(1.02);}
+    75%{transform:translate(2px,2px) scale(1.04);}
+    100%{transform:translate(-2px,1px) scale(1.02);}
+  }
+  /* the iconic bit — both forms shown as featureless white shapes while
+     they trade places, so you read the SILHOUETTE changing, not the food */
+  .evo-cinema-sprite.silhouette{
+    filter:brightness(0) invert(1) drop-shadow(0 0 26px rgba(255,255,255,0.9));
+  }
+  .evo-cinema-sprite.revealed{ animation:evoRevealPop 0.75s cubic-bezier(.18,1.5,.4,1) forwards; }
+  @keyframes evoRevealPop{
+    0%{ transform:scale(0.45) rotate(-8deg); opacity:0; }
+    55%{ transform:scale(1.18) rotate(3deg); opacity:1; }
+    100%{ transform:scale(1) rotate(0deg); opacity:1; }
+  }
+  .evo-cinema-caption{
+    position:relative; z-index:3; margin-top:26px; text-align:center;
+    font-family:'Baloo 2',cursive; font-size:clamp(15px, 4.4vmin, 26px); font-weight:800;
+    color:#fff6d8; text-shadow:0 2px 10px rgba(0,0,0,0.8), 0 0 22px rgba(255,214,120,0.5);
+    padding:0 18px; max-width:92vw;
+  }
+  .evo-cinema-flash{
+    position:absolute; inset:0; background:#fff; opacity:0; pointer-events:none; z-index:5;
+  }
+  .evo-cinema-flash.bursting{ animation:evoWhiteout 0.55s ease-out forwards; }
+  @keyframes evoWhiteout{
+    0%{opacity:0;} 18%{opacity:1;} 100%{opacity:0;}
+  }
+  .evo-rise{
+    position:absolute; bottom:-10%; font-size:20px; pointer-events:none; z-index:1;
+    animation:evoRise 1.5s ease-out forwards;
+  }
+  @keyframes evoRise{
+    0%{ opacity:0; transform:translateY(0) scale(0.6); }
+    20%{ opacity:1; }
+    100%{ opacity:0; transform:translateY(-72vh) scale(1.25); }
+  }
+  /* the summary card that follows the cinematic */
+  .evolve-reveal-card{
+    border-color:#e8b93b !important; box-shadow:0 12px 0 #a5750f, 0 0 34px rgba(232,185,59,0.55) !important;
+    background:linear-gradient(165deg, #fffaf0, #f2dfae) !important;
+  }
+  .evolve-reveal-card #evolveRevealLabel{ color:#a5750f; letter-spacing:1px; }
+  .evolve-reveal-card #evolveRevealEmoji{ font-size:52px; }
+
+
 
   /* ---------- QUESTS TAB ---------- */
   .quest-list{display:flex; flex-direction:column; gap:10px;}
@@ -1508,6 +1873,18 @@
     border-radius:10px; padding:8px 14px; cursor:pointer; box-shadow:0 3px 0 #443a5c;
   }
   .team-select-btn:active{transform:translateY(2px); box-shadow:0 1px 0 #443a5c;}
+  .nemesis-quest-btn{
+    font-family:'Baloo 2',cursive; font-size:11.5px; font-weight:700; color:#fff;
+    background:linear-gradient(180deg, #6b8f2a, #3d5416); border:none;
+    border-radius:10px; padding:7px 14px; cursor:pointer; box-shadow:0 3px 0 #263310; margin-top:6px;
+    animation: nemesisPulse 1.6s ease-in-out infinite;
+  }
+  @keyframes nemesisPulse{
+    0%,100%{ box-shadow:0 3px 0 #263310, 0 0 6px 1px rgba(140,190,60,0.5); }
+    50%{ box-shadow:0 3px 0 #263310, 0 0 16px 5px rgba(140,190,60,0.9); }
+  }
+  .nemesis-quest-btn:active{transform:translateY(2px); box-shadow:0 1px 0 #263310 !important; animation-play-state:paused;}
+  .nemesis-quest-btn.active-nemesis{background:linear-gradient(180deg, #b8452a, #7a2416); box-shadow:0 3px 0 #4a1208; animation:none;}
   .side-quest-btn{
     font-family:'Baloo 2',cursive; font-size:11.5px; font-weight:700; color:#fff;
     background:linear-gradient(180deg, #6a4a2e, #4a3018); border:none;
@@ -1655,19 +2032,42 @@
   .pvp-status-line.connected{color:#2e7d32; background:#e0f2e0;}
   .pvp-status-line.error{color:#a5202e; background:#fbe0e2;}
 
-  .kitchen-map-card{border-color:#d9a13a; box-shadow:0 10px 0 #a5750f;}
+  .kitchen-map-card{border-color:#d9a13a; box-shadow:0 10px 0 #a5750f; max-width:500px;}
   .kitchen-minimap{
-    display:flex; gap:6px; justify-content:center; margin-bottom:8px;
+    display:grid; gap:4px; justify-content:center; margin:0 auto 4px; width:max-content;
   }
-  .kitchen-minimap-btn{
-    font-size:20px; width:38px; height:38px; border-radius:10px; cursor:pointer;
-    background:var(--parchment); border:2px solid #c8bca4; opacity:0.55;
-    transition:opacity 0.15s ease, transform 0.15s ease;
+  .kitchen-minimap-chip.blank{ background:transparent; border-color:transparent; box-shadow:none; }
+  /* Route-sign banner shown on crossing into a new area */
+  .kitchen-area-banner{
+    position:absolute; top:8px; left:50%; transform:translate(-50%,-8px);
+    padding:5px 16px; border-radius:10px; pointer-events:none; z-index:8;
+    font-family:'Baloo 2',cursive; font-size:13px; font-weight:800; color:#4a3410;
+    background:linear-gradient(180deg, #fff6d8, #f0d99a);
+    border:2px solid #a5750f; box-shadow:0 3px 6px rgba(0,0,0,0.35);
+    opacity:0; white-space:nowrap;
   }
-  .kitchen-minimap-btn:hover{opacity:0.85;}
-  .kitchen-minimap-btn.current{
-    opacity:1; border-color:#d9a13a; background:#fdf3d0; transform:scale(1.1);
+  .kitchen-area-banner.showing{ animation: kitchenBannerIn 2.2s ease-out forwards; }
+  @keyframes kitchenBannerIn{
+    0%{ opacity:0; transform:translate(-50%,-14px); }
+    12%{ opacity:1; transform:translate(-50%,0); }
+    80%{ opacity:1; transform:translate(-50%,0); }
+    100%{ opacity:0; transform:translate(-50%,-6px); }
+  }
+  /* Read-only region chips — not buttons any more. Travel is walked, so
+     these only show where you are and which areas connect to here. */
+  .kitchen-minimap-chip{
+    font-size:17px; width:32px; height:32px; border-radius:9px;
+    display:flex; align-items:center; justify-content:center;
+    background:var(--parchment); border:2px solid #c8bca4; opacity:0.4;
+  }
+  .kitchen-minimap-chip.neighbour{ opacity:0.8; border-color:#b59a6a; }
+  .kitchen-minimap-chip.current{
+    opacity:1; border-color:#d9a13a; background:#fdf3d0; transform:scale(1.12);
     box-shadow:0 0 8px rgba(217,154,58,0.6);
+  }
+  .kitchen-exits-line{
+    font-size:9px; font-weight:700; color:var(--wood-dark);
+    text-align:center; margin-bottom:8px;
   }
   .kitchen-area-title{font-family:'Baloo 2',cursive; font-size:14px; color:#a5750f; text-align:center;}
   .kitchen-area-desc{font-size:9.5px; color:var(--wood-dark); text-align:center; max-width:300px; margin:0 auto 8px;}
@@ -1748,34 +2148,105 @@
   .wild-encounter-flee-btn:active{transform:translateY(2px);}
 
   .kitchen-grid-wrap{
-    position:relative; max-width:320px; margin:0 auto 14px;
-    border:3px solid #8a6a4a; border-radius:8px; overflow:hidden;
-    box-shadow:inset 0 0 0 2px #d9c8a8;
+    position:relative; max-width:460px; margin:0 auto 14px;
+    border:4px solid #8a6a4a; border-radius:12px; overflow:hidden;
+    box-shadow:inset 0 0 0 2px #d9c8a8, 0 4px 10px rgba(0,0,0,0.25);
+    padding-top:16px; background:#8a6a4a;
   }
+  /* the token positions itself against THIS element, not the padded outer
+     wrapper — so its left/top percentages always line up exactly with the
+     grid cells, while the outer wrapper's padding still gives the name
+     label room to render above a top-row token without being clipped by
+     the wrapper's own overflow:hidden (used for the rounded-corner clip) */
+  /* The camera window: a square 11x11 viewport that clips the much larger
+     world sliding behind it. The hero sits pinned at its centre. */
+  .kitchen-grid-inner{
+    position:relative; overflow:hidden; aspect-ratio:1;
+    background:#2a2018; /* shows past the world edge, matching void tiles */
+  }
+  /* The whole 40x20 world. Width is set in JS from the world/viewport
+     constants; the transform is what scrolls, and transitioning it is what
+     makes movement glide rather than jump. */
   .kitchen-grid{
-    display:grid; grid-template-columns:repeat(7,1fr); gap:0;
+    position:absolute; top:0; left:0;
+    display:grid; gap:0;
+    background:#ecdfc0;
+    will-change: transform;
   }
   .kitchen-tile{
     aspect-ratio:1; display:flex; align-items:center; justify-content:center;
     font-size:14px; border:none; position:relative;
+    background-image:
+      radial-gradient(circle at 25% 28%, rgba(255,255,255,0.3) 0%, transparent 45%),
+      radial-gradient(circle at 75% 72%, rgba(0,0,0,0.05) 0%, transparent 50%);
   }
-  /* classic checkerboard kitchen-tile flooring — computed per-tile in JS
-     via (x+y)%2 so it always lines up perfectly with the grid cells,
-     rather than trying to align a CSS background pattern against them */
-  .kitchen-tile.checker-a{background:#f2e8cf;}
-  .kitchen-tile.checker-b{background:#e3d3ab;}
+  /* organic, low-contrast floor variation instead of a stark checkerboard —
+     still computed per-tile in JS via (x+y)%2 so it lines up perfectly with
+     the grid, but the two tones sit close enough together to read as
+     natural surface variation rather than an obvious repeating pattern */
+  .kitchen-tile.checker-a{background-color:#efe2c4;}
+  .kitchen-tile.checker-b{background-color:#e8d8b4;}
   .kitchen-tile.wall{
-    background:#6b5842; box-shadow:inset 0 0 0 1px #4a3c2c;
+    margin:8%; border-radius:8px;
+    background:linear-gradient(155deg, #9a8365, #6b5842 60%, #55442e);
+    box-shadow:0 3px 4px rgba(0,0,0,0.35), inset 0 1px 1px rgba(255,255,255,0.25);
   }
+  /* Patch tiles sit flush against their neighbours (no margin, light
+     rounding) so the four tiles of a 2x2 patch merge into one continuous
+     area, instead of reading as four separate circles side by side. */
   .kitchen-tile.pantry{
-    background:#fdedb8; box-shadow:inset 0 0 0 2px #d9a13a;
+    margin:0; border-radius:4px;
+    background:radial-gradient(circle at 35% 30%, #fff6d8, #fdedb8 55%, #e8c878);
+    box-shadow:inset 0 0 0 1px rgba(217,161,58,0.5);
+    font-size:12px;
+  }
+  /* Doorways to connected areas — visually distinct from both floor and
+     patches so a route out is obvious at a glance. */
+  .kitchen-tile.exit{
+    margin:0; border-radius:4px; font-size:13px;
+    background:linear-gradient(160deg, #bcd9f0, #7fa8cc 70%, #5b86ad);
+    box-shadow:inset 0 0 0 2px rgba(60,110,150,0.7);
+    animation: kitchenExitPulse 1.8s ease-in-out infinite;
+  }
+  @keyframes kitchenExitPulse{
+    0%,100%{ filter:brightness(1); }
+    50%{ filter:brightness(1.18); }
+  }
+  /* the one unoccupied world slot — reads as solid, you can't walk into it */
+  .kitchen-tile.void{
+    background:#2a2018; box-shadow:inset 0 0 6px rgba(0,0,0,0.6);
   }
   .kitchen-player-token{
     position:absolute; width:12.5%; aspect-ratio:1; pointer-events:none; z-index:5;
     display:flex; align-items:center; justify-content:center; font-size:16px;
-    transition: left 0.16s linear, top 0.16s linear;
-    filter:drop-shadow(0 1px 2px rgba(0,0,0,0.5));
+    filter:drop-shadow(0 3px 3px rgba(0,0,0,0.45));
   }
+  .kitchen-player-token::after{
+    content: attr(data-name);
+    position:absolute; bottom:100%; left:50%; transform:translateX(-50%);
+    white-space:nowrap; font-size:7px; font-weight:800; color:#fff;
+    background:rgba(20,12,8,0.75); padding:2px 5px; border-radius:6px;
+    margin-bottom:3px; font-family:'Baloo 2',cursive;
+  }
+
+  /* ---------- KITCHEN VIRTUAL JOYSTICK ---------- */
+  .kitchen-joystick-wrap{ display:flex; justify-content:center; margin:4px 0 8px; touch-action:none; }
+  .kitchen-joystick-base{
+    position:relative; width:110px; height:110px; border-radius:50%;
+    background:radial-gradient(circle at 40% 35%, #ecdfc0, #c8b088 70%, #a5895e);
+    border:3px solid #8a6a4a; box-shadow:inset 0 3px 8px rgba(0,0,0,0.3), 0 3px 0 #6b4a2e;
+    touch-action:none; cursor:pointer;
+  }
+  .kitchen-joystick-knob{
+    position:absolute; top:50%; left:50%; width:46px; height:46px; border-radius:50%;
+    background:linear-gradient(155deg, #f6d488, #d9a13a 65%, #a5750f);
+    box-shadow:0 3px 5px rgba(0,0,0,0.4), inset 0 1px 2px rgba(255,255,255,0.4);
+    transform:translate(-50%,-50%);
+    /* JS drives left/top in px while dragging; this transition only smooths
+       the snap-back to center on release, not the live drag itself */
+    transition: transform 0.15s ease;
+  }
+  .kitchen-joystick-knob.dragging{ transition:none; }
   .catch-attempt-btn{
     display:block; margin:8px auto 0; font-family:'Baloo 2',cursive; font-size:13px; font-weight:700; color:#3a2410;
     background:linear-gradient(180deg, #e8b93b, #a5750f); border:none;
@@ -2727,6 +3198,39 @@
   <div class="info-card">
     <div class="admin-title">⚙️ Settings</div>
     <div class="info-scroll">
+      <div class="settings-section-label">Save Backup</div>
+      <p class="settings-note">
+        Your progress is stored only in this browser. Clearing site data, switching
+        device, or opening the file from a different location will lose it permanently.
+        Export a backup code and keep it somewhere safe.
+      </p>
+      <button class="backup-btn" id="exportSaveBtn">📤 Create Backup Code</button>
+      <textarea class="backup-box" id="exportSaveBox" readonly rows="3" placeholder="Your backup code will appear here…"></textarea>
+      <div class="backup-row">
+        <button class="backup-btn small" id="copySaveBtn">📋 Copy</button>
+        <button class="backup-btn small" id="downloadSaveBtn">💾 Download</button>
+      </div>
+      <div class="backup-sep"></div>
+      <p class="settings-note">
+        Restoring <strong>replaces everything</strong> in this browser with the backup.
+        It cannot be undone, so you'll be asked to confirm.
+      </p>
+      <textarea class="backup-box" id="importSaveBox" rows="3" placeholder="Paste a backup code here…"></textarea>
+      <div class="backup-row">
+        <label class="backup-btn small file">📂 Load File<input type="file" id="importSaveFile" accept=".txt,text/plain" hidden></label>
+        <button class="backup-btn small danger" id="restoreSaveBtn">♻️ Restore</button>
+      </div>
+      <div class="backup-status" id="backupStatus"></div>
+
+      <div class="settings-section-label">Audio</div>
+      <p class="settings-note">
+        All music and effects are synthesised in-game — there are no sound files, so
+        nothing is downloaded and audio works offline. Browsers only allow sound to
+        start after your first tap or keypress, so the first moment may be silent.
+      </p>
+      <label class="settings-toggle-row"><input type="checkbox" id="musicToggle"><span>Music</span></label>
+      <label class="settings-toggle-row"><input type="checkbox" id="sfxToggle"><span>Sound effects</span></label>
+
       <div class="settings-section-label">Skip Animations By Rarity</div>
       <p class="settings-note">
         When enabled for a rarity, both battle moves and Recipe Summon pulls for that
@@ -2887,6 +3391,28 @@
       <button class="multi-select-btn" data-mult="10">x10</button>
       <button class="multi-select-btn" data-mult="max">Max</button>
     </div>
+    <div class="roster-controls">
+      <input type="text" id="rosterSearch" class="roster-search" placeholder="🔍 Search heroes…">
+      <div class="roster-row">
+        <select id="rosterFilter" class="roster-select">
+          <option value="all">All heroes</option>
+          <option value="owned">Recruited</option>
+          <option value="locked">Not recruited</option>
+          <option value="evolvable">Ready to evolve</option>
+          <option value="item">Holding an item</option>
+          <option value="noitem">No item held</option>
+        </select>
+        <select id="rosterSort" class="roster-select">
+          <option value="default">Sort: Default</option>
+          <option value="rarity">Sort: Rarity</option>
+          <option value="level">Sort: Level</option>
+          <option value="power">Sort: Power</option>
+          <option value="bond">Sort: Bond</option>
+          <option value="name">Sort: Name A–Z</option>
+        </select>
+      </div>
+      <div class="roster-count" id="rosterCount"></div>
+    </div>
     <div class="hero-grid" id="heroGrid"></div>
   </div>
 
@@ -2899,6 +3425,10 @@
       <div class="stage-tag" id="stageTag">Cycle 1 · Stage 1 of 8</div>
       <button class="team-select-btn" id="openTeamSelectBtn">🛡️ Select Team (<span id="teamCountLabel">0/15</span>)</button>
       <button class="side-quest-btn" id="sideQuestBtn" style="display:none;">📖 Enter Side Story: The Lost Recipe</button>
+      <button class="nemesis-quest-btn" id="nemesisQuestBtn" style="display:none;">👺 Confront the Grease Court</button>
+      <button class="daily-quest-btn" id="dailyQuestBtn">🎁 Daily Reward</button>
+      <button class="item-shop-btn" id="itemShopBtn">🎒 Item Shop</button>
+      <button class="ach-btn" id="achievementsBtn">🏆 Achievements</button>
       <button class="tower-quest-btn" id="towerQuestBtn">🗼 Enter the Rogue Tower</button>
       <div class="tower-floor-hud" id="towerFloorHud" style="display:none;">
         <span id="towerFloorLabel">Floor 1</span>
@@ -2935,6 +3465,7 @@
       </div>
 
       <div class="battle-msg" id="battleMsg">Choose an attack!</div>
+      <label class="auto-battle-row"><input type="checkbox" id="autoBattleToggle"><span>⚙️ Auto-battle</span><span class="auto-battle-hint" id="autoBattleHint"></span></label>
       <div class="move-grid" id="moveGrid"></div>
       <button class="catch-attempt-btn" id="catchAttemptBtn" style="display:none;">🥡 Attempt Catch</button>
       <div class="transform-btn-row" id="transformBtnRow" style="display:none;">
@@ -3210,6 +3741,7 @@
     <div class="dungeon-map-card kitchen-map-card">
       <div class="dungeon-map-title">🍳 The Kitchen Map</div>
       <div class="kitchen-minimap" id="kitchenMinimap"></div>
+      <div class="kitchen-exits-line" id="kitchenExitsLine"></div>
       <div class="kitchen-area-title" id="kitchenAreaTitle">🥖 Pantry Row</div>
       <div class="kitchen-area-desc" id="kitchenAreaDesc">Shelves of everyday staples.</div>
       <div class="kitchen-items-row">
@@ -3218,16 +3750,16 @@
         <button class="kitchen-guide-btn" id="kitchenGuideBtn">📖 Guidebook</button>
       </div>
       <div class="kitchen-grid-wrap">
-        <div class="kitchen-grid" id="kitchenGrid"></div>
-        <div class="kitchen-player-token" id="kitchenPlayerToken"></div>
+        <div class="kitchen-grid-inner">
+          <div class="kitchen-grid" id="kitchenGrid"></div>
+          <div class="kitchen-player-token" id="kitchenPlayerToken"></div>
+          <div class="kitchen-area-banner" id="kitchenAreaBanner"></div>
+        </div>
       </div>
-      <div class="dungeon-controls">
-        <div></div>
-        <button class="dungeon-move-btn" id="kitchenMoveUp">▲</button>
-        <div></div>
-        <button class="dungeon-move-btn" id="kitchenMoveLeft">◀</button>
-        <button class="dungeon-move-btn" id="kitchenMoveDown">▼</button>
-        <button class="dungeon-move-btn" id="kitchenMoveRight">▶</button>
+      <div class="kitchen-joystick-wrap">
+        <div class="kitchen-joystick-base" id="kitchenJoystickBase">
+          <div class="kitchen-joystick-knob" id="kitchenJoystickKnob"></div>
+        </div>
       </div>
       <button class="admin-close-btn" id="kitchenExitBtn">Leave the Kitchen</button>
     </div>
@@ -3372,6 +3904,80 @@
   </div>
 
   <!-- ===== EVOLUTION REVEAL ===== -->
+  <!-- ===== ACHIEVEMENTS ===== -->
+  <div class="dungeon-map-overlay" id="achievementsOverlay">
+    <div class="dungeon-map-card ach-card">
+      <div class="dungeon-map-title">🏆 Achievements</div>
+      <div class="dungeon-map-sub">These unlock on their own — nothing to claim.</div>
+      <div class="ach-list" id="achievementsList"></div>
+      <button class="admin-close-btn" id="achievementsClose">Close</button>
+    </div>
+  </div>
+
+  <!-- ===== WELCOME BACK ===== -->
+  <div class="skin-reveal-overlay" id="offlineOverlay">
+    <div class="skin-reveal-card offline-card">
+      <div class="skin-reveal-label">WELCOME BACK!</div>
+      <div class="skin-reveal-emoji">🍔</div>
+      <div class="skin-reveal-hero" id="offlineAwayLine">You were away 2h 10m</div>
+      <div class="offline-gains" id="offlineGains"></div>
+      <div class="skin-reveal-sub" id="offlineNote"></div>
+      <button class="reset-confirm-btn secondary" id="offlineOk">Collect</button>
+    </div>
+  </div>
+
+  <!-- ===== ITEM SHOP ===== -->
+  <div class="dungeon-map-overlay" id="itemShopOverlay">
+    <div class="dungeon-map-card item-shop-card">
+      <div class="dungeon-map-title">🎒 Item Shop</div>
+      <div class="dungeon-map-sub">Bought with 🍞 crumbs. Each item can be given to one hero at a time — take it back any time to hand it to someone else.</div>
+      <div class="item-shop-list" id="itemShopList"></div>
+      <button class="admin-close-btn" id="itemShopClose">Close</button>
+    </div>
+  </div>
+
+  <!-- ===== HELD ITEM PICKER ===== -->
+  <div class="dungeon-map-overlay" id="itemPickOverlay">
+    <div class="dungeon-map-card item-pick-card">
+      <div class="dungeon-map-title" id="itemPickTitle">Held Item</div>
+      <div class="item-pick-list" id="itemPickList"></div>
+      <button class="admin-close-btn" id="itemPickClose">Close</button>
+    </div>
+  </div>
+
+  <!-- ===== DAILY REWARD ===== -->
+  <div class="dungeon-map-overlay" id="dailyOverlay">
+    <div class="dungeon-map-card daily-card">
+      <div class="dungeon-map-title">🎁 Daily Reward</div>
+      <div class="daily-streak-line" id="dailyStreakLine"></div>
+      <div class="daily-grid" id="dailyGrid"></div>
+      <button class="daily-claim-btn" id="dailyClaimBtn">Claim</button>
+      <button class="admin-close-btn" id="dailyCloseBtn">Close</button>
+    </div>
+  </div>
+
+  <!-- ===== MEGA / GIGANTAMAX CUTSCENE ===== -->
+  <div class="form-cinema" id="formCinema">
+    <div class="form-cinema-rays" id="formCinemaRays"></div>
+    <div class="form-cinema-stage" id="formCinemaStage">
+      <div class="form-cinema-ring" id="formCinemaRing"></div>
+      <div class="form-cinema-sprite" id="formCinemaSprite">🍔</div>
+    </div>
+    <div class="form-cinema-caption" id="formCinemaCaption"></div>
+    <div class="form-cinema-flash" id="formCinemaFlash"></div>
+  </div>
+
+  <!-- ===== EVOLUTION CINEMATIC ===== -->
+  <div class="evo-cinema" id="evoCinema">
+    <div class="evo-cinema-rays" id="evoCinemaRays"></div>
+    <div class="evo-cinema-stage" id="evoCinemaStage">
+      <div class="evo-cinema-ring" id="evoCinemaRing"></div>
+      <div class="evo-cinema-sprite" id="evoCinemaSprite">🥯</div>
+    </div>
+    <div class="evo-cinema-caption" id="evoCinemaCaption"></div>
+    <div class="evo-cinema-flash" id="evoCinemaFlash"></div>
+  </div>
+
   <div class="skin-reveal-overlay" id="evolveRevealOverlay">
     <div class="skin-reveal-card evolve-reveal-card" id="evolveRevealCard">
       <div class="skin-reveal-label" id="evolveRevealLabel">✦ EVOLVED! ✦</div>
@@ -3398,6 +4004,10 @@
     <div class="team-select-card">
       <div class="admin-title">🛡️ Select Your Battle Team</div>
       <div class="team-select-sub" id="teamSelectSub">Selected: 0 / 15</div>
+      <div class="preset-bar">
+        <span class="preset-label">Presets</span>
+        <div class="preset-slots" id="presetSlots"></div>
+      </div>
       <div class="team-select-grid" id="teamSelectGrid"></div>
       <div class="team-select-actions">
         <button class="admin-btn" id="teamSelectConfirm">Confirm Team</button>
@@ -3438,6 +4048,164 @@
   ];
 
   // ---------- BURGER HEROES & FAST-FOOD MOVES ----------
+  // ---------- AUDIO ENGINE ----------
+  // Everything here is synthesised at runtime with the Web Audio API: no
+  // sound files, no external requests, nothing to host. That's deliberate —
+  // this game is a single self-contained HTML file, so any audio that
+  // depended on downloads would break the moment it was opened offline.
+  //
+  // Browsers refuse to start audio before a real user gesture, so the
+  // context is created lazily on the first click/keypress rather than at
+  // load. Every entry point is also wrapped so that a browser without Web
+  // Audio (or with it blocked) degrades to a silent game rather than a
+  // broken one.
+  const Sound = (function(){
+    let ctx = null, master = null, musicBus = null, sfxBus = null;
+    let musicTimer = null, musicStep = 0, currentTrack = null;
+    let unavailable = false;
+
+    function ensure(){
+      if(ctx || unavailable) return ctx;
+      try{
+        const AC = window.AudioContext || window.webkitAudioContext;
+        if(!AC){ unavailable = true; return null; }
+        ctx = new AC();
+        master = ctx.createGain();  master.gain.value = 0.85; master.connect(ctx.destination);
+        musicBus = ctx.createGain(); musicBus.gain.value = 0.16; musicBus.connect(master);
+        sfxBus = ctx.createGain();   sfxBus.gain.value = 0.45;  sfxBus.connect(master);
+      }catch(e){ unavailable = true; ctx = null; }
+      return ctx;
+    }
+    function resume(){
+      const c = ensure();
+      if(c && c.state === "suspended"){ c.resume().catch(()=>{}); }
+    }
+    function sfxOn(){ return !state || !state.settings || state.settings.sfx !== false; }
+    function musicOn(){ return !state || !state.settings || state.settings.music !== false; }
+
+    // one short synthesised note with its own envelope
+    function note(bus, freq, dur, type, peak, delay){
+      const c = ensure(); if(!c) return;
+      try{
+        const t0 = c.currentTime + (delay || 0);
+        const osc = c.createOscillator();
+        const g = c.createGain();
+        osc.type = type || "sine";
+        osc.frequency.setValueAtTime(freq, t0);
+        g.gain.setValueAtTime(0.0001, t0);
+        g.gain.exponentialRampToValueAtTime(peak, t0 + Math.min(0.02, dur*0.3));
+        g.gain.exponentialRampToValueAtTime(0.0001, t0 + dur);
+        osc.connect(g); g.connect(bus);
+        osc.start(t0); osc.stop(t0 + dur + 0.02);
+      }catch(e){}
+    }
+    // a frequency sweep — used for whooshes, catches, impacts
+    function sweep(bus, f0, f1, dur, type, peak, delay){
+      const c = ensure(); if(!c) return;
+      try{
+        const t0 = c.currentTime + (delay || 0);
+        const osc = c.createOscillator();
+        const g = c.createGain();
+        osc.type = type || "sine";
+        osc.frequency.setValueAtTime(f0, t0);
+        osc.frequency.exponentialRampToValueAtTime(Math.max(1, f1), t0 + dur);
+        g.gain.setValueAtTime(0.0001, t0);
+        g.gain.exponentialRampToValueAtTime(peak, t0 + 0.015);
+        g.gain.exponentialRampToValueAtTime(0.0001, t0 + dur);
+        osc.connect(g); g.connect(bus);
+        osc.start(t0); osc.stop(t0 + dur + 0.02);
+      }catch(e){}
+    }
+    // filtered noise burst — impacts and thuds, which pure tones can't do
+    function noise(bus, dur, hz, peak, delay){
+      const c = ensure(); if(!c) return;
+      try{
+        const t0 = c.currentTime + (delay || 0);
+        const frames = Math.floor(c.sampleRate * dur);
+        const buf = c.createBuffer(1, frames, c.sampleRate);
+        const d = buf.getChannelData(0);
+        for(let i=0;i<frames;i++) d[i] = (Math.random()*2-1) * (1 - i/frames);
+        const src = c.createBufferSource(); src.buffer = buf;
+        const bp = c.createBiquadFilter(); bp.type = "bandpass"; bp.frequency.value = hz; bp.Q.value = 0.8;
+        const g = c.createGain(); g.gain.value = peak;
+        src.connect(bp); bp.connect(g); g.connect(bus);
+        src.start(t0);
+      }catch(e){}
+    }
+
+    const SFX = {
+      hit(){ if(!sfxOn())return; noise(sfxBus, 0.12, 900, 0.5); sweep(sfxBus, 320, 120, 0.1, "square", 0.14); },
+      bigHit(){ if(!sfxOn())return; noise(sfxBus, 0.22, 500, 0.7); sweep(sfxBus, 220, 70, 0.22, "sawtooth", 0.2); },
+      heal(){ if(!sfxOn())return; [523,659,784].forEach((f,i)=> note(sfxBus, f, 0.22, "sine", 0.22, i*0.06)); },
+      buff(){ if(!sfxOn())return; sweep(sfxBus, 300, 800, 0.25, "triangle", 0.2); },
+      encounter(){ if(!sfxOn())return; [330,392,494,659].forEach((f,i)=> note(sfxBus, f, 0.16, "square", 0.17, i*0.07)); },
+      catchThrow(){ if(!sfxOn())return; sweep(sfxBus, 700, 200, 0.3, "triangle", 0.22); },
+      catchGood(){ if(!sfxOn())return; [523,659,784,1047].forEach((f,i)=> note(sfxBus, f, 0.3, "triangle", 0.25, i*0.09)); },
+      catchFail(){ if(!sfxOn())return; [400,300,220].forEach((f,i)=> note(sfxBus, f, 0.2, "sawtooth", 0.16, i*0.1)); },
+      victory(){ if(!sfxOn())return; [523,659,784,1047,1319].forEach((f,i)=> note(sfxBus, f, 0.34, "triangle", 0.26, i*0.1)); },
+      defeat(){ if(!sfxOn())return; [392,330,262,196].forEach((f,i)=> note(sfxBus, f, 0.4, "sine", 0.22, i*0.14)); },
+      evolve(){ if(!sfxOn())return;
+        [262,330,392,523,659,784,1047].forEach((f,i)=> note(sfxBus, f, 0.4, "triangle", 0.24, i*0.08));
+        sweep(sfxBus, 200, 1600, 0.7, "sine", 0.14, 0.1);
+      },
+      levelUp(){ if(!sfxOn())return; [659,784,988].forEach((f,i)=> note(sfxBus, f, 0.2, "square", 0.18, i*0.06)); },
+      step(){ if(!sfxOn())return; noise(sfxBus, 0.05, 380, 0.12); },
+      transform(){ if(!sfxOn())return;
+        sweep(sfxBus, 150, 900, 0.45, "sawtooth", 0.2);
+        [523,784,1047].forEach((f,i)=> note(sfxBus, f, 0.35, "triangle", 0.2, 0.2 + i*0.07));
+      },
+    };
+
+    // Tracks are scale + pattern data, not recordings. Each step the loop
+    // picks a note from the scale and an occasional bass note, which gives
+    // an endless non-repeating-ish backing without any audio assets.
+    const TRACKS = {
+      arena:   { bpm:104, scale:[262,294,330,392,440,523], bass:[131,131,98,110], wave:"triangle" },
+      boss:    { bpm:128, scale:[233,262,311,349,415,466], bass:[117,117,87,93],  wave:"sawtooth" },
+      kitchen: { bpm:92,  scale:[294,330,392,440,494,587], bass:[147,147,110,123], wave:"sine" },
+      survivor:{ bpm:140, scale:[220,262,294,349,392,440], bass:[110,110,82,87],  wave:"square" },
+    };
+    function stopMusic(){
+      if(musicTimer){ clearInterval(musicTimer); musicTimer = null; }
+      currentTrack = null;
+    }
+    function playMusic(name){
+      if(currentTrack === name) return;
+      const track = TRACKS[name];
+      if(!track){ stopMusic(); return; }
+      stopMusic();
+      if(!ensure() || !musicOn()) { currentTrack = name; return; }
+      currentTrack = name;
+      musicStep = 0;
+      const stepMs = 60000 / track.bpm / 2; // eighth notes
+      musicTimer = setInterval(()=>{
+        if(!musicOn() || !ctx) return;
+        const s = musicStep++;
+        // melody: every other step, wandering up and down the scale
+        if(s % 2 === 0){
+          const idx = Math.floor(Math.abs(Math.sin(s * 0.7)) * track.scale.length) % track.scale.length;
+          note(musicBus, track.scale[idx], stepMs/1000 * 1.6, track.wave, 0.5);
+        }
+        // bass on the downbeat
+        if(s % 4 === 0){
+          note(musicBus, track.bass[(s/4) % track.bass.length], stepMs/1000 * 3, "sine", 0.7);
+        }
+      }, stepMs);
+    }
+    function applySettings(){
+      const c = ensure(); if(!c) return;
+      try{
+        musicBus.gain.value = musicOn() ? 0.16 : 0;
+        sfxBus.gain.value = sfxOn() ? 0.45 : 0;
+      }catch(e){}
+      if(!musicOn()) { /* leave the loop running silently so it resumes instantly */ }
+    }
+    return { resume, sfx:SFX, playMusic, stopMusic, applySettings, isUnavailable:()=>unavailable };
+  })();
+  // first real gesture unlocks audio — browsers require this
+  ["pointerdown","keydown"].forEach(evt=>{
+    document.addEventListener(evt, ()=> Sound.resume(), { once:false, passive:true });
+  });
   const RARITY_WEIGHT = {common:1, rare:3, epic:8, legend:20, ultra:60, admin:500};
   const RARITY_LABEL  = {common:"Common", rare:"Rare", epic:"Epic", legend:"Legendary", ultra:"Secret", admin:"???"};
   const RARITY_ODDS   = {common:0.585, rare:0.30, epic:0.08, legend:0.03, ultra:0.005};
@@ -3562,54 +4330,178 @@
   // its own odds, so choosing WHERE to explore is a real decision: Pantry
   // Row is the safe starter zone, the Royal Larder is the rare-skewed
   // endgame zone you'd specifically travel to for a shot at something rare.
+  // Areas are laid out as tiles of one continuous world (see world:{rx,ry}
+  // on each area below). The old per-area "exits" map is kept purely as a
+  // readable record of which areas border which — nothing reads it at
+  // runtime any more, since adjacency now falls out of the world layout.
   const KITCHEN_AREAS = [
-    { id:"pantry", name:"Pantry Row", emoji:"🥖",
+    { id:"pantry", world:{rx:0,ry:0}, name:"Pantry Row", emoji:"🥖",
       desc:"Shelves of everyday staples. Safe, familiar, and always worth a walk.",
-      size:7, start:{x:0,y:0},
-      walls:[{x:2,y:1},{x:4,y:2},{x:1,y:4},{x:5,y:4},{x:3,y:5}],
-      pantry:[{x:1,y:1},{x:4,y:1},{x:2,y:3},{x:5,y:2},{x:1,y:5},{x:4,y:5}],
+      size:10, start:{x:0,y:0},
+      walls:[{x:4,y:0},{x:9,y:1},{x:0,y:4},{x:5,y:4},{x:9,y:5},{x:3,y:7},{x:7,y:8}],
+      pantry:[{x:1,y:1},{x:6,y:1},{x:2,y:4},{x:6,y:5},{x:0,y:7},{x:4,y:7},{x:8,y:2}],
+      exits:{ east:"spice", south:"freezer" },
       rarityWeights:{common:55, rare:30, epic:11, legend:3.5, ultra:0.5} },
-    { id:"freezer", name:"The Walk-In Freezer", emoji:"❄️",
+    { id:"freezer", world:{rx:0,ry:1}, name:"The Walk-In Freezer", emoji:"❄️",
       desc:"Frost-rimed racks stretching into the cold. Something colder lurks here.",
-      size:7, start:{x:0,y:0},
-      walls:[{x:1,y:1},{x:3,y:2},{x:5,y:1},{x:2,y:4},{x:4,y:4}],
-      pantry:[{x:3,y:1},{x:1,y:3},{x:5,y:3},{x:2,y:5},{x:4,y:2},{x:0,y:5}],
+      size:10, start:{x:0,y:0},
+      walls:[{x:3,y:0},{x:8,y:0},{x:0,y:3},{x:5,y:3},{x:9,y:2},{x:2,y:7},{x:7,y:7}],
+      pantry:[{x:1,y:1},{x:6,y:1},{x:3,y:4},{x:7,y:4},{x:0,y:8},{x:4,y:6},{x:8,y:8}],
+      exits:{ north:"pantry", east:"grill" },
       rarityWeights:{common:45, rare:33, epic:16, legend:5, ultra:1} },
-    { id:"spice", name:"Spice Market", emoji:"🌶️",
+    { id:"spice", world:{rx:1,ry:0}, name:"Spice Market", emoji:"🌶️",
       desc:"Towers of jars and crates, humming with heat and aroma. Bolder finds await.",
-      size:7, start:{x:0,y:0},
-      walls:[{x:2,y:2},{x:4,y:1},{x:1,y:3},{x:5,y:4},{x:3,y:4}],
-      pantry:[{x:1,y:1},{x:3,y:1},{x:5,y:2},{x:2,y:5},{x:4,y:5},{x:1,y:5}],
+      size:10, start:{x:0,y:0},
+      walls:[{x:5,y:0},{x:9,y:2},{x:1,y:5},{x:4,y:3},{x:8,y:5},{x:2,y:8},{x:6,y:8}],
+      pantry:[{x:1,y:1},{x:6,y:1},{x:2,y:4},{x:6,y:4},{x:0,y:7},{x:4,y:7},{x:8,y:7}],
+      exits:{ west:"pantry", south:"grill", east:"bakery" },
       rarityWeights:{common:35, rare:33, epic:22, legend:8, ultra:2} },
-    { id:"larder", name:"The Royal Larder", emoji:"👑",
+    { id:"grill", world:{rx:1,ry:1}, name:"The Grill Line", emoji:"🔥",
+      desc:"Roaring flat-tops and open flame. Hot work, and the finds run hotter.",
+      size:10, start:{x:0,y:0},
+      walls:[{x:4,y:0},{x:8,y:1},{x:0,y:4},{x:5,y:5},{x:9,y:6},{x:3,y:8},{x:7,y:3}],
+      pantry:[{x:1,y:1},{x:6,y:1},{x:2,y:4},{x:7,y:5},{x:0,y:7},{x:4,y:7},{x:8,y:8}],
+      exits:{ north:"spice", west:"freezer", east:"cellar" },
+      rarityWeights:{common:38, rare:32, epic:20, legend:8, ultra:2} },
+    { id:"bakery", world:{rx:2,ry:0}, name:"The Bakery", emoji:"🥐",
+      desc:"Warm ovens and dusted counters. Patient work rewards patient hunters.",
+      size:10, start:{x:0,y:0},
+      walls:[{x:3,y:0},{x:9,y:3},{x:0,y:6},{x:5,y:2},{x:8,y:6},{x:2,y:8},{x:6,y:7}],
+      pantry:[{x:1,y:1},{x:6,y:1},{x:2,y:4},{x:6,y:4},{x:0,y:8},{x:4,y:7},{x:8,y:8}],
+      exits:{ west:"spice", south:"cellar" },
+      rarityWeights:{common:30, rare:34, epic:24, legend:10, ultra:2} },
+    { id:"cellar", world:{rx:2,ry:1}, name:"The Root Cellar", emoji:"🥔",
+      desc:"Cool, dim, and deep underground. Things keep well down here — and hide well.",
+      size:10, start:{x:0,y:0},
+      walls:[{x:6,y:0},{x:9,y:3},{x:0,y:4},{x:4,y:4},{x:8,y:6},{x:2,y:7},{x:6,y:8}],
+      pantry:[{x:1,y:1},{x:5,y:1},{x:2,y:4},{x:6,y:4},{x:0,y:7},{x:4,y:7},{x:8,y:7}],
+      exits:{ north:"bakery", west:"grill", east:"larder" },
+      rarityWeights:{common:25, rare:30, epic:26, legend:14, ultra:5} },
+    { id:"larder", world:{rx:3,ry:1}, name:"The Royal Larder", emoji:"👑",
       desc:"The kitchen's most guarded vault. Only the boldest heroes hide down here.",
-      size:7, start:{x:0,y:0},
-      walls:[{x:3,y:1},{x:1,y:2},{x:5,y:2},{x:2,y:4},{x:4,y:3}],
-      pantry:[{x:1,y:1},{x:4,y:1},{x:2,y:2},{x:5,y:4},{x:1,y:5},{x:3,y:5}],
+      size:10, start:{x:0,y:0},
+      walls:[{x:4,y:0},{x:8,y:1},{x:0,y:4},{x:5,y:5},{x:9,y:6},{x:3,y:8},{x:7,y:3}],
+      pantry:[{x:1,y:1},{x:6,y:1},{x:2,y:4},{x:7,y:5},{x:0,y:7},{x:4,y:7},{x:8,y:8}],
+      exits:{ west:"cellar" },
       rarityWeights:{common:20, rare:28, epic:28, legend:16, ultra:8} },
   ];
   function kitchenAreaById(id){ return KITCHEN_AREAS.find(a=>a.id===id) || KITCHEN_AREAS[0]; }
   const KITCHEN_ENCOUNTER_CHANCE = 0.35; // per step taken onto ANY pantry tile — uniform, tiles don't differ
+  // Each entry in area.pantry is the TOP-LEFT anchor of a 2x2 catch patch,
+  // not a single tile — so a patch covers (x,y), (x+1,y), (x,y+1), (x+1,y+1).
+  // Reads as real ground you walk into, rather than a dot you step on.
+  const KITCHEN_PATCH_SIZE = 2;
   function kitchenTileAt(area, x, y){
     if(x===area.start.x && y===area.start.y) return {type:"start"};
     if(area.walls.some(w=>w.x===x && w.y===y)) return {type:"wall"};
-    if(area.pantry.some(p=>p.x===x && p.y===y)) return {type:"pantry"};
+    const inPatch = area.pantry.some(p =>
+      x >= p.x && x < p.x + KITCHEN_PATCH_SIZE &&
+      y >= p.y && y < p.y + KITCHEN_PATCH_SIZE
+    );
+    if(inPatch) return {type:"pantry"};
     return {type:"floor"};
   }
+  // ---------- DAILY REWARDS ----------
+  // A seven-day cycle that escalates, then loops while the streak keeps
+  // counting. Days are compared as LOCAL calendar dates rather than elapsed
+  // hours, so "tomorrow" means what a player expects it to mean regardless
+  // of what time they played.
+  const DAILY_REWARDS = [
+    { coins:25000,     crumbs:0,     sesame:0,  label:"Day 1" },
+    { coins:60000,     crumbs:200,   sesame:0,  label:"Day 2" },
+    { coins:150000,    crumbs:0,     sesame:5,  label:"Day 3" },
+    { coins:350000,    crumbs:600,   sesame:0,  label:"Day 4" },
+    { coins:800000,    crumbs:0,     sesame:10, label:"Day 5" },
+    { coins:1800000,   crumbs:1500,  sesame:0,  label:"Day 6" },
+    { coins:5000000,   crumbs:4000,  sesame:30, label:"Day 7" },
+  ];
+  function dailyDayKey(d){
+    const t = d || new Date();
+    return t.getFullYear() + "-" + String(t.getMonth()+1).padStart(2,"0") + "-" + String(t.getDate()).padStart(2,"0");
+  }
+  function dailyYesterdayKey(){
+    const y = new Date(); y.setDate(y.getDate() - 1);
+    return dailyDayKey(y);
+  }
+  function dailyAvailable(){ return state.daily.lastClaimDay !== dailyDayKey(); }
+  // The slot a claim right now would land on (0-6 within the cycle)
+  function dailyNextIndex(){
+    const cont = state.daily.lastClaimDay === dailyYesterdayKey();
+    const nextStreak = cont ? state.daily.streak + 1 : 1;
+    return (nextStreak - 1) % DAILY_REWARDS.length;
+  }
   const TAKEOUT_BOX_COST = 30000; // coins per catch item
-  // Every pantry tile in an area behaves identically — the difference is
-  // entirely in the ODDS of which specific hero shows up, not in where you
-  // stand. Each hero's own individual weight is its rarity tier's share of
-  // the area's rarityWeights, split evenly across every hero in that tier —
-  // so within "common," some heroes aren't literally more likely than
-  // others (there's no data to prefer one over another), but common heroes
-  // as a whole are far more likely than ultra ones, and every hero the
-  // area supports has a real, always-nonzero chance to appear anywhere.
+  // Each area draws from its OWN roster, not the whole hero list — so the
+  // Bakery and the Freezer genuinely hand you different heroes, and filling
+  // out your collection means travelling rather than farming one spot.
+  //
+  // The split is deterministic (hash-seeded per area+rarity), so an area's
+  // roster is the same every visit. Crucially it's a fraction of EACH rarity
+  // tier with a floor of 2, never a flat slice of all heroes: with only 3
+  // ultras in the game, a naive split would leave most areas with no ultra
+  // at all, which would quietly break the ultra odds those areas advertise.
+  const KITCHEN_AREA_POOL_FRACTION = 0.45;
+  let kitchenAreaPoolCache = null;
+  // Built once, for ALL areas together — because the safety check at the end
+  // needs global knowledge. Splitting each tier independently per area can
+  // leave a hero in NO area at all (verified: it stranded one rare hero,
+  // making it permanently uncatchable), so after the split every hero that
+  // missed every cut is placed into whichever area it came closest to making,
+  // guaranteeing the whole roster stays obtainable somewhere.
+  function buildKitchenAreaPools(){
+    const pools = {};   // "areaId|rarity" -> [hero]
+    const scores = {};  // "areaId|rarity|heroId" -> number
+    const rarities = ["common","rare","epic","legend","ultra"];
+    rarities.forEach(rarity=>{
+      const all = HERO_DEFS.filter(h => h.rarity===rarity && !h.limited && h.role!=="Admin");
+      KITCHEN_AREAS.forEach(area=>{
+        const key = area.id + "|" + rarity;
+        if(!all.length || !(area.rarityWeights[rarity] > 0)){ pools[key] = []; return; }
+        const scored = all.map(h=>{
+          const s = mulberry32(fnv1aHash(area.id + "|" + rarity + "|" + h.id))();
+          scores[key + "|" + h.id] = s;
+          return { hero:h, score:s };
+        }).sort((a,b)=> a.score - b.score);
+        const take = Math.min(all.length, Math.max(2, Math.round(all.length * KITCHEN_AREA_POOL_FRACTION)));
+        pools[key] = scored.slice(0, take).map(s=>s.hero);
+      });
+    });
+    // coverage sweep: rescue anyone who made no area's cut
+    HERO_DEFS.filter(h => !h.limited && h.role!=="Admin").forEach(h=>{
+      const candidateKeys = KITCHEN_AREAS
+        .filter(a => a.rarityWeights[h.rarity] > 0)
+        .map(a => a.id + "|" + h.rarity);
+      if(!candidateKeys.length) return;
+      const alreadyIn = candidateKeys.some(k => pools[k] && pools[k].some(x=>x.id===h.id));
+      if(alreadyIn) return;
+      let bestKey = candidateKeys[0], bestScore = Infinity;
+      candidateKeys.forEach(k=>{
+        const s = scores[k + "|" + h.id];
+        if(s !== undefined && s < bestScore){ bestScore = s; bestKey = k; }
+      });
+      pools[bestKey].push(h);
+    });
+    return pools;
+  }
+  function areaHeroPool(area, rarity){
+    if(!kitchenAreaPoolCache) kitchenAreaPoolCache = buildKitchenAreaPools();
+    return kitchenAreaPoolCache[area.id + "|" + rarity] || [];
+  }
+  // A hero's weight is its rarity tier's share of this area, split evenly
+  // across the heroes of that tier PRESENT IN THIS AREA — so narrowing the
+  // roster changes which heroes appear without shifting the rarity odds at
+  // all. An area advertising 8% ultra still delivers 8% ultra; it just draws
+  // from its own two ultras rather than all three.
   function areaHeroWeights(area){
-    const pool = HERO_DEFS.filter(h => !h.limited && h.role!=="Admin" && area.rarityWeights[h.rarity] > 0);
-    const tierCounts = {};
-    pool.forEach(h=>{ tierCounts[h.rarity] = (tierCounts[h.rarity]||0) + 1; });
-    return pool.map(h => ({ hero:h, weight: area.rarityWeights[h.rarity] / tierCounts[h.rarity] }));
+    const out = [];
+    Object.keys(area.rarityWeights).forEach(rarity=>{
+      if(!(area.rarityWeights[rarity] > 0)) return;
+      const pool = areaHeroPool(area, rarity);
+      if(!pool.length) return;
+      const share = area.rarityWeights[rarity] / pool.length;
+      pool.forEach(h => out.push({ hero:h, weight:share }));
+    });
+    return out;
   }
   function rollAreaHero(area, rngFn){
     rngFn = rngFn || Math.random;
@@ -3791,16 +4683,183 @@
   // pattern as lore/secret moves/domain moves — a small pool, hash-picked,
   // so the same hero always gets the same evolved name, without needing
   // 125 hand-authored entries.
-  const EVOLUTION_TITLES = ["Prime", "Ascendant", "Perfected", "Unbound", "Awakened", "Transcendent"];
-  function getEvolvedTitle(hero){
-    const rng = mulberry32(fnv1aHash(hero.id + "|" + hero.name + "|evotitle"));
-    return EVOLUTION_TITLES[Math.floor(rng() * EVOLUTION_TITLES.length)];
+  // Two evolution stages rather than one on/off flag, so a hero visibly
+  // becomes a different creature twice — new look, new move, new name, and
+  // a bigger stat jump each time. Stored as a number (0/1/2) instead of the
+  // old boolean; see the save migration for how existing evolved heroes
+  // carry over.
+  const EVO_MAX_STAGE = 2;
+  const EVO_STAGES = [
+    null,
+    { level:20, statMult:1.30, label:"Evolved",    icon:"✦" },
+    { level:40, statMult:1.68, label:"Final Form", icon:"✵" },
+  ];
+  // Evolving REPLACES the hero's rank, rather than tacking a title on the
+  // end — "Sesame Scout" becomes "Sesame Myrmidon", then "Sesame Archon".
+  // None of these nouns appear in any base hero name (checked against all 44
+  // in the roster), so an evolved hero can never share a name with a
+  // different hero's base form. Within a flavour group each hero takes a
+  // different noun, and the largest group is 8 against pools of 12, so
+  // every evolved name in the game is unique.
+  const EVO_NOUNS_1 = ["Adept","Myrmidon","Praetor","Centurion","Firebrand","Stalwart","Reaver","Dragoon","Pathfinder","Vindicator","Skirmisher","Ironside"];
+  const EVO_NOUNS_2 = ["Archon","Warlord","Titan","Colossus","Highlord","Grandmaster","Dreadnought","Ascendant","Paragon","Overseer","Conqueror","Immortal"];
+  // THE WHOLE EVOLUTION LINE RUNS BACKWARDS — INCLUDING THE STARTING FORM.
+  // A hero now BEGINS as what used to be its final form and evolves down to
+  // the original creature in HERO_DEFS:
+  //
+  //     🥖 Sesame Archon  (unevolved)  ->  🥐 Sesame Adept (Lv20)  ->  🥯 Sesame Scout (Lv40)
+  //
+  // "form 0" means the original HERO_DEFS entry, which is now the FINAL
+  // reward rather than the starting point. HERO_DEFS itself is untouched —
+  // it is still the source of truth for ids, rarity, lore, factions and
+  // summon pools — only what's DISPLAYED is remapped.
+  //
+  // Stats still climb with the stage (EVO_STAGES is unchanged), so evolving
+  // is always an upgrade even though you're walking back toward the plain
+  // original sprite.
+  function evoFormOf(stage){
+    if(stage >= 2) return 0;   // final: the original hero
+    if(stage === 1) return 1;  // middle: the old first evolution
+    return 2;                  // unevolved: the old final form
+  }
+  function evolvedName(hero, stage){
+    const form = evoFormOf(stage);
+    if(form === 0) return hero.name; // the original name, now the final one
+    const flavour = evoFlavourWord(hero) || hero.name;
+    const pool = form >= 2 ? EVO_NOUNS_2 : EVO_NOUNS_1;
+    const group = HERO_DEFS.filter(x=> evoFlavourWord(x) === flavour);
+    const idx = Math.max(0, group.findIndex(x=> x.id === hero.id));
+    return flavour + " " + pool[idx % pool.length];
+  }
+  function evoStageOf(rec){ return (rec && typeof rec.evoStage === "number") ? rec.evoStage : 0; }
+  // A hero LOOKS different after evolving, and NO TWO HEROES SHARE A LOOK
+  // at the same stage. That's a harder constraint than it sounds: 125 heroes
+  // need 125 distinct stage-1 sprites and 125 distinct stage-2 sprites, which
+  // is more than the food emoji set alone provides. So sprites are drawn from
+  // themed groups, and each family has an ORDER of preference over those
+  // groups — a fire hero takes a fire sprite if one is free, then spills into
+  // savory (grilled/charred reads fine), then baked, and so on. Thematic
+  // where possible, always unique, never silently duplicated.
+  const EVO_SPRITE_GROUPS = {
+    flame:  ["🔥","🌋","☄️","💥","♨️","🎇","🎆","🧨","🕯️","🏮","🌶️","🥵","⚡","💢","🔆","🫕","🍲","🥘","🍛","🍜","🌡️"],
+    grill:  ["🍖","🍗","🥩","🥓","🌭","🍢","🧆","🍤","🦐","🦀","🦞","🍱","🍝","🥟","🍠","🌰","🐟","🦑","🦪","🍣","🍥"],
+    baked:  ["🥖","🥐","🫓","🥨","🍞","🥯","🥞","🧇","🍩","🍪","🥧","🥮","🍘","🥡","🍕","🌮","🌯","🥙","🫔","🥪","🍔"],
+    garden: ["🥗","🥬","🌿","🍀","🌱","🥦","🥒","🥕","🌽","🍅","🧅","🧄","🍆","🫑","🫒","🥑","🍄","🌵","☘️"],
+    savory: ["🍚","🍳","🥚","🥫","🥠","🍙","🍟","🧂","🫙","🥄","🍴","🍽️","🥢"],
+    sweet:  ["🍰","🎂","🧁","🍮","🍫","🍬","🍭","🍯","🍡","🧋","🍧","🍨","🥤","🍓","🍒","🍑","🍇"],
+    royal:  ["👑","💎","🏆","🌟","🏅","🥇","🍾","💫","✨","⭐","🌠","🔮","🪙","⚜️"],
+    creamy: ["🧈","🥛","🍦","🧀","🫖","☕","🥣","🍼","🥥","🍈"],
+    frost:  ["❄️","🧊","⛄","🌨️","💠","🥶","🫧"],
+  };
+  const EVO_GROUP_ORDER = {
+    flame:  ["flame","grill","baked","royal","savory","sweet","garden","creamy","frost"],
+    grill:  ["grill","flame","savory","baked","garden","royal","creamy","sweet","frost"],
+    baked:  ["baked","grill","savory","sweet","garden","flame","royal","creamy","frost"],
+    garden: ["garden","savory","baked","sweet","creamy","grill","royal","frost","flame"],
+    savory: ["savory","grill","baked","garden","flame","royal","creamy","sweet","frost"],
+    sweet:  ["sweet","creamy","baked","garden","royal","frost","savory","grill","flame"],
+    royal:  ["royal","sweet","savory","baked","creamy","garden","grill","frost","flame"],
+    creamy: ["creamy","sweet","frost","savory","garden","baked","royal","grill","flame"],
+    frost:  ["frost","creamy","sweet","garden","savory","baked","royal","grill","flame"],
+  };
+  const EVO_FAMILY_BY_WORD = {
+    sizzling:"flame", fiery:"flame", molten:"flame", spicy:"flame", ghost:"flame",
+    charred:"grill", smoky:"grill", roasted:"grill", grilled:"grill",
+    frosted:"frost",
+    sweet:"sweet", glazed:"sweet", caramel:"sweet", honey:"sweet",
+    crunchy:"baked", crispy:"baked", toasted:"baked", sesame:"baked", pickled:"baked",
+    herbed:"garden", zesty:"garden", tangy:"garden", lettuce:"garden",
+    pickle:"garden", tomato:"garden", onion:"garden", mustard:"garden",
+    savory:"savory", juicy:"savory", bacon:"grill", beef:"grill",
+    wagyu:"grill", lobster:"grill", patty:"grill", salty:"savory",
+    buttery:"creamy", cheddar:"creamy", velvet:"creamy",
+    golden:"royal", truffle:"royal", kingsbun:"royal", champagne:"royal",
+    medallion:"royal", trophy:"royal", diamond:"royal", starlight:"royal",
+    master:"royal", mooncake:"royal",
+  };
+  const EVO_FAMILY_BY_ROLE = { Attack:"flame", Tank:"baked", Heal:"garden", Support:"creamy" };
+  function evoFlavourWord(hero){
+    return hero.name.split(/[\s-]+/)[0].replace(/[^A-Za-z]/g, "");
+  }
+  function evoFamilyKeyOf(hero){
+    const w = evoFlavourWord(hero).toLowerCase();
+    return EVO_FAMILY_BY_WORD[w] || EVO_FAMILY_BY_ROLE[hero.role] || "royal";
+  }
+  // Built once for the whole roster, because uniqueness is a global property
+  // — it can't be decided one hero at a time. Heroes are visited in a
+  // hash-shuffled order (different per stage) so the pick of best sprites
+  // isn't simply handed to whoever appears first in HERO_DEFS.
+  let evoSpriteTable = null;
+  function buildEvoSprites(){
+    const table = {};
+    const allGroups = Object.keys(EVO_SPRITE_GROUPS);
+    [1, 2].forEach(stage=>{
+      const used = {};
+      const order = HERO_DEFS.slice().sort((a,b)=>
+        fnv1aHash(a.id + "|evoorder|" + stage) - fnv1aHash(b.id + "|evoorder|" + stage));
+      order.forEach(h=>{
+        const prefs = (EVO_GROUP_ORDER[evoFamilyKeyOf(h)] || allGroups).concat(allGroups);
+        let pick = null;
+        for(const g of prefs){
+          for(const e of EVO_SPRITE_GROUPS[g]){
+            if(used[e]) continue;
+            if(e === h.emoji) continue;                                  // never its own base
+            if(stage === 2 && table[h.id] && table[h.id][1] === e) continue; // never repeat stage 1
+            pick = e; break;
+          }
+          if(pick) break;
+        }
+        if(pick) used[pick] = true;
+        table[h.id] = table[h.id] || {};
+        table[h.id][stage] = pick || h.emoji; // measured: never actually hit
+      });
+    });
+    return table;
+  }
+  function evolvedEmoji(hero, stage){
+    const form = evoFormOf(stage);
+    if(form === 0) return hero.emoji; // the original sprite, now the last one earned
+    if(!evoSpriteTable) evoSpriteTable = buildEvoSprites();
+    const row = evoSpriteTable[hero.id];
+    return (row && row[form]) || hero.emoji;
+  }
+  // The emoji every display should use for a hero — base, or its evolved
+  // form. Centralised so a new display surface can't silently show the
+  // pre-evolution sprite.
+  function heroEmojiFor(hero, rec){ return evolvedEmoji(hero, evoStageOf(rec)); }
+
+  // Evolving teaches a genuinely new move, flavoured by the hero's role and
+  // stronger at stage 2. Only move kinds the battle engine already handles
+  // are used here.
+  const EVO_MOVES = {
+    Attack:  [ { name:"Searing Onslaught",   icon:"🔥", power:1.5, kind:"dmg2",       desc:"A relentless double strike learned through evolution." },
+               { name:"Kingslayer Barrage",  icon:"⚔️", power:2.0, kind:"multi3",     desc:"Three merciless blows in the time most land one." } ],
+    Tank:    [ { name:"Ironclad Stance",     icon:"🛡️", power:0,   kind:"shield",     desc:"Braces behind an evolved guard that turns blows aside." },
+               { name:"Unbreakable Bulwark", icon:"🏰", power:1.5, kind:"dmg_stun",   desc:"An immovable counter that leaves the foe reeling." } ],
+    Heal:    [ { name:"Restoring Broth",     icon:"🍲", power:0,   kind:"heal",       desc:"A deeper, richer brew than it could ever make before." },
+               { name:"Feast of Renewal",    icon:"🍱", power:1.3, kind:"drain",      desc:"Takes strength from the foe and serves it to your own." } ],
+    Support: [ { name:"Rally the Kitchen",   icon:"📣", power:0,   kind:"buff",       desc:"Evolution lends its voice real command." },
+               { name:"Grand Coordination",  icon:"🎼", power:1.6, kind:"dmg_debuff", desc:"Conducts the whole line against one faltering target." } ],
+  };
+  const EVO_MOVES_DEFAULT = [
+    { name:"Refined Technique", icon:"✨", power:1.4, kind:"dmg",  desc:"Every motion sharpened by evolution." },
+    { name:"Masterwork Strike", icon:"💫", power:1.8, kind:"crit", desc:"The finished article, delivered all at once." },
+  ];
+  function evoMoveFor(hero, stage){
+    const pool = EVO_MOVES[hero.role] || EVO_MOVES_DEFAULT;
+    // moves follow the STAGE, not the reversed form order, so the later
+    // evolution always teaches the stronger move
+    return pool[Math.min(stage, pool.length) - 1] || EVO_MOVES_DEFAULT[0];
   }
   function heroDisplayName(hero, rec){
-    return rec.evolved ? (hero.name + " " + getEvolvedTitle(hero)) : hero.name;
+    // note: unlike before, stage 0 is NOT the plain name any more — an
+    // unevolved hero displays the old final form's name
+    return evolvedName(hero, evoStageOf(rec));
   }
   function canEvolve(hero, rec){
-    return rec.owned && !rec.evolved && rec.level >= EVOLUTION_LEVEL;
+    const next = evoStageOf(rec) + 1;
+    if(!rec.owned || next > EVO_MAX_STAGE) return false;
+    return rec.level >= EVO_STAGES[next].level;
   }
   function activeHeroSkinColor(){
     const h = activeHero();
@@ -4706,18 +5765,97 @@
 
   function heroMoves(h){
     const rec = state.heroes[h.id];
-    if(rec && rec.secretMoveUnlocked) return h.moves.concat([getDungeonDomainMove(h)]);
-    return h.moves;
+    let list = h.moves;
+    const st = evoStageOf(rec);
+    for(let s=1; s<=st; s++) list = list.concat([evoMoveFor(h, s)]);
+    // the dungeon domain move stays last — it's the top of the ladder
+    if(rec && rec.secretMoveUnlocked) list = list.concat([getDungeonDomainMove(h)]);
+    return list;
   }
-  const EVOLUTION_LEVEL = 20;
-  const EVOLUTION_STAT_MULT = 1.3;
+  // ---------- INDIVIDUAL HEROES: NATURES & BONDS ----------
+  // Two heroes of the same species are no longer identical. Each one carries
+  // a nature (a permanent stat trade-off, rolled when you acquire it) and a
+  // bond that grows as you fight alongside it.
+  //
+  // With only ATK and HP to work with, any nature that isn't a trade-off is
+  // strictly better or worse than Balanced — so every nature here gives up
+  // something for what it gains. That keeps a "perfect" roll from existing,
+  // which matters because there's no way to re-roll a hero you already own.
+  const NATURES = [
+    { id:"balanced", name:"Balanced", icon:"⚖️", atk:1.00, hp:1.00, blurb:"Even-handed in every way." },
+    { id:"sharp",    name:"Sharp",    icon:"🔪", atk:1.10, hp:0.93, blurb:"Hits harder, bruises easier." },
+    { id:"tender",   name:"Tender",   icon:"🧈", atk:0.93, hp:1.10, blurb:"Softer touch, takes a beating." },
+    { id:"fiery",    name:"Fiery",    icon:"🔥", atk:1.20, hp:0.84, blurb:"All offence, little armour." },
+    { id:"hearty",   name:"Hearty",   icon:"🍲", atk:0.84, hp:1.21, blurb:"Built to outlast anything." },
+  ];
+  function natureById(id){ return NATURES.find(x=>x.id===id) || NATURES[0]; }
+  // Rolled on acquisition so each catch feels like its own draw
+  function rollNature(){ return NATURES[Math.floor(Math.random()*NATURES.length)].id; }
+  // Existing collections get natures assigned by hash instead of randomly:
+  // a random assignment at load time would silently re-roll every hero on
+  // every page refresh, so a hero's nature would never actually be its own.
+  function natureForExisting(heroId){ return NATURES[fnv1aHash(heroId + "|nature") % NATURES.length].id; }
+
+  // ---------- HELD ITEMS ----------
+  // The third axis of a hero's identity, alongside nature (fixed at birth)
+  // and bond (earned over time). Unlike those, an item is a CHOICE you can
+  // change, and each one is owned as a stack — equipping takes one from the
+  // pile, unequipping returns it, so items are a resource to allocate
+  // across the roster rather than a permanent per-hero upgrade.
+  const ITEM_DEFS = [
+    { id:"apron",   name:"Chef's Apron",   icon:"🥻", cost:1200,  atk:1.00, hp:1.18, desc:"+18% HP" },
+    { id:"cleaver", name:"Keen Cleaver",   icon:"🔪", cost:1200,  atk:1.18, hp:1.00, desc:"+18% ATK" },
+    { id:"whetstone",name:"Whetstone",     icon:"🪨", cost:2600,  atk:1.28, hp:0.96, desc:"+28% ATK, -4% HP" },
+    { id:"stockpot",name:"Iron Stockpot",  icon:"🍲", cost:2600,  atk:0.96, hp:1.30, desc:"+30% HP, -4% ATK" },
+    { id:"charm",   name:"Lucky Charm",    icon:"🍀", cost:4000,  atk:1.10, hp:1.10, desc:"+10% ATK and HP" },
+    { id:"crown",   name:"Tiny Crown",     icon:"👑", cost:9000,  atk:1.22, hp:1.22, desc:"+22% ATK and HP" },
+  ];
+  function itemById(id){ return ITEM_DEFS.find(i=>i.id===id) || null; }
+  function itemMultAtk(rec){ const it = rec && rec.heldItem ? itemById(rec.heldItem) : null; return it ? it.atk : 1; }
+  function itemMultHp(rec){ const it = rec && rec.heldItem ? itemById(rec.heldItem) : null; return it ? it.hp : 1; }
+  function ownedItemCount(id){ return (state.items && state.items[id]) || 0; }
+  function equippedItemCount(id){
+    let k = 0;
+    HERO_DEFS.forEach(h=>{ const r = state.heroes[h.id]; if(r && r.heldItem === id) k++; });
+    return k;
+  }
+  function freeItemCount(id){ return ownedItemCount(id) - equippedItemCount(id); }
+
+  const BOND_MAX = 100;
+  const BOND_MAX_BONUS = 0.10; // +10% to both stats at full bond
+  const BOND_TIERS = [
+    { at:100, name:"Inseparable", icon:"💞" },
+    { at:80,  name:"Devoted",     icon:"💖" },
+    { at:50,  name:"Close",       icon:"❤️" },
+    { at:20,  name:"Warming",     icon:"🧡" },
+    { at:0,   name:"New",         icon:"🤍" },
+  ];
+  function bondTier(v){ return BOND_TIERS.find(t => (v||0) >= t.at) || BOND_TIERS[BOND_TIERS.length-1]; }
+  function bondMult(rec){
+    const v = Math.max(0, Math.min(BOND_MAX, (rec && rec.bond) || 0));
+    return 1 + (v / BOND_MAX) * BOND_MAX_BONUS;
+  }
+  // Nature and bond are folded in HERE, alongside evolution, because this is
+  // the one place every other system reads a hero's stats from — roster card,
+  // battle, survivor mode, power score. Note these are also called with a
+  // stand-in record for wild heroes ({level:12}, no nature/bond), so both
+  // helpers must tolerate a record missing those fields; they default to
+  // Balanced and zero bond rather than throwing.
   function heroAtk(h, rec){
-    const base = Math.round(8 + RARITY_WEIGHT[h.rarity]*(3 + rec.level*1.5));
-    return rec.evolved ? Math.round(base * EVOLUTION_STAT_MULT) : base;
+    let v = 8 + RARITY_WEIGHT[h.rarity]*(3 + rec.level*1.5);
+    if(evoStageOf(rec) >= 1) v *= EVO_STAGES[evoStageOf(rec)].statMult;
+    v *= natureById(rec.nature).atk;
+    v *= bondMult(rec);
+    v *= itemMultAtk(rec);
+    return Math.round(v);
   }
   function heroMaxHp(h, rec){
-    const base = Math.round(40 + RARITY_WEIGHT[h.rarity]*(15 + rec.level*6));
-    return rec.evolved ? Math.round(base * EVOLUTION_STAT_MULT) : base;
+    let v = 40 + RARITY_WEIGHT[h.rarity]*(15 + rec.level*6);
+    if(evoStageOf(rec) >= 1) v *= EVO_STAGES[evoStageOf(rec)].statMult;
+    v *= natureById(rec.nature).hp;
+    v *= bondMult(rec);
+    v *= itemMultHp(rec);
+    return Math.round(v);
   }
   // Battle-context wrappers that layer temporary, per-battle multipliers on
   // top of a hero's real base stats — Rogue Tower blessings, Mega Evolution,
@@ -4875,6 +6013,47 @@
   // A short optional 5-boss gauntlet, separate from the main throne-reclaiming
   // arc — flat stats, no cycle scaling, since it's a one-time side challenge
   // rather than an endless loop like the main roster.
+  // ---------- THE GREASE COURT (antagonist arc) ----------
+  // Chapter 1 already named the Greasy Goblin as the usurper who silenced
+  // the kitchens, but he never actually appeared — the main arena was just
+  // an endless ladder of unrelated bosses. This gives him a court, a
+  // presence between fights, and five escalating confrontations ending in
+  // him. Built as its own mode alongside the side story rather than woven
+  // into the arena ladder, so it can't desync from the cycling boss list.
+  const NEMESIS_DEFS = [
+    { name:"Grease Herald",   icon:"📯", hp:1200,   atk:32,  unlockAt:6 },
+    { name:"The Rancid Baron",icon:"🪤", hp:4200,   atk:70,  unlockAt:20 },
+    { name:"The Cleaver Twins",icon:"⚔️", hp:11000, atk:130, unlockAt:45 },
+    { name:"Chef Rictus",     icon:"🎭", hp:28000,  atk:230, unlockAt:80 },
+    { name:"The Greasy Goblin",icon:"👺", hp:70000, atk:400, unlockAt:130 },
+  ];
+  // Said when the confrontation becomes available — the villain reaching
+  // into the arena between fights, which is what makes him feel present.
+  const NEMESIS_TAUNTS = [
+    "📯 A herald in rancid livery stalks into the arena. \"The Goblin King has NOTICED you. How unfortunate for you.\"",
+    "🪤 \"You beat a messenger and think yourself a threat? I own every pantry from here to the gate.\"",
+    "⚔️ Two cleavers, one grudge. \"He said to bring back your hands. We'll settle for all of you.\"",
+    "🎭 \"I was his first chef. I salted the wells of six realms on his word. You're a course, not a challenger.\"",
+    "👺 The throne room doors finally open. \"So. The heir. Come and taste what I've made of your kingdom.\"",
+  ];
+  const NEMESIS_DEFEAT = [
+    "📯 The herald's horn cracks. Word will travel — and it won't flatter him.",
+    "🪤 The Baron's pantries fall open. Six realms eat properly tonight for the first time in years.",
+    "⚔️ The twins are dragged apart at last. Neither will say who struck first.",
+    "🎭 Rictus unties his apron and sets it down. \"Then finish it. He never once thanked me either.\"",
+    "👺 The Greasy Goblin falls, and the kitchens exhale. The Burger Throne is yours — and the fire is lit again.",
+  ];
+  function nemesisBossStatsFor(idx){
+    const b = NEMESIS_DEFS[idx];
+    return { hp: b.hp, atk: b.atk };
+  }
+  // The next confrontation is gated on arena progress, so the arc paces
+  // itself against how strong you actually are.
+  function nemesisIndex(){ return Math.min(state.stats.nemesisDefeated, NEMESIS_DEFS.length - 1); }
+  function nemesisAvailable(){
+    if(state.stats.nemesisDefeated >= NEMESIS_DEFS.length) return false;
+    return state.stats.bossesDefeated >= NEMESIS_DEFS[nemesisIndex()].unlockAt;
+  }
   const SIDE_BOSS_DEFS = [
     { name:"Recipe Keeper",   icon:"📖", hp:800,   atk:25  },
     { name:"Inkwell Wraith",  icon:"🖋️", hp:1800,  atk:45  },
@@ -4894,12 +6073,14 @@
     return { hp: b.hp, atk: b.atk };
   }
   function activeBossList(){
+    if(state.battle.nemesisMode) return NEMESIS_DEFS;
     if(state.battle.sideMode) return SIDE_BOSS_DEFS;
     if(state.battle.dungeonMode) return DUNGEON_BOSSES;
     if(state.battle.wildMode) return [state.battle.wildHero];
     return BOSS_DEFS;
   }
   function activeBossIdx(){
+    if(state.battle.nemesisMode) return nemesisIndex();
     if(state.battle.sideMode) return state.battle.sideBossIndex;
     if(state.battle.towerMode) return (state.tower.floor-1) % BOSS_DEFS.length;
     if(state.battle.dungeonMode) return state.battle.dungeonBossIdx;
@@ -4908,6 +6089,7 @@
   }
   function currentBoss(){ return activeBossList()[activeBossIdx()]; }
   function activeBossStats(){
+    if(state.battle.nemesisMode) return nemesisBossStatsFor(nemesisIndex());
     if(state.battle.sideMode) return sideBossStatsFor(state.battle.sideBossIndex);
     if(state.battle.towerMode) return towerBossStatsFor(state.tower.floor);
     if(state.battle.dungeonMode) return dungeonBossStatsFor(state.battle.dungeonBossIdx);
@@ -5004,6 +6186,24 @@
     { id:"ch12", title:"The Kingdom That Never Ends",
       trigger:(s)=> s.stats.bossesDefeated >= 464,
       text:"Hundreds of guardians in, and the throne still hasn't let you sit on it — not really. Maybe that was never how this story ends. Maybe the point was never the throne at all. It was every guardian you didn't have to fight alone, every hero who answered the call, every table you set back up one bun at a time. The kingdom isn't reclaimed. It's just yours now, however long you keep showing up for it." },
+    // The antagonist arc gets its own chapters, triggered by confrontations
+    // rather than raw boss counts — so the narrative advances when the story
+    // actually advances, not merely when numbers go up.
+    { id:"nem1", title:"The Court Takes Notice",
+      trigger:(s)=> s.stats.nemesisDefeated >= 1,
+      text:"A herald came wearing the Goblin's colours, and left without his horn. That matters less than what it proves: the usurper has stopped ignoring you. Somewhere behind six sealed pantries, a name is being spoken with irritation — yours." },
+    { id:"nem2", title:"Breaking the Larders",
+      trigger:(s)=> s.stats.nemesisDefeated >= 2,
+      text:"The Rancid Baron held every pantry between the gate and the inner kitchens, and starved the realms one shelf at a time. His locks are open now. Bread moves on the roads again. The Grease Court is learning that hunger was the only weapon holding it together." },
+    { id:"nem3", title:"Two Cleavers, One Grudge",
+      trigger:(s)=> s.stats.nemesisDefeated >= 3,
+      text:"The Cleaver Twins were the Goblin's answer to every problem he couldn't cook his way out of. Pulled apart at last, each blamed the other for striking first. Loyalty in that court was never loyalty — only fear wearing an apron." },
+    { id:"nem4", title:"His First Chef",
+      trigger:(s)=> s.stats.nemesisDefeated >= 4,
+      text:"Chef Rictus salted the wells of six realms because the Goblin asked, and was never thanked once. At the end he untied his apron and told you to finish it. The most dangerous thing about a tyrant's kitchen is how many people in it are only waiting for someone else to go first." },
+    { id:"nem5", title:"The Fire Relit",
+      trigger:(s)=> s.stats.nemesisDefeated >= 5,
+      text:"The Greasy Goblin is beaten, and the Grand Feast Arena is quiet in a way it hasn't been in a generation — not silence, but the hush before service. Six realms sit at one table. The Burger Throne is yours, and the only thing left to do with it is cook." },
   ];
   function checkStoryProgression(){
     STORY_CHAPTERS.forEach(ch=>{
@@ -5251,12 +6451,12 @@
 
   function defaultHeroes(){
     const h = {};
-    HERO_DEFS.forEach(d=>{ h[d.id] = {owned: STARTER_HERO_IDS.includes(d.id), level:0, secretMoveUnlocked:false, equippedSkin:null, evolved:false}; });
+    HERO_DEFS.forEach(d=>{ h[d.id] = {owned: STARTER_HERO_IDS.includes(d.id), level:0, secretMoveUnlocked:false, equippedSkin:null, evoStage:0, nature:(STARTER_HERO_IDS.includes(d.id) ? natureForExisting(d.id) : null), bond:0, heldItem:null}; });
     return h;
   }
   function freshBattle(){
     const stats = bossStatsFor(0,1);
-    return { bossIndex:0, cycle:1, bossHp:stats.hp, sideMode:false, sideBossIndex:0, towerMode:false, dungeonMode:false, dungeonBossIdx:-1, wildMode:false, wildHero:null, wildBossStats:null, activeHeroId:null, heroHp:{}, moveCooldowns:{}, log:["A challenger approaches the Grand Feast Arena!"] };
+    return { bossIndex:0, cycle:1, bossHp:stats.hp, sideMode:false, sideBossIndex:0, nemesisMode:false, towerMode:false, dungeonMode:false, dungeonBossIdx:-1, wildMode:false, wildHero:null, wildBossStats:null, activeHeroId:null, heroHp:{}, moveCooldowns:{}, log:["A challenger approaches the Grand Feast Arena!"] };
   }
   function freshTower(){
     return { floor:1, blessings:[], highestFloorEver:0, atkMult:1, hpMult:1, rewardMult:1, fullHealEachFloor:false, shieldEachFloor:false };
@@ -5265,7 +6465,7 @@
     return { active:false, exploringHeroId:null, x:DUNGEON_START.x, y:DUNGEON_START.y, defeatedThisRun:[], treasureClaimedThisRun:[] };
   }
   function freshKitchenMap(){
-    return { active:false, exploringHeroId:null, areaId:"pantry", x:0, y:0, catchItems:0, caughtHeroIds:[] };
+    return { active:false, exploringHeroId:null, areaId:"pantry", worldCoords:true, x:0, y:0, catchItems:0, caughtHeroIds:[] };
   }
   function freshSurvivor(){
     return { bestSeconds:0, bestKills:0 };
@@ -5279,11 +6479,11 @@
   function freshState(){
     const s = {
       coins:0, totalEarned:0, crowns:0, crumbs:0, sesame:0, gens:{}, heroes:defaultHeroes(), skins:{},
-      lastSesameTick:Date.now(), battle:freshBattle(), battleTeam: STARTER_HERO_IDS.slice(), tower:freshTower(), dungeon:freshDungeon(), kitchenMap:freshKitchenMap(), survivor:freshSurvivor(),
-      limitedBanner: freshLimitedBanner(),
+      lastSesameTick:Date.now(), lastSeen:Date.now(), battle:freshBattle(), battleTeam: STARTER_HERO_IDS.slice(), tower:freshTower(), dungeon:freshDungeon(), kitchenMap:freshKitchenMap(), survivor:freshSurvivor(),
+      limitedBanner: freshLimitedBanner(), teamPresets: [null,null,null], achievements: [], daily: { lastClaimDay:null, streak:0, bestStreak:0 }, items: {},
       stats:{ bossesDefeated:0, summonsDone:0, pityEpic:0, pityLegend:0, bossIntrosSeen:[], storyChaptersUnlocked:[], storyChaptersRead:0,
-        sideBossesDefeated:0, sideStoryComplete:false, sideBossIntrosSeen:[], domainMovesUsed:0, moveUsageCounts:{}, skinSummonsDone:0 }, questsClaimed:{},
-      settings:{ skipAnim:{ common:false, rare:false, epic:false, legend:false, ultra:false }, skipKitchenSpawns:{ common:false, rare:false, epic:false, legend:false, ultra:false } }
+        sideBossesDefeated:0, sideStoryComplete:false, sideBossIntrosSeen:[], nemesisDefeated:0, nemesisTauntsSeen:[], domainMovesUsed:0, moveUsageCounts:{}, skinSummonsDone:0 }, questsClaimed:{},
+      settings:{ skipAnim:{ common:false, rare:false, epic:false, legend:false, ultra:false }, skipKitchenSpawns:{ common:false, rare:false, epic:false, legend:false, ultra:false }, music:true, sfx:true, autoBattle:false }
     };
     GEN_DEFS.forEach(g=> s.gens[g.id]=0);
     return s;
@@ -5381,8 +6581,45 @@
     });
   }
 
+  // ---------- OFFLINE PROGRESS ----------
+  // The generators are the core of the game, but the economy loop only ran
+  // while the tab was open — close it and everything stopped. This credits
+  // the time away on return.
+  //
+  // Capped at 8 hours: long enough that leaving it overnight is rewarding,
+  // short enough that setting the system clock forward can't mint a fortune.
+  const OFFLINE_CAP_MS = 8 * 60 * 60 * 1000;
+  const OFFLINE_MIN_MS = 60 * 1000; // under a minute isn't worth a popup
+  let pendingOfflineReport = null;
+  function collectOfflineProgress(){
+    const now = Date.now();
+    const last = typeof state.lastSeen === "number" ? state.lastSeen : now;
+    let away = now - last;
+    state.lastSeen = now;
+    // a clock that moved backwards (timezone change, manual adjustment)
+    // would otherwise produce a negative or nonsense figure
+    if(!isFinite(away) || away <= 0) return null;
+    const capped = Math.min(away, OFFLINE_CAP_MS);
+    if(capped < OFFLINE_MIN_MS) return null;
+    const secs = capped / 1000;
+    const coins = totalRate() * secs;
+    const crumbs = crumbsRate() * secs;
+    const sesame = Math.floor(secs / 60);
+    if(coins <= 0 && crumbs <= 0 && sesame <= 0) return null;
+    state.coins += coins; state.totalEarned += coins;
+    state.crumbs += crumbs; state.sesame += sesame;
+    return { awayMs: away, cappedMs: capped, wasCapped: away > OFFLINE_CAP_MS, coins, crumbs, sesame };
+  }
+  function formatAway(ms){
+    const m = Math.floor(ms/60000), h = Math.floor(m/60), d = Math.floor(h/24);
+    if(d > 0) return d + "d " + (h%24) + "h";
+    if(h > 0) return h + "h " + (m%60) + "m";
+    return m + "m";
+  }
+
   let lastSavedAt = null;
   function save(){
+    state.lastSeen = Date.now();
     try{
       if(window.storage && window.storage.set){
         window.storage.set(SAVE_KEY, JSON.stringify(state), false).then(()=>{
@@ -5437,6 +6674,9 @@
     if(!Array.isArray(state.stats.storyChaptersUnlocked)) state.stats.storyChaptersUnlocked = [];
     if(typeof state.stats.storyChaptersRead !== "number") state.stats.storyChaptersRead = 0;
     if(typeof state.stats.sideBossesDefeated !== "number") state.stats.sideBossesDefeated = 0;
+    if(typeof state.stats.nemesisDefeated !== "number") state.stats.nemesisDefeated = 0;
+    if(!Array.isArray(state.stats.nemesisTauntsSeen)) state.stats.nemesisTauntsSeen = [];
+    if(typeof state.battle.nemesisMode !== "boolean") state.battle.nemesisMode = false;
     if(typeof state.stats.sideStoryComplete !== "boolean") state.stats.sideStoryComplete = false;
     if(!Array.isArray(state.stats.sideBossIntrosSeen)) state.stats.sideBossIntrosSeen = [];
     if(typeof state.stats.domainMovesUsed !== "number") state.stats.domainMovesUsed = 0;
@@ -5479,8 +6719,22 @@
       if(state.heroes[d.id] && typeof state.heroes[d.id].equippedSkin === "undefined"){
         state.heroes[d.id].equippedSkin = null;
       }
-      if(state.heroes[d.id] && typeof state.heroes[d.id].evolved !== "boolean"){
-        state.heroes[d.id].evolved = false;
+      // evolution used to be a boolean. An existing evolved hero becomes
+      // stage 1 (not stage 2) so nobody is silently handed a free upgrade,
+      // and an unevolved one becomes stage 0.
+      if(state.heroes[d.id] && typeof state.heroes[d.id].evoStage !== "number"){
+        state.heroes[d.id].evoStage = state.heroes[d.id].evolved === true ? 1 : 0;
+      }
+      if(state.heroes[d.id] && typeof state.heroes[d.id].heldItem === "undefined"){
+        state.heroes[d.id].heldItem = null;
+      }
+      if(state.heroes[d.id] && typeof state.heroes[d.id].bond !== "number"){
+        state.heroes[d.id].bond = 0;
+      }
+      // only heroes you ALREADY own get a nature backfilled; unowned ones
+      // stay null so they roll theirs freshly at the moment you acquire them
+      if(state.heroes[d.id] && typeof state.heroes[d.id].nature !== "string"){
+        state.heroes[d.id].nature = state.heroes[d.id].owned ? natureForExisting(d.id) : null;
       }
       if(!Array.isArray(state.skins[d.id])) state.skins[d.id] = [];
     });
@@ -5495,6 +6749,24 @@
     if(typeof state.kitchenMap.y !== "number") state.kitchenMap.y = 0;
     if(typeof state.kitchenMap.catchItems !== "number") state.kitchenMap.catchItems = 0;
     if(!Array.isArray(state.kitchenMap.caughtHeroIds)) state.kitchenMap.caughtHeroIds = [];
+    // Saves from before the one-world rewrite stored AREA-LOCAL coordinates
+    // (0-9). Those same numbers are valid world coordinates too, so there's
+    // no way to tell them apart by value — hence an explicit marker. Without
+    // this, an old save standing in the Royal Larder would silently reappear
+    // in Pantry Row, since local (2,3) and world (2,3) look identical.
+    if(!state.kitchenMap.worldCoords){
+      const mArea = kitchenAreaById(state.kitchenMap.areaId);
+      state.kitchenMap.x = mArea.world.rx*KITCHEN_REGION_SIZE + Math.max(0, Math.min(KITCHEN_REGION_SIZE-1, state.kitchenMap.x));
+      state.kitchenMap.y = mArea.world.ry*KITCHEN_REGION_SIZE + Math.max(0, Math.min(KITCHEN_REGION_SIZE-1, state.kitchenMap.y));
+      state.kitchenMap.worldCoords = true;
+    }
+    // final guard: never leave the hero standing inside solid ground
+    if(worldTileAt(state.kitchenMap.x, state.kitchenMap.y).type === "wall" ||
+       worldTileAt(state.kitchenMap.x, state.kitchenMap.y).type === "void"){
+      const sArea = kitchenAreaById(state.kitchenMap.areaId);
+      state.kitchenMap.x = sArea.world.rx*KITCHEN_REGION_SIZE + sArea.start.x;
+      state.kitchenMap.y = sArea.world.ry*KITCHEN_REGION_SIZE + sArea.start.y;
+    }
     if(typeof state.battle.wildMode !== "boolean") state.battle.wildMode = false;
     if(typeof state.battle.wildHero === "undefined") state.battle.wildHero = null;
     if(typeof state.battle.wildBossStats === "undefined") state.battle.wildBossStats = null;
@@ -5516,6 +6788,37 @@
     ["common","rare","epic","legend","ultra"].forEach(r=>{
       if(typeof state.settings.skipKitchenSpawns[r] !== "boolean") state.settings.skipKitchenSpawns[r] = false;
     });
+    if(!Array.isArray(state.achievements)) state.achievements = [];
+    if(!Array.isArray(state.teamPresets)) state.teamPresets = [null,null,null];
+    while(state.teamPresets.length < 3) state.teamPresets.push(null);
+    state.teamPresets = state.teamPresets.slice(0,3).map(p=>{
+      if(!p || !Array.isArray(p.ids)) return null;
+      // drop ids that no longer exist or are no longer owned, so a stale
+      // preset can never put an unrecruited hero on the field
+      const ids = p.ids.filter(id => state.heroes[id] && state.heroes[id].owned);
+      return ids.length ? { name: String(p.name || "Team"), ids: ids.slice(0, MAX_TEAM_SIZE) } : null;
+    });
+    if(typeof state.lastSeen !== "number") state.lastSeen = Date.now();
+    if(!state.items || typeof state.items !== "object") state.items = {};
+    ITEM_DEFS.forEach(it=>{ if(typeof state.items[it.id] !== "number") state.items[it.id] = 0; });
+    // an item can't be equipped more times than it is owned — if a save is
+    // ever inconsistent, unequip the excess rather than granting free stats
+    ITEM_DEFS.forEach(it=>{
+      let over = equippedItemCount(it.id) - ownedItemCount(it.id);
+      if(over <= 0) return;
+      HERO_DEFS.forEach(h=>{
+        if(over <= 0) return;
+        const r = state.heroes[h.id];
+        if(r && r.heldItem === it.id){ r.heldItem = null; over--; }
+      });
+    });
+    if(!state.daily || typeof state.daily !== "object") state.daily = { lastClaimDay:null, streak:0, bestStreak:0 };
+    if(typeof state.daily.streak !== "number") state.daily.streak = 0;
+    if(typeof state.daily.bestStreak !== "number") state.daily.bestStreak = 0;
+    if(typeof state.daily.lastClaimDay !== "string") state.daily.lastClaimDay = null;
+    if(typeof state.settings.autoBattle !== "boolean") state.settings.autoBattle = false;
+    if(typeof state.settings.music !== "boolean") state.settings.music = true;
+    if(typeof state.settings.sfx !== "boolean") state.settings.sfx = true;
     lastSavedAt = Date.now();
   }
 
@@ -5640,6 +6943,8 @@
   const kitchenPlayerToken = document.getElementById("kitchenPlayerToken");
   const kitchenExitBtn = document.getElementById("kitchenExitBtn");
   const kitchenMinimap = document.getElementById("kitchenMinimap");
+  const kitchenExitsLine = document.getElementById("kitchenExitsLine");
+  const kitchenAreaBanner = document.getElementById("kitchenAreaBanner");
   const kitchenAreaTitle = document.getElementById("kitchenAreaTitle");
   const kitchenAreaDesc = document.getElementById("kitchenAreaDesc");
   const kitchenGuideBtn = document.getElementById("kitchenGuideBtn");
@@ -5671,10 +6976,8 @@
   const wildEncounterLevel = document.getElementById("wildEncounterLevel");
   const wildEncounterBattleBtn = document.getElementById("wildEncounterBattleBtn");
   const wildEncounterFleeBtn = document.getElementById("wildEncounterFleeBtn");
-  const kitchenMoveUp = document.getElementById("kitchenMoveUp");
-  const kitchenMoveDown = document.getElementById("kitchenMoveDown");
-  const kitchenMoveLeft = document.getElementById("kitchenMoveLeft");
-  const kitchenMoveRight = document.getElementById("kitchenMoveRight");
+  const kitchenJoystickBase = document.getElementById("kitchenJoystickBase");
+  const kitchenJoystickKnob = document.getElementById("kitchenJoystickKnob");
   const catchAttemptBtn = document.getElementById("catchAttemptBtn");
   const transformBtnRow = document.getElementById("transformBtnRow");
   const megaBtn = document.getElementById("megaBtn");
@@ -5685,6 +6988,24 @@
   const catchResultHero = document.getElementById("catchResultHero");
   const catchResultSub = document.getElementById("catchResultSub");
   const catchResultOk = document.getElementById("catchResultOk");
+  const formCinema = document.getElementById("formCinema");
+  const formCinemaRays = document.getElementById("formCinemaRays");
+  const formCinemaStage = document.getElementById("formCinemaStage");
+  const formCinemaRing = document.getElementById("formCinemaRing");
+  const formCinemaSprite = document.getElementById("formCinemaSprite");
+  const formCinemaCaption = document.getElementById("formCinemaCaption");
+  const formCinemaFlash = document.getElementById("formCinemaFlash");
+  const rosterSearchInput = document.getElementById("rosterSearch");
+  const rosterFilterSel = document.getElementById("rosterFilter");
+  const rosterSortSel = document.getElementById("rosterSort");
+  const rosterCount = document.getElementById("rosterCount");
+  const evoCinema = document.getElementById("evoCinema");
+  const evoCinemaRays = document.getElementById("evoCinemaRays");
+  const evoCinemaStage = document.getElementById("evoCinemaStage");
+  const evoCinemaRing = document.getElementById("evoCinemaRing");
+  const evoCinemaSprite = document.getElementById("evoCinemaSprite");
+  const evoCinemaCaption = document.getElementById("evoCinemaCaption");
+  const evoCinemaFlash = document.getElementById("evoCinemaFlash");
   const evolveRevealOverlay = document.getElementById("evolveRevealOverlay");
   const evolveRevealLabel = document.getElementById("evolveRevealLabel");
   const evolveRevealEmoji = document.getElementById("evolveRevealEmoji");
@@ -5837,12 +7158,57 @@
   // ---------- RENDER: HEROES ----------
   function heroLevelCost(h, rec){ return Math.ceil(10 * RARITY_WEIGHT[h.rarity] * Math.pow(1.22, rec.level)); }
   let levelMulti = 1; // 1 | 10 | "max"
+  // Roster view state. Deliberately NOT saved — a filter left on from last
+  // session would look like heroes had gone missing.
+  let rosterSearch = "", rosterFilter = "all", rosterSort = "default";
+  const RARITY_ORDER = { admin:6, ultra:5, legend:4, epic:3, rare:2, common:1 };
+  function rosterMatches(h, rec){
+    if(rosterSearch){
+      // search the DISPLAYED name as well as the base one, so looking up
+      // "Archon" finds the hero currently going by that name
+      const hay = (h.name + " " + heroDisplayName(h, rec) + " " + h.role + " " + h.rarity).toLowerCase();
+      if(hay.indexOf(rosterSearch) === -1) return false;
+    }
+    switch(rosterFilter){
+      case "owned":     return rec.owned;
+      case "locked":    return !rec.owned;
+      case "evolvable": return rec.owned && canEvolve(h, rec);
+      case "item":      return rec.owned && !!rec.heldItem;
+      case "noitem":    return rec.owned && !rec.heldItem;
+      default:          return true;
+    }
+  }
+  function rosterSorted(list){
+    const arr = list.slice();
+    const pow = (h,r)=> RARITY_WEIGHT[h.rarity] * (1 + r.level*0.5);
+    switch(rosterSort){
+      case "rarity": arr.sort((a,b)=> (RARITY_ORDER[b.rarity]||0)-(RARITY_ORDER[a.rarity]||0) || a.name.localeCompare(b.name)); break;
+      case "level":  arr.sort((a,b)=> state.heroes[b.id].level - state.heroes[a.id].level || a.name.localeCompare(b.name)); break;
+      case "power":  arr.sort((a,b)=> pow(b,state.heroes[b.id]) - pow(a,state.heroes[a.id])); break;
+      case "bond":   arr.sort((a,b)=> (state.heroes[b.id].bond||0) - (state.heroes[a.id].bond||0) || a.name.localeCompare(b.name)); break;
+      case "name":   arr.sort((a,b)=> heroDisplayName(a,state.heroes[a.id]).localeCompare(heroDisplayName(b,state.heroes[b.id]))); break;
+      default: break; // roster order as authored
+    }
+    return arr;
+  }
   function renderHeroes(){
     heroGrid.innerHTML="";
     let ownedCount=0;
-    HERO_DEFS.forEach(h=>{
+    HERO_DEFS.forEach(h=>{ if(state.heroes[h.id].owned) ownedCount++; });
+    const visible = rosterSorted(HERO_DEFS.filter(h=> rosterMatches(h, state.heroes[h.id])));
+    if(rosterCount){
+      rosterCount.textContent = visible.length === HERO_DEFS.length
+        ? (ownedCount + " / " + HERO_DEFS.length + " recruited")
+        : ("Showing " + visible.length + " of " + HERO_DEFS.length + "  ·  " + ownedCount + " recruited");
+    }
+    if(!visible.length){
+      const empty = document.createElement("div");
+      empty.className = "roster-empty";
+      empty.textContent = "No heroes match that search or filter.";
+      heroGrid.appendChild(empty);
+    }
+    visible.forEach(h=>{
       const rec = state.heroes[h.id];
-      if(rec.owned) ownedCount++;
       const card = document.createElement("div");
       card.className = "hero-card " + h.rarity + (rec.owned? "":" locked");
       if(!rec.owned){
@@ -5872,14 +7238,16 @@
           <div class="hero-rarity-tag">${RARITY_LABEL[h.rarity]}</div>
           <div class="hero-faction-tag ${faction}" title="${FACTION_DEFS[faction].name}">${FACTION_DEFS[faction].emoji}</div>
           <button class="hero-lore-btn" data-id="${h.id}" title="Lore">📖</button>
+          <button class="hero-item-btn" data-id="${h.id}" title="Held item">${rec.heldItem ? itemById(rec.heldItem).icon : "🎒"}</button>
           ${ownedSkins.length ? `<button class="hero-skin-btn" data-id="${h.id}" title="Skins">🎨</button>` : ""}
-          <div class="hero-emoji${rec.evolved ? " evolved" : ""}"${equippedTheme ? ` style="filter:${equippedTheme.emojiFilter}"` : ""}>${h.emoji}</div>
-          <div class="hero-name">${heroDisplayName(h,rec)}${rec.evolved ? ` <span class="hero-evolved-badge" title="Evolved">✦</span>` : ""}${equippedTheme ? ` <span class="hero-skin-tag" style="color:${equippedTheme.color}">${equippedTheme.name}</span>` : ""}</div>
+          <div class="hero-emoji${evoStageOf(rec) >= 1 ? " evolved" : ""}"${equippedTheme ? ` style="filter:${equippedTheme.emojiFilter}"` : ""}>${heroEmojiFor(h, rec)}</div>
+          <div class="hero-name">${heroDisplayName(h,rec)}${evoStageOf(rec) >= 1 ? ` <span class="hero-evolved-badge" title="${EVO_STAGES[evoStageOf(rec)].label}">${EVO_STAGES[evoStageOf(rec)].icon}</span>` : ""}${equippedTheme ? ` <span class="hero-skin-tag" style="color:${equippedTheme.color}">${equippedTheme.name}</span>` : ""}</div>
           <div class="hero-role">${h.role} · ATK ${heroAtk(h,rec)} · HP ${heroMaxHp(h,rec)}</div>
+          <div class="hero-traits" title="${natureById(rec.nature).blurb}">${natureById(rec.nature).icon} ${natureById(rec.nature).name} · ${bondTier(rec.bond).icon} ${bondTier(rec.bond).name} ${rec.bond||0}/${BOND_MAX}${rec.heldItem ? " · " + itemById(rec.heldItem).icon + " " + itemById(rec.heldItem).name : ""}</div>
           <div class="hero-moves-note">${moves}</div>
           <div class="hero-level">Lv. ${rec.level}</div>
           <div class="hero-power">Power ${power}</div>
-          ${eligible ? `<button class="evolve-btn" data-id="${h.id}">✦ Evolve!</button>` : ""}
+          ${eligible ? `<button class="evolve-btn" data-id="${h.id}">${EVO_STAGES[evoStageOf(rec)+1].icon} ${evoStageOf(rec) >= 1 ? "Final Evolution!" : "Evolve!"}</button>` : ""}
           <button class="level-btn" data-id="${h.id}" ${canLevel? "":"disabled"}>${levelLabel} ${costLabel}</button>`;
       }
       heroGrid.appendChild(card);
@@ -5900,6 +7268,14 @@
         e.stopPropagation();
         const h = HERO_DEFS.find(x=>x.id===btn.getAttribute("data-id"));
         openSkinPicker(h);
+      });
+    });
+    heroGrid.querySelectorAll(".hero-item-btn").forEach(btn=>{
+      btn.addEventListener("click", (e)=>{
+        e.stopPropagation();
+        const h = HERO_DEFS.find(x=>x.id===btn.getAttribute("data-id"));
+        openItemPicker(h);
+        itemPickOverlay.style.display = "flex";
       });
     });
     heroGrid.querySelectorAll(".evolve-btn").forEach(btn=>{
@@ -7886,7 +9262,7 @@
       spawnDomainBarrier(battleCutscene, equippedTheme ? equippedTheme.color : null);
       battleCutsceneSub.textContent = profile.sub;
       battleCutsceneTitle.textContent = "DOMAIN EXPANSION:";
-      battleCutsceneEmojiSpan.textContent = hero.emoji;
+      battleCutsceneEmojiSpan.textContent = heroEmojiFor(hero, state.heroes[hero.id]);
       battleCutsceneName.textContent = "";
       battleCutsceneContent.style.display = "flex";
       const preEls = [battleCutsceneEmoji, battleCutsceneTitle];
@@ -7909,7 +9285,7 @@
     battleCutsceneTitle.textContent = isDomain
       ? "DOMAIN EXPANSION: " + profile.domain.toUpperCase()
       : move.icon + " " + move.name.toUpperCase() + "!";
-    battleCutsceneEmojiSpan.textContent = hero.emoji;
+    battleCutsceneEmojiSpan.textContent = heroEmojiFor(hero, state.heroes[hero.id]);
     battleCutsceneName.textContent = hero.name + (isDomain ? " — " + move.icon + " " + move.name : "");
     battleCutsceneContent.style.display = "flex";
     const els = [battleCutsceneEmoji, battleCutsceneName, battleCutsceneTitle];
@@ -8316,6 +9692,7 @@
 
   const FX = {
     hitBoss(move){
+      Sound.sfx.hit();
       const skinColor = activeHeroSkinColor();
       spawnParticles(bossVisual, moveParticles(move, ["💥","⚡"]), 6, 34, 550);
       flashFx(bossVisual, skinColor ? hexToRgba(skinColor,0.55) : "rgba(192,57,43,0.55)");
@@ -8324,6 +9701,7 @@
       shakeVisual(bossVisual);
     },
     hitBossBig(move){
+      Sound.sfx.bigHit();
       const skinColor = activeHeroSkinColor();
       spawnImpactFrame(battleArea, 80);
       spawnParticles(bossVisual, moveParticles(move, ["💥","💢"]), 9, 40, 620);
@@ -8446,12 +9824,12 @@
 
     const h = activeHero();
     if(h){
-      heroEmojiSpan.textContent = h.emoji;
-      heroFighterName.textContent = h.name;
       const rec = state.heroes[h.id];
+      heroEmojiSpan.textContent = heroEmojiFor(h, rec);
+      heroFighterName.textContent = heroDisplayName(h, rec);
       const equippedTheme = rec.equippedSkin ? skinThemeById(rec.equippedSkin) : null;
       heroEmojiSpan.style.filter = equippedTheme ? equippedTheme.emojiFilter : "";
-      heroEmojiSpan.classList.toggle("evolved", !!rec.evolved);
+      heroEmojiSpan.classList.toggle("evolved", evoStageOf(rec) >= 1);
       heroEmojiSpan.classList.toggle("mega-active", megaHeroId === h.id);
       heroEmojiSpan.classList.toggle("gmax-active", gigantamaxHeroId === h.id && gigantamaxTurnsLeft > 0);
       // both transformations require the hero to have evolved first (same
@@ -8460,7 +9838,7 @@
       // this battle — Mega lasts the whole fight, Gigantamax just 3 turns,
       // but both are a one-time trigger per battle either way
       const alreadyTransformed = megaHeroId === h.id || (gigantamaxHeroId === h.id);
-      const transformEligible = rec.evolved && !alreadyTransformed && phase === "player";
+      const transformEligible = evoStageOf(rec) >= 1 && !alreadyTransformed && phase === "player";
       transformBtnRow.style.display = transformEligible ? "flex" : "none";
 
       // moves
@@ -8507,7 +9885,7 @@
       const chipTheme = rec.equippedSkin ? skinThemeById(rec.equippedSkin) : null;
       const chipIconStyle = chipTheme ? ` style="filter:${chipTheme.emojiFilter}"` : "";
       chip.innerHTML = `
-        <div class="chip-emoji" style="animation-delay:${(idx%5)*0.18}s;"><span class="move-icon-tint"${chipIconStyle}>${hero.emoji}</span></div>
+        <div class="chip-emoji" style="animation-delay:${(idx%5)*0.18}s;"><span class="move-icon-tint"${chipIconStyle}>${heroEmojiFor(hero, state.heroes[hero.id])}</span></div>
         <div class="chip-hp-outer"><div class="chip-hp-inner" style="width:${Math.max(0,(hp/max)*100)}%;"></div></div>`;
       chip.title = hero.name + (fainted? " (fainted)":"");
       chip.addEventListener("click", ()=>{
@@ -8584,6 +9962,201 @@
     });
   }
 
+  // ---------- ACHIEVEMENTS ----------
+  // Unlike quests these are never "claimed" — they unlock on their own the
+  // moment their condition is true, and they read from data the game was
+  // already tracking rather than needing new counters.
+  const ACHIEVEMENT_DEFS = [
+    { id:"first_blood", icon:"⚔️", name:"First Service",     desc:"Defeat your first boss.",
+      get:s=>s.stats.bossesDefeated, target:1 },
+    { id:"boss50",      icon:"🔥", name:"Kitchen Veteran",   desc:"Defeat 50 bosses.",
+      get:s=>s.stats.bossesDefeated, target:50 },
+    { id:"boss250",     icon:"👑", name:"Legend of the Line",desc:"Defeat 250 bosses.",
+      get:s=>s.stats.bossesDefeated, target:250 },
+    { id:"roster25",    icon:"📇", name:"Building a Brigade",desc:"Recruit 25 heroes.",
+      get:s=>HERO_DEFS.filter(h=>s.heroes[h.id] && s.heroes[h.id].owned).length, target:25 },
+    { id:"roster75",    icon:"🏅", name:"Full House",        desc:"Recruit 75 heroes.",
+      get:s=>HERO_DEFS.filter(h=>s.heroes[h.id] && s.heroes[h.id].owned).length, target:75 },
+    { id:"evolve1",     icon:"✦",  name:"Something New",     desc:"Evolve a hero for the first time.",
+      get:s=>HERO_DEFS.filter(h=>evoStageOf(s.heroes[h.id])>=1).length, target:1 },
+    { id:"evolveFinal", icon:"✵",  name:"Full Circle",       desc:"Take a hero to its final form.",
+      get:s=>HERO_DEFS.filter(h=>evoStageOf(s.heroes[h.id])>=2).length, target:1 },
+    { id:"bondMax",     icon:"💞", name:"Inseparable",       desc:"Reach a full bond with a hero.",
+      get:s=>HERO_DEFS.filter(h=>(s.heroes[h.id]&&s.heroes[h.id].bond)>=BOND_MAX).length, target:1 },
+    { id:"catch10",     icon:"🥡", name:"Pantry Hunter",     desc:"Catch 10 wild heroes.",
+      get:s=>(s.kitchenMap.caughtHeroIds||[]).length, target:10 },
+    { id:"tower10",     icon:"🗼", name:"Head for Heights",  desc:"Reach floor 10 of the Rogue Tower.",
+      get:s=>s.tower.highestFloorEver||0, target:10 },
+    { id:"story",       icon:"📖", name:"Well Read",         desc:"Unlock 10 story chapters.",
+      get:s=>(s.stats.storyChaptersUnlocked||[]).length, target:10 },
+    { id:"court",       icon:"👺", name:"Court Breaker",     desc:"Defeat the whole Grease Court.",
+      get:s=>s.stats.nemesisDefeated||0, target:5 },
+    { id:"domain",      icon:"🌀", name:"Domain Expansion",  desc:"Use 10 Domain Moves.",
+      get:s=>s.stats.domainMovesUsed||0, target:10 },
+    { id:"streak7",     icon:"🎁", name:"Regular",           desc:"Reach a 7-day login streak.",
+      get:s=>s.daily.bestStreak||0, target:7 },
+    { id:"items6",      icon:"🎒", name:"Well Equipped",     desc:"Own 6 held items.",
+      get:s=>Object.values(s.items||{}).reduce((a,b)=>a+b,0), target:6 },
+  ];
+  function achievementProgress(a){
+    let v = 0;
+    try{ v = a.get(state) || 0; }catch(e){ v = 0; }
+    return Math.max(0, Math.min(a.target, v));
+  }
+  function achievementDone(a){ return achievementProgress(a) >= a.target; }
+  // Checked after anything that could advance one; newly-completed ones
+  // announce themselves once and are recorded so they can't re-announce.
+  function checkAchievements(){
+    if(!Array.isArray(state.achievements)) state.achievements = [];
+    let unlocked = 0;
+    ACHIEVEMENT_DEFS.forEach(a=>{
+      if(state.achievements.indexOf(a.id) !== -1) return;
+      if(!achievementDone(a)) return;
+      state.achievements.push(a.id);
+      unlocked++;
+      addLog("🏆 Achievement unlocked — " + a.icon + " " + a.name + "!");
+    });
+    if(unlocked){ Sound.sfx.victory(); renderAchievementBadge(); }
+    return unlocked;
+  }
+  function renderAchievementBadge(){
+    if(!achievementsBtn) return;
+    const done = ACHIEVEMENT_DEFS.filter(achievementDone).length;
+    achievementsBtn.textContent = "🏆 Achievements " + done + "/" + ACHIEVEMENT_DEFS.length;
+  }
+  function renderAchievements(){
+    achievementsList.innerHTML = "";
+    ACHIEVEMENT_DEFS.forEach(a=>{
+      const prog = achievementProgress(a), done = prog >= a.target;
+      const row = document.createElement("div");
+      row.className = "ach-row" + (done ? " done" : "");
+      const pct = Math.round(prog / a.target * 100);
+      row.innerHTML =
+        '<div class="ach-icon">' + (done ? a.icon : "🔒") + '</div>' +
+        '<div class="ach-body"><div class="ach-name">' + a.name + (done ? " ✓" : "") + '</div>' +
+        '<div class="ach-desc">' + a.desc + '</div>' +
+        '<div class="ach-bar"><span style="width:' + pct + '%"></span></div></div>' +
+        '<div class="ach-count">' + fmt(prog) + "/" + fmt(a.target) + '</div>';
+      achievementsList.appendChild(row);
+    });
+    renderAchievementBadge();
+  }
+
+  // ---------- TEAM PRESETS ----------
+  // Three slots so the different modes (a Dungeon solo, a Survivor pick, a
+  // full arena line-up) don't have to be rebuilt by hand each time.
+  function renderPresetSlots(){
+    if(!presetSlots) return;
+    presetSlots.innerHTML = "";
+    state.teamPresets.forEach((p, i)=>{
+      const slot = document.createElement("div");
+      slot.className = "preset-slot" + (p ? " filled" : "");
+      slot.innerHTML = '<div class="p-name">' + (p ? p.name : "Slot " + (i+1)) + '</div>' +
+                       '<div>' + (p ? p.ids.length + " hero" + (p.ids.length===1?"":"es") : "empty") + '</div>';
+      const btns = document.createElement("div");
+      btns.className = "preset-btns";
+      const load = document.createElement("button");
+      load.className = "preset-load"; load.textContent = "Load"; load.disabled = !p;
+      load.addEventListener("click", ()=>{
+        if(!p) return;
+        // re-filter at load time too: a hero could have been lost since saving
+        const ids = p.ids.filter(id => state.heroes[id] && state.heroes[id].owned);
+        if(!ids.length){ addLog("⚠️ That preset's heroes are no longer available."); return; }
+        // stage it as the pending selection so Confirm/Cancel still govern
+        pendingTeam = ids.slice(0, MAX_TEAM_SIZE);
+        renderTeamSelectGrid();
+        renderPresetSlots();
+        Sound.sfx.levelUp();
+      });
+      const put = document.createElement("button");
+      put.className = "preset-save"; put.textContent = "Save";
+      put.addEventListener("click", ()=>{
+        if(!pendingTeam.length){ addLog("⚠️ Pick at least one hero before saving a preset."); return; }
+        const first = HERO_DEFS.find(h=>h.id === pendingTeam[0]);
+        const label = first ? (heroDisplayName(first, state.heroes[first.id]).split(" ")[0] + " Team") : ("Team " + (i+1));
+        state.teamPresets[i] = { name: label, ids: pendingTeam.slice(0, MAX_TEAM_SIZE) };
+        renderPresetSlots();
+        addLog("📋 Saved preset \"" + label + "\".");
+        save();
+      });
+      btns.appendChild(load); btns.appendChild(put);
+      slot.appendChild(btns);
+      presetSlots.appendChild(slot);
+    });
+  }
+
+  // ---------- AUTO-BATTLE ----------
+  // Picks a move the way a reasonable player would: heal when hurt, finish
+  // when the boss is nearly down, otherwise hit hardest accounting for type
+  // effectiveness. It only ever uses moves that are actually available, so
+  // it can't do anything the player couldn't do by clicking.
+  function autoPickMove(h){
+    const usable = heroMoves(h).filter(m=> moveCooldownRemaining(h.id, m) <= 0);
+    if(!usable.length) return null;
+    const rec = state.heroes[h.id];
+    // currentBossType() — the same helper the move buttons use. Calling
+    // bossFoodType() directly is wrong: it takes (index, name), not a boss
+    // object, and threw on every tick, which is why auto-battle did nothing.
+    const bType = currentBossType();
+    const maxHp = battleMaxHp(h, rec);
+    const hp = state.battle.heroHp[h.id] || 0;
+    const hurt = maxHp > 0 && (hp / maxHp) <= 0.45;
+    const score = (m)=>{
+      const offensive = OFFENSIVE_KINDS.includes(m.kind);
+      // healing is worth taking only when actually damaged, so the AI
+      // doesn't waste turns topping up a hero already at full health
+      if(m.kind === "heal") return hurt ? 1000 : -1;
+      if(m.kind === "shield") return hurt ? 600 : 40;
+      if(m.kind === "buff") return 60;
+      if(!offensive) return 30;
+      const eff = typeEffectiveness(moveFoodType(m), bType);
+      let s = (m.power || 1) * 100 * eff;
+      if(domainMoveProfile(h, m)) s += 400;      // save-the-day moves first
+      else if(signatureMoveProfile(h, m)) s += 200;
+      return s;
+    };
+    let best = usable[0], bestScore = score(usable[0]);
+    usable.forEach(m=>{ const s = score(m); if(s > bestScore){ best = m; bestScore = s; } });
+    return bestScore < 0 ? usable[0] : best;
+  }
+  // A SINGLE POLLING LOOP, not a chain of one-shot timers.
+  //
+  // The first version re-armed itself after each action, which meant every
+  // code path that returned control to the player had to remember to re-arm
+  // it. handleVictory didn't — so auto-battle silently died the moment you
+  // won a fight, and any future branch would have broken it the same way.
+  // Polling can't be orphaned: the loop always runs and simply does nothing
+  // on ticks where acting would be wrong.
+  let autoBattleTimer = null;
+  const AUTO_BATTLE_TICK_MS = 900;
+  function autoBattleActive(){
+    return !!(state.settings && state.settings.autoBattle);
+  }
+  function autoBattleCanAct(){
+    if(!autoBattleActive()) return false;
+    if(phase !== "player") return false;                 // a turn or animation is running
+    if(state.kitchenMap.active) return false;            // overworld is exploration, not a fight
+    if(typeof evoCinemaBusy !== "undefined" && evoCinemaBusy) return false;
+    if(typeof formCinemaBusy !== "undefined" && formCinemaBusy) return false;
+    if(gameRoot.style.display === "none") return false;  // still on the title screen
+    if(defeatOverlay && defeatOverlay.style.display === "flex") return false;
+    return true;
+  }
+  function autoBattleTick(){
+    if(!autoBattleCanAct()) return;
+    const h = activeHero();
+    if(!h) return;
+    const m = autoPickMove(h);
+    if(m) playerUseMove(m);
+  }
+  function stopAutoBattle(){
+    if(autoBattleTimer){ clearInterval(autoBattleTimer); autoBattleTimer = null; }
+  }
+  // Started once and left running — the guards above decide each tick.
+  function scheduleAutoBattle(){
+    if(autoBattleTimer) return;
+    autoBattleTimer = setInterval(autoBattleTick, AUTO_BATTLE_TICK_MS);
+  }
   async function playerUseMove(move){
     if(phase !== "player") return;
     const h = activeHero();
@@ -8974,8 +10547,8 @@
       item.className = "team-select-item " + h.rarity;
       const rec = state.heroes[h.id];
       item.innerHTML = `
-        <div class="tsi-emoji">${h.emoji}</div>
-        <div class="tsi-name">${h.name}${rec.secretMoveUnlocked ? " 🔓" : ""}</div>`;
+        <div class="tsi-emoji">${heroEmojiFor(h, rec)}</div>
+        <div class="tsi-name">${heroDisplayName(h, rec)}${rec.secretMoveUnlocked ? " 🔓" : ""}</div>`;
       item.addEventListener("click", ()=>{
         dungeonSelectOverlay.style.display = "none";
         startDungeonRun(h.id);
@@ -9017,7 +10590,7 @@
         }
         if(x===state.dungeon.x && y===state.dungeon.y){
           cls += " current";
-          icon = hero ? hero.emoji : "🚩";
+          icon = hero ? heroEmojiFor(hero, state.heroes[hero.id]) : "🚩";
         }
         el.className = cls;
         el.textContent = icon;
@@ -9101,7 +10674,7 @@
     ownedHeroList().forEach(h=>{
       const item = document.createElement("div");
       item.className = "team-select-item " + h.rarity;
-      item.innerHTML = `<div class="tsi-emoji">${h.emoji}</div><div class="tsi-name">${h.name}</div>`;
+      item.innerHTML = `<div class="tsi-emoji">${heroEmojiFor(h, state.heroes[h.id])}</div><div class="tsi-name">${heroDisplayName(h, state.heroes[h.id])}</div>`;
       item.addEventListener("click", ()=>{
         kitchenSelectOverlay.style.display = "none";
         startKitchenExploration(h.id);
@@ -9109,83 +10682,154 @@
       kitchenSelectGrid.appendChild(item);
     });
   }
+  // ---------- ONE CONTINUOUS WORLD ----------
+  // The seven areas are tiles of a single 40x20 world rather than separate
+  // rooms joined by doorways: the camera follows the hero, who stays pinned
+  // to the middle of the viewport while the world scrolls underneath. Cross
+  // an area border and a banner names the place you've walked into.
+  const KITCHEN_REGION_SIZE = 10;
+  const KITCHEN_VIEW = 11; // odd, so there's a true centre tile for the hero
+  // Walk cadence. The camera slide is given this exact same duration below,
+  // so holding a direction chains one tile into the next with no gap and no
+  // easing hitch between steps — that's what turns discrete hops into a
+  // continuous glide. Changing this one number keeps both in step.
+  const KITCHEN_STEP_MS = 130;
+  const KITCHEN_WORLD_COLS = 4;
+  const KITCHEN_WORLD_ROWS = 2;
+  const KITCHEN_WORLD_W = KITCHEN_WORLD_COLS * KITCHEN_REGION_SIZE;
+  const KITCHEN_WORLD_H = KITCHEN_WORLD_ROWS * KITCHEN_REGION_SIZE;
+  function regionAtWorld(wx, wy){
+    if(wx < 0 || wy < 0 || wx >= KITCHEN_WORLD_W || wy >= KITCHEN_WORLD_H) return null;
+    const rx = Math.floor(wx / KITCHEN_REGION_SIZE), ry = Math.floor(wy / KITCHEN_REGION_SIZE);
+    return KITCHEN_AREAS.find(a => a.world.rx===rx && a.world.ry===ry) || null;
+  }
+  // The world grid has one empty slot (no area sits there), so anything not
+  // covered by a region reads as solid — you simply can't walk off the map.
+  function worldTileAt(wx, wy){
+    const area = regionAtWorld(wx, wy);
+    if(!area) return {type:"void"};
+    const lx = wx - area.world.rx*KITCHEN_REGION_SIZE;
+    const ly = wy - area.world.ry*KITCHEN_REGION_SIZE;
+    return Object.assign(kitchenTileAt(area, lx, ly), {area});
+  }
+  function worldOriginOf(area){
+    return { x: area.world.rx*KITCHEN_REGION_SIZE, y: area.world.ry*KITCHEN_REGION_SIZE };
+  }
   function startKitchenExploration(heroId){
     state.kitchenMap.active = true;
     state.kitchenMap.exploringHeroId = heroId;
     if(!KITCHEN_AREAS.some(a=>a.id===state.kitchenMap.areaId)) state.kitchenMap.areaId = "pantry";
     const area = kitchenAreaById(state.kitchenMap.areaId);
-    state.kitchenMap.x = area.start.x;
-    state.kitchenMap.y = area.start.y;
-    renderKitchenStaticGrid();
+    const o = worldOriginOf(area);
+    state.kitchenMap.x = o.x + area.start.x;
+    state.kitchenMap.y = o.y + area.start.y;
+    buildKitchenWorld();
+    updateKitchenCamera(false);
     renderKitchenDynamic();
     renderKitchenMinimap();
     kitchenMapOverlay.style.display = "flex";
+    Sound.playMusic("kitchen");
   }
-  // Builds the current area's tiles once — walls/pantry/floor never change
-  // mid-session, so rebuilding this on every single step (as an earlier
-  // version did) was pointless work AND the reason movement couldn't
-  // animate: recreating the whole grid every step meant there was never a
-  // stable element to transition, just an instant jump-cut each time.
   const KITCHEN_WALL_ICONS = ["🧊","🍳","🗄️","🔪","🧈","🥘"];
   const KITCHEN_PANTRY_ICONS = ["🫙","🧂","🍯","🫚"];
-  function renderKitchenStaticGrid(){
-    const area = kitchenAreaById(state.kitchenMap.areaId);
-    kitchenGrid.style.gridTemplateColumns = `repeat(${area.size}, 1fr)`;
+  // The whole 40x20 world is built ONCE — it never changes, so there's no
+  // reason to redraw it per step. Movement just slides this one element via
+  // an animated transform, which is what makes the scroll smooth instead of
+  // jump-cutting: the tiles the camera reveals were already there.
+  function buildKitchenWorld(){
+    kitchenGrid.style.gridTemplateColumns = `repeat(${KITCHEN_WORLD_W}, 1fr)`;
+    kitchenGrid.style.width = `calc(100% * ${KITCHEN_WORLD_W} / ${KITCHEN_VIEW})`;
     kitchenGrid.innerHTML = "";
-    for(let y=0;y<area.size;y++){
-      for(let x=0;x<area.size;x++){
-        const tile = kitchenTileAt(area, x, y);
+    for(let wy=0; wy<KITCHEN_WORLD_H; wy++){
+      for(let wx=0; wx<KITCHEN_WORLD_W; wx++){
+        const tile = worldTileAt(wx, wy);
         const el = document.createElement("div");
-        // checkerboard kitchen-tile flooring — only shows on plain floor,
-        // walls and pantry keep their own distinct colors on top of it
-        let cls = "kitchen-tile " + ((x+y)%2===0 ? "checker-a" : "checker-b");
+        let cls = "kitchen-tile " + ((wx+wy)%2===0 ? "checker-a" : "checker-b");
         let icon = "";
-        if(tile.type==="start") icon = "🚪";
+        if(tile.type==="void"){ cls += " void"; }
+        else if(tile.type==="start") icon = "🚪";
         else if(tile.type==="wall"){
           cls += " wall";
-          // real kitchen furniture instead of a repeated brick — which
-          // specific piece is deterministic per wall (same one every time
-          // you visit), cycling through a small set for variety
-          const wallIdx = area.walls.findIndex(w=>w.x===x && w.y===y);
-          icon = KITCHEN_WALL_ICONS[wallIdx % KITCHEN_WALL_ICONS.length];
+          const a = tile.area;
+          const lx = wx - a.world.rx*KITCHEN_REGION_SIZE, ly = wy - a.world.ry*KITCHEN_REGION_SIZE;
+          const wi = a.walls.findIndex(w=>w.x===lx && w.y===ly);
+          icon = KITCHEN_WALL_ICONS[(wi < 0 ? 0 : wi) % KITCHEN_WALL_ICONS.length];
         }
         else if(tile.type==="pantry"){
           cls += " pantry";
-          const pantryIdx = area.pantry.findIndex(p=>p.x===x && p.y===y);
-          icon = KITCHEN_PANTRY_ICONS[pantryIdx % KITCHEN_PANTRY_ICONS.length];
+          const a = tile.area;
+          const lx = wx - a.world.rx*KITCHEN_REGION_SIZE, ly = wy - a.world.ry*KITCHEN_REGION_SIZE;
+          const pi = a.pantry.findIndex(p =>
+            lx >= p.x && lx < p.x + KITCHEN_PATCH_SIZE &&
+            ly >= p.y && ly < p.y + KITCHEN_PATCH_SIZE
+          );
+          icon = pi >= 0 ? KITCHEN_PANTRY_ICONS[pi % KITCHEN_PANTRY_ICONS.length] : "";
         }
         el.className = cls;
         el.textContent = icon;
         kitchenGrid.appendChild(el);
       }
     }
-    kitchenAreaTitle.textContent = area.emoji + " " + area.name;
-    kitchenAreaDesc.textContent = area.desc;
   }
-  // Cheap, frequent update: just slides the one persistent token div to its
-  // new tile via CSS left/top, which the token's own transition animates —
-  // and refreshes the items/coins UI, since coins tick up passively too.
+  // Slides the world so the hero's tile sits under the centre of the window.
+  // Percentages are relative to the world element's own size, so one tile is
+  // 1/40 horizontally and 1/20 vertically — no pixel measurement needed,
+  // which keeps it correct at any screen width.
+  function updateKitchenCamera(animate){
+    const half = Math.floor(KITCHEN_VIEW/2);
+    const ox = (state.kitchenMap.x - half) / KITCHEN_WORLD_W * 100;
+    const oy = (state.kitchenMap.y - half) / KITCHEN_WORLD_H * 100;
+    // first paint on entering the map shouldn't glide in from the corner
+    kitchenGrid.style.transition = animate === false
+      ? "none"
+      : `transform ${KITCHEN_STEP_MS}ms linear`;
+    kitchenGrid.style.transform = `translate(${-ox}%, ${-oy}%)`;
+    const here = regionAtWorld(state.kitchenMap.x, state.kitchenMap.y);
+    if(here){
+      kitchenAreaTitle.textContent = here.emoji + " " + here.name;
+      kitchenAreaDesc.textContent = here.desc;
+    }
+  }
   function renderKitchenDynamic(){
-    const area = kitchenAreaById(state.kitchenMap.areaId);
     kitchenItemsLabel.textContent = "🥡 x" + state.kitchenMap.catchItems + " Takeout Boxes";
     kitchenBuyBtn.disabled = state.coins < TAKEOUT_BOX_COST;
     const hero = HERO_DEFS.find(h=>h.id===state.kitchenMap.exploringHeroId);
-    kitchenPlayerToken.textContent = hero ? hero.emoji : "🚪";
-    kitchenPlayerToken.style.width = (100/area.size) + "%";
-    kitchenPlayerToken.style.left = (state.kitchenMap.x/area.size*100) + "%";
-    kitchenPlayerToken.style.top = (state.kitchenMap.y/area.size*100) + "%";
+    kitchenPlayerToken.textContent = hero ? heroEmojiFor(hero, state.heroes[hero.id]) : "🚪";
+    kitchenPlayerToken.setAttribute("data-name", hero ? hero.name : "");
+    // the hero no longer moves — they're locked to the middle of the view
+    const half = Math.floor(KITCHEN_VIEW/2);
+    kitchenPlayerToken.style.width = (100/KITCHEN_VIEW) + "%";
+    kitchenPlayerToken.style.left = (half/KITCHEN_VIEW*100) + "%";
+    kitchenPlayerToken.style.top = (half/KITCHEN_VIEW*100) + "%";
+  }
+  let kitchenBannerTimer = null;
+  function showKitchenAreaBanner(area){
+    kitchenAreaBanner.textContent = area.emoji + "  " + area.name;
+    kitchenAreaBanner.classList.remove("showing");
+    void kitchenAreaBanner.offsetWidth; // restart the animation on re-entry
+    kitchenAreaBanner.classList.add("showing");
+    if(kitchenBannerTimer) clearTimeout(kitchenBannerTimer);
+    kitchenBannerTimer = setTimeout(()=> kitchenAreaBanner.classList.remove("showing"), 2200);
   }
   function moveKitchenPlayer(dx,dy){
     if(!state.kitchenMap.active || phase !== "player") return;
-    const area = kitchenAreaById(state.kitchenMap.areaId);
     const nx = state.kitchenMap.x+dx, ny = state.kitchenMap.y+dy;
-    if(nx<0 || nx>=area.size || ny<0 || ny>=area.size) return;
-    const tile = kitchenTileAt(area, nx, ny);
-    if(tile.type==="wall") return;
+    const tile = worldTileAt(nx, ny);
+    if(tile.type==="wall" || tile.type==="void") return;
+    const prevArea = regionAtWorld(state.kitchenMap.x, state.kitchenMap.y);
     state.kitchenMap.x = nx; state.kitchenMap.y = ny;
+    const nowArea = tile.area;
+    // crossing an area border announces the new place, the way a route sign
+    // does — no loading, no doorway, you just walk in
+    if(nowArea && (!prevArea || prevArea.id !== nowArea.id)){
+      state.kitchenMap.areaId = nowArea.id;
+      showKitchenAreaBanner(nowArea);
+      renderKitchenMinimap();
+    }
+    updateKitchenCamera(true);
     renderKitchenDynamic();
     if(tile.type==="pantry" && Math.random() < KITCHEN_ENCOUNTER_CHANCE){
-      const heroDef = rollAreaHero(area);
+      const heroDef = rollAreaHero(nowArea || kitchenAreaById(state.kitchenMap.areaId));
       // roll happens regardless — but a skipped rarity just silently
       // doesn't materialize into an actual encounter, as if this roll
       // never happened, while other rarities keep triggering normally
@@ -9196,29 +10840,26 @@
     }
     save();
   }
-  // Switching areas from the minimap — resets position to the new area's
-  // entrance and rebuilds its (different) static layout.
-  function switchKitchenArea(areaId){
-    if(!state.kitchenMap.active || state.kitchenMap.areaId === areaId) return;
-    state.kitchenMap.areaId = areaId;
-    const area = kitchenAreaById(areaId);
-    state.kitchenMap.x = area.start.x;
-    state.kitchenMap.y = area.start.y;
-    renderKitchenStaticGrid();
-    renderKitchenDynamic();
-    renderKitchenMinimap();
-    save();
-  }
+  // The map is now laid out spatially, matching how the areas actually sit
+  // in the world — so it reads as a real region map rather than a row of
+  // buttons. It's a reference, not a travel menu: you walk everywhere.
   function renderKitchenMinimap(){
     kitchenMinimap.innerHTML = "";
-    KITCHEN_AREAS.forEach(a=>{
-      const btn = document.createElement("button");
-      btn.className = "kitchen-minimap-btn" + (a.id===state.kitchenMap.areaId ? " current" : "");
-      btn.textContent = a.emoji;
-      btn.title = a.name;
-      btn.addEventListener("click", ()=> switchKitchenArea(a.id));
-      kitchenMinimap.appendChild(btn);
-    });
+    kitchenMinimap.style.gridTemplateColumns = `repeat(${KITCHEN_WORLD_COLS}, 1fr)`;
+    for(let ry=0; ry<KITCHEN_WORLD_ROWS; ry++){
+      for(let rx=0; rx<KITCHEN_WORLD_COLS; rx++){
+        const a = KITCHEN_AREAS.find(x=>x.world.rx===rx && x.world.ry===ry);
+        const cell = document.createElement("div");
+        if(!a){ cell.className = "kitchen-minimap-chip blank"; kitchenMinimap.appendChild(cell); continue; }
+        cell.className = "kitchen-minimap-chip" + (a.id===state.kitchenMap.areaId ? " current" : "");
+        cell.textContent = a.emoji;
+        cell.title = a.name + (a.id===state.kitchenMap.areaId ? " (you are here)" : "");
+        kitchenMinimap.appendChild(cell);
+      }
+    }
+    const here = kitchenAreaById(state.kitchenMap.areaId);
+    kitchenExitsLine.textContent = "Keep walking to cross into the next area — no doors, one big kitchen.";
+    if(here) kitchenExitsLine.textContent = "In " + here.name + " · keep walking to reach the next area.";
   }
   const KITCHEN_RARITY_ORDER = ["common","rare","epic","legend","ultra"];
   const KITCHEN_RARITY_SECTION_LABEL = { common:"Common Spawns", rare:"Rare Spawns", epic:"Epic Spawns", legend:"Legendary Spawns", ultra:"Ultra Spawns" };
@@ -9230,12 +10871,12 @@
     const area = kitchenAreaById(state.kitchenMap.areaId);
     kitchenGuideTitle.textContent = "📖 " + area.name + " Guidebook";
     kitchenGuideBody.innerHTML = "";
-    // Every pantry tile behaves identically now, so the true possibility
-    // set really is just every hero of every rarity this area's weights
-    // support — no tile-specific narrowing to account for anymore.
+    // Each area now has its OWN roster, so the guide must list that roster
+    // rather than every hero of a matching rarity — otherwise it would
+    // promise heroes this area can never actually produce.
     KITCHEN_RARITY_ORDER.forEach(rarity=>{
       if(!(area.rarityWeights[rarity] > 0)) return;
-      const pool = HERO_DEFS.filter(h=>h.rarity===rarity && !h.limited && h.role!=="Admin");
+      const pool = areaHeroPool(area, rarity);
       if(!pool.length) return;
       const title = document.createElement("div");
       title.className = "kitchen-guide-section-title " + rarity;
@@ -9247,7 +10888,7 @@
         const owned = state.heroes[h.id] && state.heroes[h.id].owned;
         const entry = document.createElement("div");
         entry.className = "kitchen-guide-entry " + (owned ? "caught" : "uncaught");
-        entry.innerHTML = `<div class="emoji">${owned ? h.emoji : "❔"}</div><div>${owned ? h.name : "???"}</div>`;
+        entry.innerHTML = `<div class="emoji">${owned ? heroEmojiFor(h, state.heroes[h.id]) : "❔"}</div><div>${owned ? heroDisplayName(h, state.heroes[h.id]) : "???"}</div>`;
         grid.appendChild(entry);
       });
       kitchenGuideBody.appendChild(grid);
@@ -9256,13 +10897,14 @@
   let pendingWildHero = null; // set while the "WILD HERO APPEARED!" preview is showing, before Battle! is confirmed
   function triggerWildEncounter(heroDef){
     stopKitchenKeyRepeat();
+    Sound.sfx.encounter();
     if(!heroDef){
       const area = kitchenAreaById(state.kitchenMap.areaId);
       heroDef = rollAreaHero(area);
     }
     pendingWildHero = heroDef;
     wildEncounterEmoji.textContent = heroDef.emoji;
-    wildEncounterName.textContent = heroDef.name;
+    wildEncounterName.textContent = heroDisplayName(heroDef, state.heroes[heroDef.id]);
     wildEncounterLevel.textContent = "Level: " + WILD_HERO_LEVEL;
     wildEncounterOverlay.style.display = "flex";
   }
@@ -9278,7 +10920,7 @@
     const atk = heroAtk(heroDef, fakeRec);
     kitchenMapOverlay.style.display = "none";
     state.battle.wildMode = true;
-    state.battle.wildHero = Object.assign({}, heroDef, {icon: heroDef.emoji});
+    state.battle.wildHero = Object.assign({}, heroDef, {icon: heroEmojiFor(heroDef, state.heroes[heroDef.id]), name: heroDisplayName(heroDef, state.heroes[heroDef.id])});
     state.battle.wildBossStats = { hp, atk };
     state.battle.sideMode = false; state.battle.towerMode = false; state.battle.dungeonMode = false;
     state.battle.bossHp = hp;
@@ -9317,6 +10959,7 @@
   function attemptCatch(){
     if(!state.battle.wildMode || phase !== "player" || state.kitchenMap.catchItems <= 0) return;
     state.kitchenMap.catchItems--;
+    Sound.sfx.catchThrow();
     const bStats = activeBossStats();
     const hpPct = Math.max(0, state.battle.bossHp) / bStats.hp;
     const wildHero = state.battle.wildHero;
@@ -9330,8 +10973,10 @@
         state.coins += bonusCoins; state.totalEarned += bonusCoins;
       } else {
         rec.owned = true;
+        if(typeof rec.nature !== "string") rec.nature = rollNature();
         if(!state.kitchenMap.caughtHeroIds.includes(wildHero.id)) state.kitchenMap.caughtHeroIds.push(wildHero.id);
       }
+      Sound.sfx.catchGood();
       catchResultLabel.textContent = dup ? "DUPLICATE CATCH" : "GOTCHA!";
       catchResultEmoji.textContent = "🥡" + wildHero.emoji;
       catchResultHero.textContent = wildHero.name;
@@ -9341,6 +10986,7 @@
       endWildEncounter();
       catchResultOverlay.style.display = "flex";
     } else {
+      Sound.sfx.catchFail();
       addLog("🥡 The catch attempt failed — " + wildHero.name + " broke free!");
       catchAttemptBtn.style.display = state.kitchenMap.catchItems > 0 ? "block" : "none";
       renderBattleStatic();
@@ -9381,19 +11027,78 @@
   kitchenGuideClose.addEventListener("click", ()=> kitchenGuideOverlay.style.display = "none");
   wildEncounterBattleBtn.addEventListener("click", confirmWildBattle);
   wildEncounterFleeBtn.addEventListener("click", fleeWildEncounter);
-  kitchenMoveUp.addEventListener("click", ()=> moveKitchenPlayer(0,-1));
-  kitchenMoveDown.addEventListener("click", ()=> moveKitchenPlayer(0,1));
-  kitchenMoveLeft.addEventListener("click", ()=> moveKitchenPlayer(-1,0));
-  kitchenMoveRight.addEventListener("click", ()=> moveKitchenPlayer(1,0));
+
+  // Virtual joystick — 4-directional (matching the grid), not freeform.
+  // Held-direction repeats the step at the same 180ms cadence WASD uses,
+  // so movement feels the same regardless of which input method you use.
+  const KITCHEN_JOYSTICK_MAX_RADIUS = 32;
+  const KITCHEN_JOYSTICK_DEADZONE = 15;
+  let kitchenJoystickDirKey = null; // "dx,dy" string, or null when centered
+  let kitchenJoystickTimer = null;
+  function kitchenJoystickSetDirection(dir){
+    const key = dir ? (dir.dx + "," + dir.dy) : null;
+    if(key === kitchenJoystickDirKey) return;
+    kitchenJoystickDirKey = key;
+    if(kitchenJoystickTimer){ clearInterval(kitchenJoystickTimer); kitchenJoystickTimer = null; }
+    if(dir){
+      moveKitchenPlayer(dir.dx, dir.dy);
+      kitchenJoystickTimer = setInterval(()=> moveKitchenPlayer(dir.dx, dir.dy), KITCHEN_STEP_MS);
+    }
+  }
+  function kitchenJoystickHandlePointer(clientX, clientY){
+    const rect = kitchenJoystickBase.getBoundingClientRect();
+    const centerX = rect.left + rect.width/2;
+    const centerY = rect.top + rect.height/2;
+    const dx = clientX - centerX;
+    const dy = clientY - centerY;
+    const dist = Math.hypot(dx, dy);
+    const clampedDist = Math.min(dist, KITCHEN_JOYSTICK_MAX_RADIUS);
+    const angle = Math.atan2(dy, dx);
+    const knobX = Math.cos(angle) * clampedDist;
+    const knobY = Math.sin(angle) * clampedDist;
+    kitchenJoystickKnob.style.transform = `translate(calc(-50% + ${knobX}px), calc(-50% + ${knobY}px))`;
+    if(dist < KITCHEN_JOYSTICK_DEADZONE){
+      kitchenJoystickSetDirection(null);
+      return;
+    }
+    // 4-directional: whichever axis has the larger displacement wins,
+    // matching how a diagonal WASD press would resolve on this grid
+    let dir;
+    if(Math.abs(dx) > Math.abs(dy)) dir = dx > 0 ? {dx:1,dy:0} : {dx:-1,dy:0};
+    else dir = dy > 0 ? {dx:0,dy:1} : {dx:0,dy:-1};
+    kitchenJoystickSetDirection(dir);
+  }
+  function kitchenJoystickPointerMove(e){ kitchenJoystickHandlePointer(e.clientX, e.clientY); }
+  function kitchenJoystickEnd(){
+    kitchenJoystickKnob.classList.remove("dragging");
+    kitchenJoystickKnob.style.transform = "translate(-50%,-50%)";
+    kitchenJoystickSetDirection(null);
+    document.removeEventListener("pointermove", kitchenJoystickPointerMove);
+    document.removeEventListener("pointerup", kitchenJoystickEnd);
+  }
+  kitchenJoystickBase.addEventListener("pointerdown", (e)=>{
+    if(!state.kitchenMap.active) return;
+    e.preventDefault();
+    kitchenJoystickKnob.classList.add("dragging");
+    kitchenJoystickHandlePointer(e.clientX, e.clientY);
+    document.addEventListener("pointermove", kitchenJoystickPointerMove);
+    document.addEventListener("pointerup", kitchenJoystickEnd);
+  });
   catchAttemptBtn.addEventListener("click", attemptCatch);
   catchResultOk.addEventListener("click", ()=> catchResultOverlay.style.display = "none");
-  megaBtn.addEventListener("click", ()=>{
+  megaBtn.addEventListener("click", async ()=>{
     const h = activeHero();
-    if(!h || phase !== "player") return;
+    if(!h || phase !== "player" || formCinemaBusy) return;
     const rec = state.heroes[h.id];
-    if(!rec.evolved || megaHeroId === h.id || gigantamaxHeroId === h.id) return;
+    if(evoStageOf(rec) < 1 || megaHeroId === h.id || gigantamaxHeroId === h.id) return;
     megaHeroId = h.id;
-    addLog("💎 " + h.name + " Mega Evolves! A surge of power for the rest of this fight.");
+    // heroDisplayName, not h.name — since the reversal, h.name is the FINAL
+    // form's name and would announce a form this hero hasn't reached
+    addLog("💎 " + heroDisplayName(h, rec) + " Mega Evolves! A surge of power for the rest of this fight.");
+    renderBattleStatic(); renderBattleDynamic();
+    await playFormCinematic(h, rec, "mega");
+    // the arena effects land as the cutscene hands back, so the battle
+    // screen still reacts rather than simply appearing already-changed
     spawnImpactFrame(battleArea, 180);
     combatRow.classList.remove("shake-strong"); void combatRow.offsetWidth; combatRow.classList.add("shake-strong");
     pulseBattleArea("rgba(79,195,217,0.55)", "wash");
@@ -9401,14 +11106,16 @@
     spawnParticles(heroVisual, ["💎","✨","🔷"], 12, 60, 650);
     renderBattleStatic(); renderBattleDynamic();
   });
-  gmaxBtn.addEventListener("click", ()=>{
+  gmaxBtn.addEventListener("click", async ()=>{
     const h = activeHero();
-    if(!h || phase !== "player") return;
+    if(!h || phase !== "player" || formCinemaBusy) return;
     const rec = state.heroes[h.id];
-    if(!rec.evolved || megaHeroId === h.id || gigantamaxHeroId === h.id) return;
+    if(evoStageOf(rec) < 1 || megaHeroId === h.id || gigantamaxHeroId === h.id) return;
     gigantamaxHeroId = h.id;
     gigantamaxTurnsLeft = GIGANTAMAX_DURATION_TURNS;
-    addLog("🔴 " + h.name + " Gigantamaxes! A massive but brief surge — " + GIGANTAMAX_DURATION_TURNS + " turns of overwhelming force.");
+    addLog("🔴 " + heroDisplayName(h, rec) + " Gigantamaxes! A massive but brief surge — " + GIGANTAMAX_DURATION_TURNS + " turns of overwhelming force.");
+    renderBattleStatic(); renderBattleDynamic();
+    await playFormCinematic(h, rec, "gmax");
     spawnImpactFrame(battleArea, 220);
     combatRow.classList.remove("shake-strong"); void combatRow.offsetWidth; combatRow.classList.add("shake-strong");
     pulseBattleArea("rgba(230,57,70,0.6)", "wash");
@@ -9440,7 +11147,7 @@
     kitchenHeldKey = keyId;
     moveKitchenPlayer(dir[0], dir[1]);
     if(kitchenRepeatTimer) clearInterval(kitchenRepeatTimer);
-    kitchenRepeatTimer = setInterval(()=> moveKitchenPlayer(dir[0], dir[1]), 180);
+    kitchenRepeatTimer = setInterval(()=> moveKitchenPlayer(dir[0], dir[1]), KITCHEN_STEP_MS);
   });
   document.addEventListener("keyup", (e)=>{
     if(kitchenHeldKey === e.key.toLowerCase()) stopKitchenKeyRepeat();
@@ -9639,7 +11346,7 @@
     ownedHeroList().forEach(h=>{
       const item = document.createElement("div");
       item.className = "team-select-item " + h.rarity;
-      item.innerHTML = `<div class="tsi-emoji">${h.emoji}</div><div class="tsi-name">${h.name}</div>`;
+      item.innerHTML = `<div class="tsi-emoji">${heroEmojiFor(h, state.heroes[h.id])}</div><div class="tsi-name">${heroDisplayName(h, state.heroes[h.id])}</div>`;
       item.addEventListener("click", ()=>{
         survivorSelectOverlay.style.display = "none";
         startSurvivorRun(h.id);
@@ -9683,7 +11390,7 @@
     // handed the whole moveset on turn one
     const firstMove = pickSurvivorStartingMove(hero);
     survivorRun = {
-      heroId, heroEmoji: hero.emoji, weapons: [makeWeapon(firstMove, 0)],
+      heroId, heroEmoji: heroEmojiFor(hero, state.heroes[hero.id]), weapons: [makeWeapon(firstMove, 0)],
       atkStat: heroAtk(hero, rec),
       x: SURVIVOR_ARENA_SIZE/2, y: SURVIVOR_ARENA_SIZE/2,
       hp: 100, maxHp: 100,
@@ -10256,6 +11963,44 @@
   });
 
   // ---------- SIDE STORY TOGGLE ----------
+  const nemesisQuestBtn = document.getElementById("nemesisQuestBtn");
+  function updateNemesisBtn(){
+    if(state.stats.nemesisDefeated >= NEMESIS_DEFS.length){
+      nemesisQuestBtn.style.display = "none";
+      return;
+    }
+    if(state.battle.nemesisMode){
+      nemesisQuestBtn.style.display = "block";
+      nemesisQuestBtn.classList.add("active-nemesis");
+      nemesisQuestBtn.textContent = "🏰 Retreat to the Main Story";
+      return;
+    }
+    if(!nemesisAvailable()){
+      // not hidden entirely — showing how far off the next confrontation is
+      // gives the arc a visible pull instead of appearing from nowhere
+      const need = NEMESIS_DEFS[nemesisIndex()].unlockAt - state.stats.bossesDefeated;
+      nemesisQuestBtn.style.display = "block";
+      nemesisQuestBtn.classList.remove("active-nemesis");
+      nemesisQuestBtn.disabled = true;
+      nemesisQuestBtn.textContent = "👺 The Grease Court stirs… (" + need + " more arena wins)";
+      return;
+    }
+    nemesisQuestBtn.disabled = false;
+    nemesisQuestBtn.style.display = "block";
+    nemesisQuestBtn.classList.remove("active-nemesis");
+    nemesisQuestBtn.textContent = "👺 Confront " + NEMESIS_DEFS[nemesisIndex()].name;
+  }
+  // A taunt lands in the arena log the moment a confrontation opens up, so
+  // the villain intrudes on normal play rather than only existing behind a
+  // button. Recorded so it can't repeat on every render.
+  function checkNemesisTaunt(){
+    if(!nemesisAvailable()) return;
+    const i = nemesisIndex();
+    if(state.stats.nemesisTauntsSeen.includes(i)) return;
+    state.stats.nemesisTauntsSeen.push(i);
+    addLog(NEMESIS_TAUNTS[i]);
+    Sound.sfx.encounter();
+  }
   function updateSideQuestBtn(){
     if(!sideStoryUnlocked() || state.stats.sideStoryComplete){
       sideQuestBtn.style.display = "none";
@@ -10266,7 +12011,39 @@
     sideQuestBtn.textContent = state.battle.sideMode
       ? "🏰 Return to Main Story"
       : "📖 Enter Side Story: The Lost Recipe";
+    updateNemesisBtn();
   }
+  nemesisQuestBtn.addEventListener("click", ()=>{
+    if(phase !== "player") return;
+    if(!state.battle.nemesisMode && !nemesisAvailable()) return;
+    // the arc is exclusive with the other alternate modes, same as they are
+    // with each other — otherwise two boss lists would both claim the fight
+    if(!state.battle.nemesisMode){
+      if(state.battle.sideMode){ state.battle.sideMode = false; }
+      if(state.battle.towerMode){ state.battle.towerMode = false; addLog("🗼 You step out of the Rogue Tower."); }
+    }
+    state.battle.nemesisMode = !state.battle.nemesisMode;
+    if(state.battle.nemesisMode){
+      const nb = NEMESIS_DEFS[nemesisIndex()];
+      state.battle.bossHp = nb.hp;
+      addLog("👺 " + nb.name + " steps forward. The Grease Court does not bow.");
+      Sound.playMusic("boss");
+    } else {
+      const mainStats = bossStatsFor(state.battle.bossIndex, state.battle.cycle);
+      state.battle.bossHp = mainStats.hp;
+      addLog("🏰 You withdraw from the Grease Court — for now.");
+      Sound.playMusic("arena");
+    }
+    healTeamFully(); ensureHeroHp();
+    heroBuff = {mult:1,turns:0}; bossDebuff = {mult:1,turns:0}; bossStunTurns = 0;
+    heroShield = {reduction:0,turns:0}; bossBurn = {dmgPerTurn:0,turns:0}; mooncakeGuardUsed = false; megaHeroId = null; gigantamaxHeroId = null; gigantamaxTurnsLeft = 0;
+    state.battle.moveCooldowns = {};
+    bossVisual.classList.remove("frozen");
+    phase = "player";
+    updateSideQuestBtn(); updateTowerFloorHud();
+    renderBattleStatic(); renderBattleDynamic();
+    save();
+  });
   sideQuestBtn.addEventListener("click", ()=>{
     if(phase !== "player") return;
     if(state.battle.towerMode){
@@ -10340,6 +12117,20 @@
   });
 
   function handleVictory(){
+    Sound.sfx.victory();
+    // fighting together builds bonds — the hero who did the work gains most
+    battleTeamHeroList().forEach(t=>{
+      const r = state.heroes[t.id];
+      if(!r) return;
+      const before = r.bond || 0;
+      if(before >= BOND_MAX) return;
+      const gain = (t.id === state.battle.activeHeroId) ? 3 : 1;
+      r.bond = Math.min(BOND_MAX, before + gain);
+      const tBefore = bondTier(before), tAfter = bondTier(r.bond);
+      if(tAfter.name !== tBefore.name){
+        addLog(tAfter.icon + " " + t.name + " is now " + tAfter.name + " — bond grows stronger!");
+      }
+    });
     const boss = currentBoss();
     const bStats = activeBossStats();
     let justWonDungeonFight = false;
@@ -10362,7 +12153,24 @@
     bossVisual.classList.remove("frozen");
     addLog("🏆 Defeated " + boss.name + "! +" + fmt(rewardCoins) + " 🍔 +" + fmt(rewardCrumbs) + " 🍞 +" + rewardSesame + " ✨");
 
-    if(state.battle.sideMode){
+    if(state.battle.nemesisMode){
+      state.stats.nemesisDefeated++;
+      addLog(NEMESIS_DEFEAT[Math.min(state.stats.nemesisDefeated-1, NEMESIS_DEFEAT.length-1)]);
+      const finished = state.stats.nemesisDefeated >= NEMESIS_DEFS.length;
+      state.battle.nemesisMode = false;
+      const mainStats = bossStatsFor(state.battle.bossIndex, state.battle.cycle);
+      state.battle.bossHp = mainStats.hp;
+      if(finished){
+        const bonusCoins = 120000000, bonusCrumbs = 15000000, bonusSesame = 500;
+        state.coins += bonusCoins; state.totalEarned += bonusCoins; state.crumbs += bonusCrumbs; state.sesame += bonusSesame;
+        addLog("👑 THE BURGER THRONE IS RECLAIMED! +" + fmt(bonusCoins) + " 🍔 +" + fmt(bonusCrumbs) + " 🍞 +" + bonusSesame + " ✨");
+        battleMsg.textContent = "The Grease Court has fallen. The kingdom eats again.";
+      } else {
+        battleMsg.textContent = "One of the Court has fallen. Keep climbing — he's watching.";
+      }
+      checkStoryProgression();
+      Sound.playMusic("arena");
+    } else if(state.battle.sideMode){
       state.stats.sideBossesDefeated++;
       state.battle.sideBossIndex++;
       if(state.battle.sideBossIndex >= SIDE_BOSS_DEFS.length){
@@ -10417,6 +12225,7 @@
       endWildEncounter();
     } else {
       state.stats.bossesDefeated++;
+      checkNemesisTaunt();
       state.battle.bossIndex++;
       if(state.battle.bossIndex >= BOSS_DEFS.length){
         state.battle.bossIndex = 0; state.battle.cycle++;
@@ -10495,7 +12304,7 @@
     const rec = state.heroes[hero.id];
     let dup = false, crumbsGained = 0;
     if(rec.owned){ dup = true; crumbsGained = RARITY_WEIGHT[hero.rarity]*20; state.crumbs += crumbsGained; }
-    else { rec.owned = true; }
+    else { rec.owned = true; if(typeof rec.nature !== "string") rec.nature = rollNature(); }
 
     // update pity counters
     if(rarity === "legend" || rarity === "ultra"){ state.stats.pityEpic = 0; state.stats.pityLegend = 0; }
@@ -10518,7 +12327,7 @@
       const rec = state.heroes[featured.id];
       let dup = false, crumbsGained = 0;
       if(rec.owned){ dup = true; crumbsGained = RARITY_WEIGHT[featured.rarity]*20; state.crumbs += crumbsGained; }
-      else { rec.owned = true; }
+      else { rec.owned = true; if(typeof rec.nature !== "string") rec.nature = rollNature(); }
       return {hero: featured, dup, crumbsGained};
     }
     state.limitedBanner.pullsSinceFeatured++;
@@ -10613,7 +12422,7 @@
       rarityCutscene.className = "rarity-cutscene" + (rarity === "epic" ? " rc-epic" : (rarity === "ultra" ? " rc-ultra" : ""));
       rarityCutsceneSub.textContent = profile.sub;
       rarityCutsceneTitle.textContent = profile.title;
-      rarityCutsceneEmojiSpan.textContent = hero.emoji;
+      rarityCutsceneEmojiSpan.textContent = heroEmojiFor(hero, state.heroes[hero.id]);
       const equippedTheme = state.heroes[hero.id] && state.heroes[hero.id].equippedSkin
         ? skinThemeById(state.heroes[hero.id].equippedSkin) : null;
       rarityCutsceneEmojiSpan.style.filter = equippedTheme ? equippedTheme.emojiFilter : "";
@@ -10681,8 +12490,8 @@
       card.className = "reveal-card " + h.rarity;
       card.style.animationDelay = (i*0.08)+"s";
       card.innerHTML = `
-        <div class="reveal-emoji">${h.emoji}</div>
-        <div class="reveal-name">${h.name}</div>
+        <div class="reveal-emoji">${heroEmojiFor(h, state.heroes[h.id])}</div>
+        <div class="reveal-name">${heroDisplayName(h, state.heroes[h.id])}</div>
         <div style="font-size:9px;font-weight:800;color:var(--wood-dark);">${RARITY_LABEL[h.rarity]}</div>
         <div class="reveal-lore">${loreSnippet(h, 42)}</div>
         ${res.dup? `<div class="reveal-dup">+${fmt(res.crumbsGained)} 🍞</div>` : `<div class="reveal-dup" style="color:var(--mint-dark);">NEW!</div>`}
@@ -10718,6 +12527,7 @@
     summon10Btn.disabled = state.sesame < 90 || summonBusy;
     skinSummonBtn.disabled = state.crumbs < SKIN_SUMMON_COST;
     renderLimitedBanner();
+    renderDailyButton();
   }
   // ---------- MULTI-BUY / MULTI-LEVEL SELECTORS ----------
   function wireMultiSelectRow(rowId, onChange){
@@ -10736,6 +12546,9 @@
 
   function renderAll(){
     ensureHeroHp();
+    checkAchievements();
+    renderAutoBattle();
+    scheduleAutoBattle(); // resumes if the toggle was left on last session
     renderTopStats();
     renderGens();
     renderHeroes();
@@ -10767,7 +12580,11 @@
         state.coins += rate/10; state.totalEarned += rate/10; state.crumbs += crumbsRate()/10;
       }
       const now = Date.now();
-      if(now - state.lastSesameTick >= 60000){ state.sesame += 1; state.lastSesameTick = now; }
+      // award EVERY elapsed minute, not just one — a throttled background
+      // tab can easily skip many intervals, and the old code silently
+      // discarded all but the most recent minute
+      const minutes = Math.floor((now - state.lastSesameTick) / 60000);
+      if(minutes > 0){ state.sesame += minutes; state.lastSesameTick += minutes * 60000; }
       renderTopStats();
     }, 100);
     autosaveInterval = setInterval(()=> save(), 4000);
@@ -10777,6 +12594,7 @@
   // ---------- START / HOME SCREEN ----------
   async function initGame(){
     const hadSave = await loadSave();
+    if(hadSave) pendingOfflineReport = collectOfflineProgress();
     ensureHeroHp();
     checkStoryProgression();
     if(state.battle.sideMode){
@@ -10790,11 +12608,39 @@
       homeSubNote.textContent = "A brand new kingdom awaits!";
     }
   }
+  const offlineOverlay = document.getElementById("offlineOverlay");
+  const offlineAwayLine = document.getElementById("offlineAwayLine");
+  const offlineGains = document.getElementById("offlineGains");
+  const offlineNote = document.getElementById("offlineNote");
+  const offlineOk = document.getElementById("offlineOk");
+  offlineOk.addEventListener("click", ()=>{ offlineOverlay.style.display = "none"; });
+  function showOfflineReport(r){
+    offlineAwayLine.textContent = "You were away " + formatAway(r.awayMs);
+    offlineGains.innerHTML = "";
+    const rows = [];
+    if(r.coins >= 1) rows.push("+" + fmt(Math.floor(r.coins)) + " 🍔");
+    if(r.crumbs >= 1) rows.push("+" + fmt(Math.floor(r.crumbs)) + " 🍞");
+    if(r.sesame >= 1) rows.push("+" + fmt(r.sesame) + " ✨");
+    if(!rows.length){
+      offlineGains.innerHTML = '<div class="none">Your kitchen was idle — build some generators to earn while away.</div>';
+    } else {
+      rows.forEach(t=>{ const d = document.createElement("div"); d.textContent = t; offlineGains.appendChild(d); });
+    }
+    offlineNote.textContent = r.wasCapped
+      ? "Offline earnings are capped at 8 hours."
+      : "Your kitchen kept working while you were gone.";
+    offlineOverlay.style.display = "flex";
+  }
   startBtn.addEventListener("click", ()=>{
     homeScreen.style.display = "none";
     gameRoot.style.display = "block";
     renderAll();
     startIntervals();
+    if(pendingOfflineReport){
+      const r = pendingOfflineReport; pendingOfflineReport = null;
+      showOfflineReport(r);
+      Sound.sfx.levelUp();
+    }
   });
 
   // ---------- ADMIN PANEL ----------
@@ -10955,8 +12801,8 @@
       item.className = "team-select-item " + h.rarity + (selected? " selected":"") + (atCap? " disabled":"");
       item.innerHTML = `
         <div class="tsi-check">✅</div>
-        <div class="tsi-emoji">${h.emoji}</div>
-        <div class="tsi-name">${h.name}</div>`;
+        <div class="tsi-emoji">${heroEmojiFor(h, state.heroes[h.id])}</div>
+        <div class="tsi-name">${heroDisplayName(h, state.heroes[h.id])}</div>`;
       item.addEventListener("click", ()=>{
         if(selected){
           pendingTeam = pendingTeam.filter(id=>id!==h.id);
@@ -10969,10 +12815,12 @@
       teamSelectGrid.appendChild(item);
     });
     teamSelectSub.textContent = "Selected: " + pendingTeam.length + " / " + MAX_TEAM_SIZE;
+    renderPresetSlots();
   }
   function openTeamSelect(){
     pendingTeam = state.battleTeam.slice();
     renderTeamSelectGrid();
+    renderPresetSlots();
     teamSelectOverlay.style.display = "flex";
   }
   function closeTeamSelect(){ teamSelectOverlay.style.display = "none"; }
@@ -11039,29 +12887,197 @@
   const heroLoreClose = document.getElementById("heroLoreClose");
   function openHeroLore(hero){
     heroLoreTitle.textContent = "📖 " + hero.name;
-    heroLoreEmoji.textContent = hero.emoji;
+    heroLoreEmoji.textContent = heroEmojiFor(hero, state.heroes[hero.id]);
     heroLoreText.textContent = getHeroLore(hero);
     heroLoreOverlay.style.display = "flex";
   }
   heroLoreClose.addEventListener("click", ()=>{ heroLoreOverlay.style.display = "none"; });
 
   // ---------- EVOLUTION ----------
-  function evolveHero(hero){
+  // Rising sparks during the charge-up. Spawned into the stage so they
+  // track the sprite rather than the whole screen.
+  function spawnEvoRise(count){
+    for(let i=0;i<count;i++){
+      setTimeout(()=>{
+        const el = document.createElement("div");
+        el.className = "evo-rise";
+        el.textContent = ["✨","⭐","💫","🔆"][i % 4];
+        el.style.left = (8 + Math.random()*84) + "%";
+        evoCinema.appendChild(el);
+        setTimeout(()=>el.remove(), 1600);
+      }, i*90);
+    }
+  }
+  // The evolution sequence, staged like the games: charge, silhouette
+  // flicker between the two forms, white-out, reveal. Guarded by a flag so
+  // a double-click can't start two overlapping sequences.
+  let formCinemaBusy = false;
+  // Energy streaking INWARD for Mega — the power is being gathered.
+  function spawnFormStreaks(count){
+    for(let i=0;i<count;i++){
+      setTimeout(()=>{
+        const el = document.createElement("div");
+        el.className = "form-streak";
+        el.textContent = ["💠","🔹","✦","💎"][i % 4];
+        const a = Math.random()*Math.PI*2, d = 220 + Math.random()*220;
+        el.style.setProperty("--sx", Math.cos(a)*d + "px");
+        el.style.setProperty("--sy", Math.sin(a)*d + "px");
+        formCinema.appendChild(el);
+        setTimeout(()=>el.remove(), 950);
+      }, i*55);
+    }
+  }
+  // Shockwaves thrown OUTWARD for Gigantamax — the power is overflowing.
+  function spawnFormQuakes(count){
+    for(let i=0;i<count;i++){
+      setTimeout(()=>{
+        const el = document.createElement("div");
+        el.className = "form-quake";
+        el.textContent = ["💥","🔺","🟥","⚡"][i % 4];
+        const a = Math.random()*Math.PI*2, d = 200 + Math.random()*240;
+        el.style.setProperty("--qx", Math.cos(a)*d + "px");
+        el.style.setProperty("--qy", Math.sin(a)*d + "px");
+        formCinema.appendChild(el);
+        setTimeout(()=>el.remove(), 1100);
+      }, i*50);
+    }
+  }
+  // One routine, two characters. `kind` is "mega" or "gmax"; everything that
+  // differs between them (colour, ring direction, how the sprite moves, the
+  // wording) is selected from it, so the two can't drift into looking alike.
+  async function playFormCinematic(hero, rec, kind){
+    const isMega = kind === "mega";
+    const shownName = heroDisplayName(hero, rec);
+    formCinemaBusy = true;
+    formCinema.className = "form-cinema " + kind;
+    formCinemaRays.className = "form-cinema-rays";
+    formCinemaRing.className = "form-cinema-ring";
+    formCinemaFlash.className = "form-cinema-flash";
+    formCinemaSprite.className = "form-cinema-sprite";
+    formCinemaSprite.textContent = heroEmojiFor(hero, rec);
+    formCinemaCaption.textContent = isMega
+      ? (shownName + "'s bond resonates!")
+      : (shownName + " is surging with power!");
+    formCinema.classList.add("showing");
+    await wait(850);
+
+    Sound.sfx.transform();
+    formCinemaRays.classList.add("lit");
+    if(isMega){
+      formCinemaRing.classList.add("imploding");
+      formCinemaSprite.classList.add("tightening");
+      spawnFormStreaks(16);
+      formCinemaCaption.textContent = "Energy converges…";
+    } else {
+      formCinemaRing.classList.add("expanding");
+      formCinemaSprite.classList.add("swelling");
+      spawnFormQuakes(16);
+      formCinemaCaption.textContent = "The kitchen shakes…";
+      shakeScreen();
+    }
+    await wait(isMega ? 1500 : 1800);
+
+    formCinemaFlash.classList.add("bursting");
+    Sound.sfx.bigHit();
+    shakeScreen();
+    await wait(280);
+
+    formCinemaRing.className = "form-cinema-ring";
+    formCinemaRays.classList.remove("lit");
+    formCinemaRays.classList.add("blazing");
+    formCinemaSprite.classList.remove("tightening","swelling");
+    formCinemaSprite.classList.add(isMega ? "mega-final" : "gmax-final");
+    formCinemaCaption.textContent = isMega
+      ? (shownName + " Mega Evolved!")
+      : (shownName + " Gigantamaxed!");
+    Sound.sfx.evolve();
+    spawnParticles(formCinemaStage, isMega ? ["💎","✨","🔷"] : ["💥","🔴","⚡"], 16, 130, 1100);
+    await wait(1600);
+
+    formCinema.classList.remove("showing");
+    formCinemaBusy = false;
+  }
+  let evoCinemaBusy = false;
+  async function playEvolutionCinematic(hero, oldEmoji, newEmoji, oldName, newName){
+    evoCinemaBusy = true;
+    evoCinemaSprite.className = "evo-cinema-sprite";
+    evoCinemaSprite.textContent = oldEmoji;
+    evoCinemaRays.className = "evo-cinema-rays";
+    evoCinemaRing.className = "evo-cinema-ring";
+    evoCinemaFlash.className = "evo-cinema-flash";
+    evoCinemaCaption.textContent = oldName + " is evolving!";
+    evoCinema.classList.add("showing");
+    await wait(900);
+
+    // charge-up
+    Sound.sfx.transform();
+    evoCinemaSprite.classList.add("charging");
+    evoCinemaRays.classList.add("lit");
+    evoCinemaRing.classList.add("pulsing");
+    spawnEvoRise(14);
+    await wait(1300);
+
+    // silhouette flicker — accelerating, so it builds instead of just blinking
+    evoCinemaCaption.textContent = "";
+    evoCinemaSprite.classList.add("silhouette");
+    const beats = [230, 210, 185, 165, 145, 125, 105, 88, 74, 62, 54, 48];
+    for(let i=0; i<beats.length; i++){
+      evoCinemaSprite.textContent = (i % 2 === 0) ? newEmoji : oldEmoji;
+      await wait(beats[i]);
+    }
+
+    // white-out
+    evoCinemaSprite.textContent = newEmoji;
+    evoCinemaFlash.classList.add("bursting");
+    Sound.sfx.bigHit();
+    shakeScreen();
+    await wait(260);
+
+    // reveal
+    evoCinemaSprite.classList.remove("silhouette", "charging");
+    evoCinemaRing.classList.remove("pulsing");
+    evoCinemaRays.classList.remove("lit");
+    evoCinemaRays.classList.add("blazing");
+    evoCinemaSprite.classList.add("revealed");
+    evoCinemaCaption.textContent = oldName + " has evolved into " + newName + "!";
+    Sound.sfx.evolve();
+    spawnParticles(evoCinemaStage, ["✨","⭐","💫"], 16, 120, 1100);
+    await wait(1700);
+
+    evoCinema.classList.remove("showing");
+    evoCinemaBusy = false;
+  }
+  async function evolveHero(hero){
     const rec = state.heroes[hero.id];
+    if(evoCinemaBusy) return;
     if(!canEvolve(hero, rec)) return;
     const oldAtk = heroAtk(hero, rec), oldHp = heroMaxHp(hero, rec);
-    rec.evolved = true;
+    const oldEmoji = heroEmojiFor(hero, rec);
+    // must be read BEFORE rec.evoStage changes — after the reversal,
+    // hero.name is the FINAL form's name, not the one being evolved from
+    const oldName = heroDisplayName(hero, rec);
+    const stage = evoStageOf(rec) + 1;
+    rec.evoStage = stage;
+    const info = EVO_STAGES[stage];
     const newAtk = heroAtk(hero, rec), newHp = heroMaxHp(hero, rec);
     const newName = heroDisplayName(hero, rec);
-    evolveRevealEmoji.textContent = hero.emoji;
-    evolveRevealHero.textContent = hero.name;
-    evolveRevealNewName.textContent = "✦ " + newName + " ✦";
-    evolveRevealSub.textContent = "ATK " + oldAtk + " → " + newAtk + " · HP " + oldHp + " → " + newHp + ", permanently.";
-    addLog("✦ " + hero.name + " evolved into " + newName + "! ATK " + oldAtk + "→" + newAtk + ", HP " + oldHp + "→" + newHp + ".");
-    evolveRevealOverlay.style.display = "flex";
+    const learned = evoMoveFor(hero, stage);
+    Sound.sfx.evolve();
+    // show the before -> after sprite, so the change in appearance is the
+    // first thing you see rather than a number
+    evolveRevealEmoji.textContent = oldEmoji + " → " + heroEmojiFor(hero, rec);
+    evolveRevealHero.textContent = oldName + " has evolved into";
+    evolveRevealNewName.textContent = info.icon + " " + newName + " " + info.icon;
+    evolveRevealSub.textContent = "ATK " + oldAtk + " → " + newAtk + " · HP " + oldHp + " → " + newHp
+      + "  ·  Learned " + learned.icon + " " + learned.name + "!";
+    addLog(info.icon + " " + oldName + " has evolved into " + newName + "! ATK " + oldAtk + "→" + newAtk
+      + ", HP " + oldHp + "→" + newHp + ", and learned " + learned.icon + " " + learned.name + "!");
     renderHeroes();
     ensureHeroHp();
     save();
+    // the cinematic plays first; the stat/move summary lands after it
+    await playEvolutionCinematic(hero, oldEmoji, heroEmojiFor(hero, rec), oldName, newName);
+    evolveRevealOverlay.style.display = "flex";
   }
   evolveRevealOk.addEventListener("click", ()=> evolveRevealOverlay.style.display = "none");
 
@@ -11073,7 +13089,7 @@
     skinPickerList.innerHTML = "";
     const noneItem = document.createElement("div");
     noneItem.className = "skin-picker-item" + (!rec.equippedSkin ? " equipped" : "");
-    noneItem.innerHTML = `<span class="opt-icon">${hero.emoji}</span><div><div class="opt-name">Default Look</div><div class="opt-desc">${!rec.equippedSkin ? "Currently equipped" : "Tap to equip"}</div></div>`;
+    noneItem.innerHTML = `<span class="opt-icon">${heroEmojiFor(hero, rec)}</span><div><div class="opt-name">Default Look</div><div class="opt-desc">${!rec.equippedSkin ? "Currently equipped" : "Tap to equip"}</div></div>`;
     noneItem.addEventListener("click", ()=>{
       rec.equippedSkin = null;
       skinPickerOverlay.style.display = "none";
@@ -11087,7 +13103,7 @@
       const item = document.createElement("div");
       item.className = "skin-picker-item" + (rec.equippedSkin===themeId ? " equipped" : "");
       item.style.borderColor = theme.color;
-      item.innerHTML = `<span class="opt-icon" style="filter:${theme.emojiFilter}">${hero.emoji}</span><div><div class="opt-name">${theme.icon} ${theme.name}</div><div class="opt-desc">${rec.equippedSkin===themeId ? "Currently equipped" : "Tap to equip"}</div></div>`;
+      item.innerHTML = `<span class="opt-icon" style="filter:${theme.emojiFilter}">${heroEmojiFor(hero, rec)}</span><div><div class="opt-name">${theme.icon} ${theme.name}</div><div class="opt-desc">${rec.equippedSkin===themeId ? "Currently equipped" : "Tap to equip"}</div></div>`;
       item.addEventListener("click", ()=>{
         rec.equippedSkin = themeId;
         skinPickerOverlay.style.display = "none";
@@ -11135,6 +13151,290 @@
   });
   skinRevealOk.addEventListener("click", ()=>{ skinRevealOverlay.style.display = "none"; });
 
+  const achievementsBtn = document.getElementById("achievementsBtn");
+  const achievementsOverlay = document.getElementById("achievementsOverlay");
+  const achievementsList = document.getElementById("achievementsList");
+  const achievementsClose = document.getElementById("achievementsClose");
+  const presetSlots = document.getElementById("presetSlots");
+  const autoBattleToggle = document.getElementById("autoBattleToggle");
+  const autoBattleHint = document.getElementById("autoBattleHint");
+  function renderAutoBattle(){
+    autoBattleToggle.checked = !!(state.settings && state.settings.autoBattle);
+    autoBattleHint.textContent = autoBattleToggle.checked ? "picking moves for you" : "";
+  }
+  achievementsBtn.addEventListener("click", ()=>{ renderAchievements(); achievementsOverlay.style.display = "flex"; });
+  achievementsClose.addEventListener("click", ()=>{ achievementsOverlay.style.display = "none"; });
+
+  autoBattleToggle.addEventListener("change", ()=>{
+    state.settings.autoBattle = autoBattleToggle.checked;
+    renderAutoBattle();
+    scheduleAutoBattle(); // loop is always live; autoBattleCanAct() gates it
+    save();
+  });
+
+  rosterSearchInput.addEventListener("input", ()=>{
+    rosterSearch = rosterSearchInput.value.trim().toLowerCase();
+    renderHeroes();
+  });
+  rosterFilterSel.addEventListener("change", ()=>{ rosterFilter = rosterFilterSel.value; renderHeroes(); });
+  rosterSortSel.addEventListener("change", ()=>{ rosterSort = rosterSortSel.value; renderHeroes(); });
+
+  // ---------- HELD ITEMS ----------
+  const itemShopBtn = document.getElementById("itemShopBtn");
+  const itemShopOverlay = document.getElementById("itemShopOverlay");
+  const itemShopList = document.getElementById("itemShopList");
+  const itemShopClose = document.getElementById("itemShopClose");
+  const itemPickOverlay = document.getElementById("itemPickOverlay");
+  const itemPickTitle = document.getElementById("itemPickTitle");
+  const itemPickList = document.getElementById("itemPickList");
+  const itemPickClose = document.getElementById("itemPickClose");
+  let itemPickHeroId = null;
+
+  function renderItemShop(){
+    itemShopList.innerHTML = "";
+    ITEM_DEFS.forEach(it=>{
+      const row = document.createElement("div");
+      row.className = "item-row";
+      const own = ownedItemCount(it.id), free = freeItemCount(it.id);
+      row.innerHTML =
+        '<div class="i-icon">' + it.icon + '</div>' +
+        '<div class="i-body"><div class="i-name">' + it.name + '</div>' +
+        '<div class="i-desc">' + it.desc + '</div>' +
+        '<div class="i-own">Owned ' + own + (own ? " · " + free + " spare" : "") + '</div></div>';
+      const buy = document.createElement("button");
+      buy.className = "item-buy";
+      buy.textContent = fmt(it.cost) + " 🍞";
+      buy.disabled = state.crumbs < it.cost;
+      buy.addEventListener("click", ()=>{
+        if(state.crumbs < it.cost) return;
+        state.crumbs -= it.cost;
+        state.items[it.id] = ownedItemCount(it.id) + 1;
+        addLog("🎒 Bought " + it.icon + " " + it.name + ".");
+        Sound.sfx.levelUp();
+        renderItemShop(); renderTopStats(); save();
+      });
+      row.appendChild(buy);
+      itemShopList.appendChild(row);
+    });
+  }
+  function openItemPicker(hero){
+    itemPickHeroId = hero.id;
+    const rec = state.heroes[hero.id];
+    itemPickTitle.textContent = "🎒 " + heroDisplayName(hero, rec) + "'s Item";
+    itemPickList.innerHTML = "";
+
+    const none = document.createElement("div");
+    none.className = "item-row selectable" + (rec.heldItem ? "" : " equipped");
+    none.innerHTML = '<div class="i-icon">🚫</div><div class="i-body"><div class="i-name">No item</div>' +
+                     '<div class="i-desc">Hold nothing</div></div>';
+    none.addEventListener("click", ()=>{ rec.heldItem = null; afterItemChange(hero); });
+    itemPickList.appendChild(none);
+
+    ITEM_DEFS.forEach(it=>{
+      const isOn = rec.heldItem === it.id;
+      // a spare copy is needed to equip, unless this hero already holds it
+      const usable = isOn || freeItemCount(it.id) > 0;
+      const row = document.createElement("div");
+      row.className = "item-row" + (usable ? " selectable" : " unavailable") + (isOn ? " equipped" : "");
+      row.innerHTML =
+        '<div class="i-icon">' + it.icon + '</div>' +
+        '<div class="i-body"><div class="i-name">' + it.name + (isOn ? " (held)" : "") + '</div>' +
+        '<div class="i-desc">' + it.desc + '</div>' +
+        '<div class="i-own">' + (ownedItemCount(it.id) ? freeItemCount(it.id) + " spare of " + ownedItemCount(it.id) : "none owned — buy in the shop") + '</div></div>';
+      if(usable){
+        row.addEventListener("click", ()=>{ rec.heldItem = isOn ? null : it.id; afterItemChange(hero); });
+      }
+      itemPickList.appendChild(row);
+    });
+  }
+  function afterItemChange(hero){
+    ensureHeroHp();
+    openItemPicker(hero);      // refresh the spare counts in place
+    renderHeroes();
+    renderBattleStatic(); renderBattleDynamic();
+    save();
+  }
+  itemShopBtn.addEventListener("click", ()=>{ renderItemShop(); itemShopOverlay.style.display = "flex"; });
+  itemShopClose.addEventListener("click", ()=>{ itemShopOverlay.style.display = "none"; });
+  itemPickClose.addEventListener("click", ()=>{ itemPickOverlay.style.display = "none"; });
+
+  // ---------- DAILY REWARD ----------
+  const dailyQuestBtn = document.getElementById("dailyQuestBtn");
+  const dailyOverlay = document.getElementById("dailyOverlay");
+  const dailyStreakLine = document.getElementById("dailyStreakLine");
+  const dailyGrid = document.getElementById("dailyGrid");
+  const dailyClaimBtn = document.getElementById("dailyClaimBtn");
+  const dailyCloseBtn = document.getElementById("dailyCloseBtn");
+
+  function renderDailyButton(){
+    const ready = dailyAvailable();
+    dailyQuestBtn.classList.toggle("ready", ready);
+    dailyQuestBtn.classList.toggle("claimed", !ready);
+    dailyQuestBtn.textContent = ready ? "🎁 Daily Reward — ready!" : "🎁 Daily Reward — claimed today";
+  }
+  function renderDaily(){
+    const ready = dailyAvailable();
+    const nextIdx = dailyNextIndex();
+    const cont = state.daily.lastClaimDay === dailyYesterdayKey();
+    dailyStreakLine.textContent = state.daily.streak > 0
+      ? ("Streak: " + state.daily.streak + " day" + (state.daily.streak===1?"":"s") +
+         "  ·  Best: " + state.daily.bestStreak +
+         (ready && !cont && state.daily.streak > 0 ? "  ·  streak resets today" : ""))
+      : "No streak yet — claim to start one.";
+    dailyGrid.innerHTML = "";
+    DAILY_REWARDS.forEach((r, i)=>{
+      const cell = document.createElement("div");
+      // "done" marks days already passed in the CURRENT cycle
+      const doneInCycle = !ready ? (i <= ((state.daily.streak - 1) % DAILY_REWARDS.length)) : (i < nextIdx);
+      cell.className = "daily-cell" + (ready && i === nextIdx ? " next" : (doneInCycle ? " done" : ""));
+      const bits = [];
+      if(r.coins) bits.push(fmt(r.coins) + " 🍔");
+      if(r.crumbs) bits.push(fmt(r.crumbs) + " 🍞");
+      if(r.sesame) bits.push(r.sesame + " ✨");
+      cell.innerHTML = '<span class="d-label">' + r.label + "</span>" + bits.join("<br>");
+      dailyGrid.appendChild(cell);
+    });
+    dailyClaimBtn.disabled = !ready;
+    dailyClaimBtn.textContent = ready ? ("Claim " + DAILY_REWARDS[nextIdx].label) : "Already claimed — come back tomorrow";
+    renderDailyButton();
+  }
+  function claimDaily(){
+    if(!dailyAvailable()) return;
+    const cont = state.daily.lastClaimDay === dailyYesterdayKey();
+    state.daily.streak = cont ? state.daily.streak + 1 : 1;
+    state.daily.bestStreak = Math.max(state.daily.bestStreak || 0, state.daily.streak);
+    state.daily.lastClaimDay = dailyDayKey();
+    const r = DAILY_REWARDS[(state.daily.streak - 1) % DAILY_REWARDS.length];
+    state.coins += r.coins; state.totalEarned += r.coins;
+    state.crumbs += r.crumbs; state.sesame += r.sesame;
+    const bits = [];
+    if(r.coins) bits.push("+" + fmt(r.coins) + " 🍔");
+    if(r.crumbs) bits.push("+" + fmt(r.crumbs) + " 🍞");
+    if(r.sesame) bits.push("+" + r.sesame + " ✨");
+    addLog("🎁 " + r.label + " reward claimed! " + bits.join("  ") + "  ·  " + state.daily.streak + "-day streak.");
+    Sound.sfx.levelUp();
+    renderDaily(); renderTopStats(); renderGens(); renderHeroes();
+    save();
+  }
+  dailyQuestBtn.addEventListener("click", ()=>{ renderDaily(); dailyOverlay.style.display = "flex"; });
+  dailyCloseBtn.addEventListener("click", ()=>{ dailyOverlay.style.display = "none"; });
+  dailyClaimBtn.addEventListener("click", claimDaily);
+
+  // ---------- SAVE BACKUP ----------
+  // The game persists only to this browser's storage, so a backup is the
+  // only thing standing between a cleared cache and losing everything.
+  // Codes are base64 of the live state — no server, no account, just text
+  // the player can keep. Restoring routes through applyLoadedState(), the
+  // same migration path a normal load uses, so an old backup still works
+  // after the save format has moved on.
+  const exportSaveBtn = document.getElementById("exportSaveBtn");
+  const exportSaveBox = document.getElementById("exportSaveBox");
+  const copySaveBtn = document.getElementById("copySaveBtn");
+  const downloadSaveBtn = document.getElementById("downloadSaveBtn");
+  const importSaveBox = document.getElementById("importSaveBox");
+  const importSaveFile = document.getElementById("importSaveFile");
+  const restoreSaveBtn = document.getElementById("restoreSaveBtn");
+  const backupStatus = document.getElementById("backupStatus");
+  const BACKUP_PREFIX = "YLBK1:"; // lets us reject pasted text that isn't ours
+
+  function setBackupStatus(msg, kind){
+    backupStatus.textContent = msg;
+    backupStatus.className = "backup-status" + (kind ? " " + kind : "");
+  }
+  function buildBackupCode(){
+    try{ return BACKUP_PREFIX + btoa(encodeURIComponent(JSON.stringify(state))); }
+    catch(e){ return null; }
+  }
+  // Returns a parsed state or throws with a message meant for the player.
+  function parseBackupCode(raw){
+    let text = (raw || "").trim();
+    if(!text) throw new Error("Paste a backup code first.");
+    if(text.indexOf(BACKUP_PREFIX) === 0) text = text.slice(BACKUP_PREFIX.length);
+    let obj;
+    try{ obj = JSON.parse(decodeURIComponent(atob(text))); }
+    catch(e){ throw new Error("That doesn't look like a backup code."); }
+    // structural check — refuse to overwrite a real save with valid-looking
+    // JSON that isn't actually a save file
+    if(!obj || typeof obj !== "object" || Array.isArray(obj)) throw new Error("Backup is not a valid save.");
+    if(!obj.heroes || typeof obj.heroes !== "object") throw new Error("Backup is missing hero data.");
+    if(!obj.stats || typeof obj.stats !== "object") throw new Error("Backup is missing progress data.");
+    return obj;
+  }
+  exportSaveBtn.addEventListener("click", ()=>{
+    const code = buildBackupCode();
+    if(!code){ setBackupStatus("Couldn't build a backup on this browser.", "err"); return; }
+    exportSaveBox.value = code;
+    setBackupStatus("Backup ready — copy or download it.", "ok");
+  });
+  copySaveBtn.addEventListener("click", async ()=>{
+    if(!exportSaveBox.value){ setBackupStatus("Create a backup code first.", "err"); return; }
+    try{
+      await navigator.clipboard.writeText(exportSaveBox.value);
+      setBackupStatus("Copied to clipboard.", "ok");
+    }catch(e){
+      exportSaveBox.select();
+      setBackupStatus("Couldn't copy automatically — it's selected, copy manually.", "err");
+    }
+  });
+  downloadSaveBtn.addEventListener("click", ()=>{
+    const code = exportSaveBox.value || buildBackupCode();
+    if(!code){ setBackupStatus("Couldn't build a backup on this browser.", "err"); return; }
+    exportSaveBox.value = code;
+    try{
+      // Blob + object URL keeps this fully offline — nothing is uploaded
+      const blob = new Blob([code], {type:"text/plain"});
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      const d = new Date();
+      const stamp = d.getFullYear() + "-" + String(d.getMonth()+1).padStart(2,"0") + "-" + String(d.getDate()).padStart(2,"0");
+      a.href = url; a.download = "yl-burger-kingdom-backup-" + stamp + ".txt";
+      document.body.appendChild(a); a.click(); document.body.removeChild(a);
+      setTimeout(()=> URL.revokeObjectURL(url), 2000);
+      setBackupStatus("Backup file downloaded.", "ok");
+    }catch(e){ setBackupStatus("Download failed — copy the code instead.", "err"); }
+  });
+  importSaveFile.addEventListener("change", (e)=>{
+    const file = e.target.files && e.target.files[0];
+    if(!file) return;
+    const fr = new FileReader();
+    fr.onload = ()=>{ importSaveBox.value = String(fr.result || "").trim(); setBackupStatus("File loaded — press Restore.", "ok"); };
+    fr.onerror = ()=> setBackupStatus("Couldn't read that file.", "err");
+    fr.readAsText(file);
+    importSaveFile.value = ""; // let the same file be picked again
+  });
+  // Restore is destructive, so it takes two presses. The armed state times
+  // out rather than staying hot indefinitely.
+  let restoreArmed = false, restoreArmTimer = null;
+  function disarmRestore(){
+    restoreArmed = false;
+    if(restoreArmTimer){ clearTimeout(restoreArmTimer); restoreArmTimer = null; }
+    restoreSaveBtn.textContent = "♻️ Restore";
+  }
+  restoreSaveBtn.addEventListener("click", ()=>{
+    let parsed;
+    try{ parsed = parseBackupCode(importSaveBox.value); }
+    catch(err){ setBackupStatus(err.message, "err"); disarmRestore(); return; }
+    if(!restoreArmed){
+      restoreArmed = true;
+      restoreSaveBtn.textContent = "⚠️ Tap again to overwrite";
+      setBackupStatus("This replaces your current game. Tap again to confirm.", "err");
+      restoreArmTimer = setTimeout(disarmRestore, 6000);
+      return;
+    }
+    disarmRestore();
+    try{
+      applyLoadedState(parsed);   // same normalisation a normal load uses
+      ensureHeroHp();
+      checkStoryProgression();
+      save();
+      renderAll();
+      setBackupStatus("Restored. Your backup is now live.", "ok");
+      importSaveBox.value = "";
+    }catch(e){
+      setBackupStatus("Restore failed — your existing game is untouched.", "err");
+    }
+  });
+
   // ---------- SETTINGS MODAL ----------
   const settingsOpenBtn = document.getElementById("settingsOpenBtn");
   const settingsOverlay = document.getElementById("settingsOverlay");
@@ -11146,6 +13446,8 @@
     legend: document.getElementById("skipLegendToggle"),
     ultra: document.getElementById("skipUltraToggle"),
   };
+  const musicToggle = document.getElementById("musicToggle");
+  const sfxToggle = document.getElementById("sfxToggle");
   const kitchenSpawnToggles = {
     common: document.getElementById("skipKitchenCommonToggle"),
     rare: document.getElementById("skipKitchenRareToggle"),
@@ -11156,6 +13458,8 @@
   settingsOpenBtn.addEventListener("click", ()=>{
     Object.keys(skipToggles).forEach(r=>{ skipToggles[r].checked = !!state.settings.skipAnim[r]; });
     Object.keys(kitchenSpawnToggles).forEach(r=>{ kitchenSpawnToggles[r].checked = !!state.settings.skipKitchenSpawns[r]; });
+    musicToggle.checked = state.settings.music !== false;
+    sfxToggle.checked = state.settings.sfx !== false;
     settingsOverlay.style.display = "flex";
   });
   settingsClose.addEventListener("click", ()=>{ settingsOverlay.style.display = "none"; });
@@ -11170,6 +13474,17 @@
       state.settings.skipKitchenSpawns[r] = kitchenSpawnToggles[r].checked;
       save();
     });
+  });
+  musicToggle.addEventListener("change", ()=>{
+    state.settings.music = musicToggle.checked;
+    Sound.resume(); Sound.applySettings();
+    save();
+  });
+  sfxToggle.addEventListener("change", ()=>{
+    state.settings.sfx = sfxToggle.checked;
+    Sound.resume(); Sound.applySettings();
+    if(sfxToggle.checked) Sound.sfx.levelUp(); // audible confirmation
+    save();
   });
 
   initGame();
